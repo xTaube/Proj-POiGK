@@ -6,6 +6,7 @@ SCREEN_WIDTH, SCREEN_HEIGHT = 1920, 1200
 FPS = 60
 WIN = pygame.display.set_mode(size=(SCREEN_WIDTH, SCREEN_HEIGHT))
 
+# majkel
 
 def draw_window(pl):
     WIN.fill(color=[255, 255, 255])
