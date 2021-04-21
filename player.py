@@ -1,6 +1,6 @@
 import pygame
 import os
-from main import SCREEN_WIDTH
+from map import SCREEN_WIDTH
 
 #-------------------------------------------------------------
 #animacje protagonisty
