@@ -1,6 +1,7 @@
 import pygame
 import os
 import player
+from map import Game_level
 
 SCREEN_WIDTH, SCREEN_HEIGHT = 1920, 1200
 FPS = 60
@@ -49,6 +50,9 @@ def player_animation(pl):
 
 def draw_window(pl):
     WIN.fill(color=[255, 255, 255])
+
+    for element in Game_level:
+        WIN.blit(element.img, element.posX, element.posY)
 
     #animacje protagonisty
     player_animation(pl)
