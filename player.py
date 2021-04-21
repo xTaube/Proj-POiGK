@@ -1,11 +1,16 @@
 import pygame
 import os
+from main import SCREEN_WIDTH
+
 #-------------------------------------------------------------
 #animacje protagonisty
+PLAYER_WIDTH = SCREEN_WIDTH//15
+PLAYER_HEIGHT = round(PLAYER_WIDTH*1.35)
+
 WALK_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-run-0.png")), pygame.image.load(os.path.join("player animation", "pl-run-1.png")), pygame.image.load(os.path.join("player animation", "pl-run-2.png")), pygame.image.load(os.path.join("player animation", "pl-run-3.png")), pygame.image.load(os.path.join("player animation", "pl-run-4.png")), pygame.image.load(os.path.join("player animation", "pl-run-5.png"))]
 WALK_RIGHT = []
 for img in WALK_ANIMATIONS:
-    WALK_RIGHT.append(pygame.transform.scale(img, (140, 200)))
+    WALK_RIGHT.append(pygame.transform.scale(img, (PLAYER_WIDTH, PLAYER_HEIGHT)))
 
 WALK_LEFT = []
 for img in WALK_RIGHT:
@@ -14,12 +19,12 @@ for img in WALK_RIGHT:
 STANDING_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-idle-0.png")), pygame.image.load(os.path.join("player animation", "pl-idle-1.png")), pygame.image.load(os.path.join("player animation", "pl-idle-2.png"))]
 STANDING = []
 for img in STANDING_ANIMATIONS:
-    STANDING.append(pygame.transform.scale(img, (140, 200)))
+    STANDING.append(pygame.transform.scale(img, (PLAYER_WIDTH, PLAYER_HEIGHT)))
 
 JUMPING_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-jump-0.png")), pygame.image.load(os.path.join("player animation", "pl-jump-1.png")), pygame.image.load(os.path.join("player animation", "pl-jump-2.png")), pygame.image.load(os.path.join("player animation", "pl-jump-3.png"))]
 JUMPING_RIGHT = []
 for img in JUMPING_ANIMATIONS:
-    JUMPING_RIGHT.append(pygame.transform.scale(img, (140, 200)))
+    JUMPING_RIGHT.append(pygame.transform.scale(img, (PLAYER_WIDTH, PLAYER_HEIGHT)))
 
 JUMPING_LEFT = []
 for img in JUMPING_RIGHT:
@@ -28,7 +33,7 @@ for img in JUMPING_RIGHT:
 ATTACK_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-attack1-0.png")), pygame.image.load(os.path.join("player animation", "pl-attack1-1.png")), pygame.image.load(os.path.join("player animation", "pl-attack1-2.png")), pygame.image.load(os.path.join("player animation", "pl-attack1-3.png")), pygame.image.load(os.path.join("player animation", "pl-attack1-4.png"))]
 ATTACK_RIGHT = []
 for img in ATTACK_ANIMATIONS:
-    ATTACK_RIGHT.append(pygame.transform.scale(img, (140, 200)))
+    ATTACK_RIGHT.append(pygame.transform.scale(img, (PLAYER_WIDTH, PLAYER_HEIGHT)))
 
 ATTACK_LEFT = []
 for img in ATTACK_RIGHT:

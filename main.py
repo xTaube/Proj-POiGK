@@ -66,6 +66,7 @@ def main():
             if event.type == pygame.QUIT:
                 game_on = False
                 pygame.quit()
+                quit()
 
         keys_pressed = pygame.key.get_pressed()
         pl.move(keys_pressed)
