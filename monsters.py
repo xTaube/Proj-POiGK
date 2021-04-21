@@ -177,12 +177,12 @@ class Skeleton():
     SKELETON_WIDTH = SCREEN_WIDTH // 15
     SKELETON_HEIGHT = round(SKELETON_WIDTH * 1.35)
     #####
-    WALK_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\demon", "walk_1.png")),
-                       pygame.image.load(os.path.join("enemy animation\\demon", "walk_2.png")),
-                       pygame.image.load(os.path.join("enemy animation\\demon", "walk_3.png")),
-                       pygame.image.load(os.path.join("enemy animation\\demon", "walk_4.png")),
-                       pygame.image.load(os.path.join("enemy animation\\demon", "walk_5.png")),
-                       pygame.image.load(os.path.join("enemy animation\\demon", "walk_6.png"))]
+    WALK_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\skeleton", "walk_1.png")),
+                       pygame.image.load(os.path.join("enemy animation\\skeleton", "walk_2.png")),
+                       pygame.image.load(os.path.join("enemy animation\\skeleton", "walk_3.png")),
+                       pygame.image.load(os.path.join("enemy animation\\skeleton", "walk_4.png")),
+                       pygame.image.load(os.path.join("enemy animation\\skeleton", "walk_5.png")),
+                       pygame.image.load(os.path.join("enemy animation\\skeleton", "walk_6.png"))]
     WALK_RIGHT = []
     for img in WALK_ANIMATIONS:
         WALK_RIGHT.append(pygame.transform.scale(img, (SKELETON_WIDTH, SKELETON_HEIGHT)))
@@ -190,18 +190,18 @@ class Skeleton():
     for img in WALK_RIGHT:
         WALK_LEFT.append(pygame.transform.flip(img, True, False))
     #####
-    STANDING_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\demon", "ready_1.png")),
-                           pygame.image.load(os.path.join("enemy animation\\demon", "ready_2.png")),
-                           pygame.image.load(os.path.join("enemy animation\\demon", "ready_3.png"))]
+    STANDING_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\skeleton", "ready_1.png")),
+                           pygame.image.load(os.path.join("enemy animation\\skeleton", "ready_2.png")),
+                           pygame.image.load(os.path.join("enemy animation\\skeleton", "ready_3.png"))]
     STANDING = []
     for img in STANDING_ANIMATIONS:
         STANDING.append(pygame.transform.scale(img, (SKELETON_WIDTH, SKELETON_HEIGHT)))
     #####
-    JUMPING_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\demon", "jump_1.png")),
-                          pygame.image.load(os.path.join("enemy animation\\demon", "jump_2.png")),
-                          pygame.image.load(os.path.join("enemy animation\\demon", "jump_3.png")),
-                          pygame.image.load(os.path.join("enemy animation\\demon", "jump_4.png")),
-                          pygame.image.load(os.path.join("enemy animation\\demon", "jump_5.png"))]
+    JUMPING_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\skeleton", "jump_1.png")),
+                          pygame.image.load(os.path.join("enemy animation\\skeleton", "jump_2.png")),
+                          pygame.image.load(os.path.join("enemy animation\\skeleton", "jump_3.png")),
+                          pygame.image.load(os.path.join("enemy animation\\skeleton", "jump_4.png")),
+                          pygame.image.load(os.path.join("enemy animation\\skeleton", "jump_5.png"))]
     JUMPING_RIGHT = []
     for img in JUMPING_ANIMATIONS:
         JUMPING_RIGHT.append(pygame.transform.scale(img, (SKELETON_WIDTH, SKELETON_HEIGHT)))
@@ -209,12 +209,12 @@ class Skeleton():
     for img in JUMPING_RIGHT:
         JUMPING_LEFT.append(pygame.transform.flip(img, True, False))
     #####
-    LIGHT_ATTACK_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\demon", "attack1_1.png")),
-                               pygame.image.load(os.path.join("enemy animation\\demon", "attack1_2.png")),
-                               pygame.image.load(os.path.join("enemy animation\\demon", "attack1_3.png")),
-                               pygame.image.load(os.path.join("enemy animation\\demon", "attack1_4.png")),
-                               pygame.image.load(os.path.join("enemy animation\\demon", "attack1_5.png")),
-                               pygame.image.load(os.path.join("enemy animation\\demon", "attack1_6.png"))]
+    LIGHT_ATTACK_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\skeleton", "attack1_1.png")),
+                               pygame.image.load(os.path.join("enemy animation\\skeleton", "attack1_2.png")),
+                               pygame.image.load(os.path.join("enemy animation\\skeleton", "attack1_3.png")),
+                               pygame.image.load(os.path.join("enemy animation\\skeleton", "attack1_4.png")),
+                               pygame.image.load(os.path.join("enemy animation\\skeleton", "attack1_5.png")),
+                               pygame.image.load(os.path.join("enemy animation\\skeleton", "attack1_6.png"))]
     LIGHT_ATTACK_RIGHT = []
     for img in LIGHT_ATTACK_ANIMATIONS:
         LIGHT_ATTACK_RIGHT.append(pygame.transform.scale(img, (SKELETON_WIDTH, SKELETON_HEIGHT)))
@@ -222,12 +222,12 @@ class Skeleton():
     for img in LIGHT_ATTACK_RIGHT:
         LIGHT_ATTACK_LEFT.append(pygame.transform.flip(img, True, False))
     #####
-    HEAVY_ATTACK_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\demon", "attack2_1.png")),
-                               pygame.image.load(os.path.join("enemy animation\\demon", "attack2_2.png")),
-                               pygame.image.load(os.path.join("enemy animation\\demon", "attack2_3.png")),
-                               pygame.image.load(os.path.join("enemy animation\\demon", "attack2_4.png")),
-                               pygame.image.load(os.path.join("enemy animation\\demon", "attack2_5.png")),
-                               pygame.image.load(os.path.join("enemy animation\\demon", "attack2_6.png"))]
+    HEAVY_ATTACK_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\skeleton", "attack2_1.png")),
+                               pygame.image.load(os.path.join("enemy animation\\skeleton", "attack2_2.png")),
+                               pygame.image.load(os.path.join("enemy animation\\skeleton", "attack2_3.png")),
+                               pygame.image.load(os.path.join("enemy animation\\skeleton", "attack2_4.png")),
+                               pygame.image.load(os.path.join("enemy animation\\skeleton", "attack2_5.png")),
+                               pygame.image.load(os.path.join("enemy animation\\skeleton", "attack2_6.png"))]
     HEAVY_ATTACK_RIGHT = []
     for img in HEAVY_ATTACK_ANIMATIONS:
         HEAVY_ATTACK_RIGHT.append(pygame.transform.scale(img, (SKELETON_WIDTH, SKELETON_HEIGHT)))
@@ -235,19 +235,19 @@ class Skeleton():
     for img in HEAVY_ATTACK_RIGHT:
         HEAVY_ATTACK_LEFT.append(pygame.transform.flip(img, True, False))
     #####
-    DEAD_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\demon", "dead_near_1.png")),
-                       pygame.image.load(os.path.join("enemy animation\\demon", "dead_near_2.png")),
-                       pygame.image.load(os.path.join("enemy animation\\demon", "dead_near_3.png")),
-                       pygame.image.load(os.path.join("enemy animation\\demon", "dead_near_4.png")),
-                       pygame.image.load(os.path.join("enemy animation\\demon", "dead_near_5.png")),
-                       pygame.image.load(os.path.join("enemy animation\\demon", "dead_near_6.png"))]
+    DEAD_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\skeleton", "dead_near_1.png")),
+                       pygame.image.load(os.path.join("enemy animation\\skeleton", "dead_near_2.png")),
+                       pygame.image.load(os.path.join("enemy animation\\skeleton", "dead_near_3.png")),
+                       pygame.image.load(os.path.join("enemy animation\\skeleton", "dead_near_4.png")),
+                       pygame.image.load(os.path.join("enemy animation\\skeleton", "dead_near_5.png")),
+                       pygame.image.load(os.path.join("enemy animation\\skeleton", "dead_near_6.png"))]
     DEAD = []
     for img in DEAD_ANIMATIONS:
         DEAD.append(pygame.transform.scale(img, (SKELETON_WIDTH, SKELETON_HEIGHT)))
     #####
-    HIT_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\demon", "hit_1.png")),
-                      pygame.image.load(os.path.join("enemy animation\\demon", "hit_2.png")),
-                      pygame.image.load(os.path.join("enemy animation\\demon", "hit_3.png"))]
+    HIT_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\skeleton", "hit_1.png")),
+                      pygame.image.load(os.path.join("enemy animation\\skeleton", "hit_2.png")),
+                      pygame.image.load(os.path.join("enemy animation\\skeleton", "hit_3.png"))]
     HIT = []
     for img in HIT_ANIMATIONS:
         HIT.append(pygame.transform.scale(img, (SKELETON_WIDTH, SKELETON_HEIGHT)))
