@@ -45,7 +45,7 @@ def player_animation(pl):
         pl.idleCount += 0.2
 
 
-def draw_window(pl, mon_list):
+def draw_window(pl,demon):
 
     for element in map.BACKGROUNDS:
         map.WIN.blit(element, (0, 0))
@@ -63,6 +63,7 @@ def draw_window(pl, mon_list):
                     map.WIN.blit(map.PLATFORM_TILES[map.Game_level[col][row]], (row*map.SCREEN_WIDTH//16, col*map.SCREEN_HEIGHT//9))
 
     player_animation(pl)
+    demon.enemy_animation()
     pygame.display.update()
 
 
@@ -71,6 +72,7 @@ def main():
     clock = pygame.time.Clock()
     game_on = True
     pl = player.Player(map.SCREEN_WIDTH//2, 450)
+    demon = monsters.Demon(500,575,920)
 
     while game_on:
         clock.tick(FPS)
@@ -82,7 +84,7 @@ def main():
 
         keys_pressed = pygame.key.get_pressed()
         pl.move(keys_pressed)
-        draw_window(pl, monster_list)
+        draw_window(pl,demon)
 
 
 if __name__ == "__main__":
