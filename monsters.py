@@ -1,9 +1,9 @@
 import pygame
 import os
-from main import SCREEN_WIDTH
+from map import SCREEN_WIDTH
 
 class Demon():
-    DEMON_WIDTH = SCREEN_WIDTH // 15
+    DEMON_WIDTH = SCREEN_WIDTH // 8
     DEMON_HEIGHT = round(DEMON_WIDTH*1.35)
     #####
     WALK_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\demon", "walk_1.png")),
@@ -88,7 +88,7 @@ class Demon():
         
         
 class Imp():
-    IMP_WIDTH = SCREEN_WIDTH // 15
+    IMP_WIDTH = SCREEN_WIDTH // 12
     IMP_HEIGHT = round(IMP_WIDTH*1.35)
     #####
     WALK_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\imp", "walk_1.png")),
@@ -174,7 +174,7 @@ class Imp():
 
 
 class Skeleton():
-    SKELETON_WIDTH = SCREEN_WIDTH // 15
+    SKELETON_WIDTH = SCREEN_WIDTH // 13
     SKELETON_HEIGHT = round(SKELETON_WIDTH * 1.35)
     #####
     WALK_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\skeleton", "walk_1.png")),
