@@ -99,6 +99,7 @@ class Demon():
         if self.vel > 0:
             WIN.blit(self.WALK_RIGHT[round(self.walkCount // 6)], (self.posX, self.posY))
             self.walkCount += 0.5
+            print(self.walkCount)
         else:
             WIN.blit(self.WALK_LEFT[round(self.walkCount // 6)], (self.posX, self.posY))
             self.walkCount += 0.5
@@ -198,9 +199,41 @@ class Imp():
     for img in HIT_ANIMATIONS:
         HIT.append(pygame.transform.scale(img, (IMP_WIDTH, IMP_HEIGHT)))
     #####
-    def __init__(self, posX, posY):
+    def __init__(self, posX, posY, posEnd):
         self.posX = posX
         self.posY = posY
+        self.posEnd = posEnd
+        self.path = [self.posX, self.posEnd]
+        self.walkCount = 0
+        self.vel = 1
+        self.isDead = False
+
+    def enemy_animation(self):
+        self.move()
+        if self.walkCount + 1 >= 36:
+            self.walkCount = 0
+
+        if self.vel > 0:
+            WIN.blit(self.WALK_RIGHT[round(self.walkCount // 6)], (self.posX, self.posY))
+            self.walkCount += 0.5
+            print(self.walkCount)
+        else:
+            WIN.blit(self.WALK_LEFT[round(self.walkCount // 6)], (self.posX, self.posY))
+            self.walkCount += 0.5
+
+    def move(self):
+        if self.vel > 0:
+            if self.posX + self.vel < self.path[1]:
+                self.posX += self.vel
+            else:
+                self.vel = self.vel * -1
+                self.walkCount = 0
+        else:
+            if self.posX - self.vel > self.path[0]:
+                self.posX += self.vel
+            else:
+                self.vel = self.vel * -1
+                self.walkCount = 0
 
 
 class Skeleton():
@@ -283,6 +316,38 @@ class Skeleton():
         HIT.append(pygame.transform.scale(img, (SKELETON_WIDTH, SKELETON_HEIGHT)))
 
     #####
-    def __init__(self, posX, posY):
+    def __init__(self, posX, posY, posEnd):
         self.posX = posX
         self.posY = posY
+        self.posEnd = posEnd
+        self.path = [self.posX, self.posEnd]
+        self.walkCount = 0
+        self.vel = 1
+        self.isDead = False
+
+    def enemy_animation(self):
+        self.move()
+        if self.walkCount + 1 >= 36:
+            self.walkCount = 0
+
+        if self.vel > 0:
+            WIN.blit(self.WALK_RIGHT[round(self.walkCount // 6)], (self.posX, self.posY))
+            self.walkCount += 0.5
+            print(self.walkCount)
+        else:
+            WIN.blit(self.WALK_LEFT[round(self.walkCount // 6)], (self.posX, self.posY))
+            self.walkCount += 0.5
+
+    def move(self):
+        if self.vel > 0:
+            if self.posX + self.vel < self.path[1]:
+                self.posX += self.vel
+            else:
+                self.vel = self.vel * -1
+                self.walkCount = 0
+        else:
+            if self.posX - self.vel > self.path[0]:
+                self.posX += self.vel
+            else:
+                self.vel = self.vel * -1
+                self.walkCount = 0
