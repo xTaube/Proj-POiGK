@@ -45,32 +45,23 @@ def player_animation(pl):
         pl.idleCount += 0.2
 
 
-def draw_window(pl, mon_list):
+def draw_window(pl, map_index, gameMap):
 
     for element in map.BACKGROUNDS:
         map.WIN.blit(element, (0, 0))
 
-    x = 0
-    for col in range(len(map.Game_level)):
-        for row in range(len(map.Game_level[0])):
-            if map.Game_level[col][row] != -1:
-                if map.Game_level[col][row] > 8:
-                    if map.Game_level[col][row] == 12 or map.Game_level[col][row] == 14:
-                        map.WIN.blit(map.PLATFORM_TILES[map.Game_level[col][row]], (row * map.SCREEN_WIDTH // 16, col * map.SCREEN_WIDTH // 16 - map.SCREEN_HEIGHT // 100))
-                    else:
-                        map.WIN.blit(map.PLATFORM_TILES[map.Game_level[col][row]], (row * map.SCREEN_WIDTH // 16, col * map.SCREEN_WIDTH // 16 + map.SCREEN_HEIGHT//100))
-                else:
-                    map.WIN.blit(map.PLATFORM_TILES[map.Game_level[col][row]], (row*map.SCREEN_WIDTH//16, col*map.SCREEN_HEIGHT//9))
-
+    gameMap[map_index].draw_map()
     player_animation(pl)
     pygame.display.update()
 
 
 def main():
     FPS = 60
+    map_index = 0
     clock = pygame.time.Clock()
     game_on = True
     pl = player.Player(map.SCREEN_WIDTH//2, 450)
+    gameMap = map.gameMap_list
 
     while game_on:
         clock.tick(FPS)
@@ -82,7 +73,7 @@ def main():
 
         keys_pressed = pygame.key.get_pressed()
         pl.move(keys_pressed)
-        draw_window(pl, monster_list)
+        draw_window(pl, map_index, gameMap)
 
 
 if __name__ == "__main__":

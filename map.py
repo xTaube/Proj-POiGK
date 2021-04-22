@@ -35,6 +35,26 @@ PLATFORM_TILES = [pygame.transform.scale(pygame.image.load(os.path.join("map ass
 for tile in PLATFORM_TILES:
     tile.set_colorkey((255, 255, 255))
 
+class GameMap:
+    def __init__(self, game_level_map):
+        self.game_level_map = game_level_map
+        self.monster_list = 0
+
+
+    def draw_map(self):
+
+        for col in range(len(self.game_level_map)):
+            for row in range(len(self.game_level_map[0])):
+                if self.game_level_map[col][row] != -1:
+                    if self.game_level_map[col][row] > 8:
+                        if self.game_level_map[col][row] == 12 or self.game_level_map[col][row] == 14:
+                            WIN.blit(PLATFORM_TILES[self.game_level_map[col][row]], (row * SCREEN_WIDTH // 16, col * SCREEN_WIDTH // 16 - SCREEN_HEIGHT // 100))
+                        else:
+                            WIN.blit(PLATFORM_TILES[self.game_level_map[col][row]], (row * SCREEN_WIDTH // 16, col * SCREEN_WIDTH // 16 + SCREEN_HEIGHT // 100))
+                    else:
+                        WIN.blit(PLATFORM_TILES[self.game_level_map[col][row]], (row * SCREEN_WIDTH // 16, col * SCREEN_HEIGHT // 9))
+
+gameMap_list = []
 
 Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
               [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
@@ -47,3 +67,4 @@ Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
               [ 8,  8,  6, -1, -1,  7,  8,  8,  6, -1, -1, -1,  7,  8,  8,  8]
               ]
 
+gameMap_list.append(GameMap(Game_level))
