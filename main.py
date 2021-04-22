@@ -52,7 +52,13 @@ def draw_window(pl):
     for col in range(len(map.Game_level)):
         for row in range(len(map.Game_level[0])):
             if map.Game_level[col][row] != -1:
-                map.WIN.blit(map.PLATFORM_TILES[map.Game_level[col][row]], (row*map.SCREEN_WIDTH//16, col*map.SCREEN_WIDTH//16))
+                if map.Game_level[col][row] > 8:
+                    if map.Game_level[col][row] == 12 or map.Game_level[col][row] == 14:
+                        map.WIN.blit(map.PLATFORM_TILES[map.Game_level[col][row]], (row * map.SCREEN_WIDTH // 16, col * map.SCREEN_WIDTH // 16 - map.SCREEN_HEIGHT // 100))
+                    else:
+                        map.WIN.blit(map.PLATFORM_TILES[map.Game_level[col][row]], (row * map.SCREEN_WIDTH // 16, col * map.SCREEN_WIDTH // 16 + map.SCREEN_HEIGHT//100))
+                else:
+                    map.WIN.blit(map.PLATFORM_TILES[map.Game_level[col][row]], (row*map.SCREEN_WIDTH//16, col*map.SCREEN_WIDTH//16))
 
     player_animation(pl)
 
