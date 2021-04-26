@@ -39,10 +39,10 @@ class GameMap:
     def __init__(self, game_level_map):
         self.game_level_map = game_level_map
         self.monster_list = 0
-
+        self.tiles_rects = []
 
     def draw_map(self):
-
+        self.tiles_rects.clear()
         for col in range(len(self.game_level_map)):
             for row in range(len(self.game_level_map[0])):
                 if self.game_level_map[col][row] != -1:
@@ -53,18 +53,28 @@ class GameMap:
                             WIN.blit(PLATFORM_TILES[self.game_level_map[col][row]], (row * SCREEN_WIDTH // 16, col * SCREEN_WIDTH // 16 + SCREEN_HEIGHT // 100))
                     else:
                         WIN.blit(PLATFORM_TILES[self.game_level_map[col][row]], (row * SCREEN_WIDTH // 16, col * SCREEN_HEIGHT // 9))
+                        if self.game_level_map[col][row] != 8:
+                            if self.game_level_map[col][row] == 0:
+                                self.tiles_rects.append(pygame.Rect(row * SCREEN_WIDTH // 16, col * SCREEN_HEIGHT // 9, SCREEN_WIDTH // 8, SCREEN_HEIGHT // 18))
+                            elif self.game_level_map[col][row] == 5:
+                                self.tiles_rects.append(pygame.Rect(row * SCREEN_WIDTH // 16, col * SCREEN_HEIGHT // 9, SCREEN_WIDTH // 16, SCREEN_HEIGHT // 18))
+                            else:
+                                self.tiles_rects.append(pygame.Rect(row * SCREEN_WIDTH // 16, col * SCREEN_HEIGHT // 9, SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9))
+
+        # for tile in self.tiles_rects:
+        #     pygame.draw.rect(WIN, (255, 255, 255), tile)
 
 gameMap_list = []
 
 Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
               [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
               [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-              [-1, -1, -1,  5, -1, -1, -1,  0, -1, -1, -1, -1, -1, -1, -1, -1],
-              [-1, 13, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-              [ 4,  4,  1, -1, -1, -1, -1, -1, -1,  0, -1, -1, -1, 14, 12, -1],
-              [ 8,  8,  6, -1, -1,  9, 10,  9,  9, -1, -1, -1, 10, -1, -1, -1],
-              [ 8,  8,  6, -1, -1,  2,  3,  4,  1, -1, -1, -1,  2,  4,  3,  4],
-              [ 8,  8,  6, -1, -1,  7,  8,  8,  6, -1, -1, -1,  7,  8,  8,  8]
+              [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+              [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+              [-1, -1, -1,  0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+              [-1,  4, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+              [ 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4],
+              [ 8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8]
               ]
 
 gameMap_list.append(GameMap(Game_level))

@@ -1,6 +1,6 @@
 import pygame
 import os
-from map import SCREEN_WIDTH, SCREEN_HEIGHT
+from map import SCREEN_WIDTH, SCREEN_HEIGHT, WIN
 
 #-------------------------------------------------------------
 #animacje protagonisty
@@ -21,7 +21,7 @@ STANDING = []
 for img in STANDING_ANIMATIONS:
     STANDING.append(pygame.transform.scale(img, (PLAYER_WIDTH, PLAYER_HEIGHT)))
 
-JUMPING_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-jump-0.png")), pygame.image.load(os.path.join("player animation", "pl-jump-1.png")), pygame.image.load(os.path.join("player animation", "pl-jump-2.png")), pygame.image.load(os.path.join("player animation", "pl-jump-3.png"))]
+JUMPING_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-jump-3.png")), pygame.image.load(os.path.join("player animation", "pl-jump-2.png")), pygame.image.load(os.path.join("player animation", "pl-jump-1.png")), pygame.image.load(os.path.join("player animation", "pl-jump-0.png"))]
 JUMPING_RIGHT = []
 for img in JUMPING_ANIMATIONS:
     JUMPING_RIGHT.append(pygame.transform.scale(img, (PLAYER_WIDTH, PLAYER_HEIGHT)))
@@ -43,24 +43,55 @@ PL_VEL = 5
 
 class Player():
     def __init__(self, posX, posY):
-        self.posX = posX
-        self.posY = posY
         self.walkCount = 0
         self.jumpCount = 10
         self.idleCount = 0
         self.attackCount = 0
+        self.gravitySpeed = 5
         self.right = False
         self.left = False
         self.isJumping = False
+        self.falling = False
         self.isAttacking = False
+        self.pos = pygame.Rect(posX, posY, PLAYER_WIDTH, PLAYER_HEIGHT)
+        self.collision_types = {"top": False, "bottom": False, "right": False, "left": False}
+
+    def colliding_check(self, tiles):
+        hit_list = []
+        collision_types = {"top": False, "bottom": False, "right": False, "left": False}
+        for tile in tiles:
+            if self.pos.colliderect(tile):
+                hit_list.append(tile)
+
+        for tile in hit_list:
+            if abs(tile.left - self.pos.right + 40) < 10 and abs(tile.top - self.pos.bottom) > 40:
+                print(abs(tile.left - self.pos.right))
+                # self.pos.right = tile.left
+                collision_types["right"] = True
+            elif abs(tile.right - self.pos.left - 40) < 10 and abs(tile.top - self.pos.bottom) > 40:
+                # self.pos.left = tile.right
+                collision_types["left"] = True
+
+            if abs(tile.bottom - self.pos.top) < 10:
+                # self.pos.top = tile.bottom
+                collision_types["top"] = True
+            elif abs(tile.top - self.pos.bottom + 40) < 100 and abs(tile.right - self.pos.left - 30) > 20 and abs(tile.left - self.pos.right + 30) > 20:
+                print(tile.top - self.pos.bottom)
+                self.pos.bottom = tile.top + 20
+                collision_types["bottom"] = True
+        print(collision_types)
+        self.collision_types = collision_types
 
     def move(self, key_pressed):
+
         if key_pressed[pygame.K_RIGHT]:
-            if not self.isAttacking: self.posX += PL_VEL
+            if not self.isAttacking and not self.collision_types["right"]:
+                self.pos.x += PL_VEL
             self.right = True
             self.left = False
         elif key_pressed[pygame.K_LEFT]:
-            if not self.isAttacking: self.posX -= PL_VEL
+            if not self.isAttacking and not self.collision_types["left"]:
+                self.pos.x -= PL_VEL
             self.right = False
             self.left = True
         else:
@@ -68,21 +99,75 @@ class Player():
             self.left = False
 
         if not(self.isJumping):
-            if key_pressed[pygame.K_SPACE]:
+            if key_pressed[pygame.K_SPACE] and self.collision_types["bottom"]:
                 self.isJumping = True
                 self.right = False
                 self.left = False
                 self.walkCount = 0
         else:
-            if self.jumpCount >= -10:
-                neg = 1
-                if self.jumpCount < 0:
-                    neg = -neg
-                self.posY -= (self.jumpCount ** 2) * 0.5 * neg
+            if self.jumpCount >= 0:
+                if not self.collision_types["top"]:
+                    self.pos.y -= (self.jumpCount ** 2) * 0.2
                 self.jumpCount -= 0.5
             else:
                 self.isJumping = False
-                self.jumpCount = 10
+                self.jumpCount = 15
 
         if key_pressed[pygame.K_z] and not self.isAttacking:
             self.isAttacking = True
+
+        if self.collision_types["bottom"]:
+            self.falling = False
+            self.gravitySpeed = 5
+        else:
+            self.falling = True
+            self.pos.y += self.gravitySpeed
+            self.gravitySpeed += 0.6
+
+    def player_animation(self):
+        if self.walkCount + 1 >= 36:
+            self.walkCount = 0
+
+        if self.idleCount + 1 >= 9:
+            self.idleCount = 0
+
+        if self.attackCount + 1 >= 25:
+            self.attackCount = 0
+            self.isAttacking = False
+
+        if self.isAttacking and self.left:
+            WIN.blit(ATTACK_LEFT[self.attackCount // 5], (self.pos.x, self.pos.y))
+            self.attackCount += 1
+
+        elif self.isAttacking:
+            WIN.blit(ATTACK_RIGHT[self.attackCount // 5], (self.pos.x, self.pos.y))
+            self.attackCount += 1
+
+        elif self.isAttacking and self.left:
+            WIN.blit(ATTACK_LEFT[self.attackCount // 5], (self.pos.x, self.pos.y))
+            self.attackCount += 1
+
+        elif self.left and not self.isJumping and not self.falling:
+            WIN.blit(WALK_LEFT[self.walkCount // 6], (self.pos.x, self.pos.y))
+            self.walkCount += 1
+
+        elif self.right and not self.isJumping and not self.falling:
+            WIN.blit(WALK_RIGHT[self.walkCount // 6], (self.pos.x, self.pos.y))
+            self.walkCount += 1
+
+        elif self.isJumping and self.left:
+            WIN.blit(JUMPING_LEFT[round(self.jumpCount // 4)], (self.pos.x, self.pos.y))
+
+        elif self.isJumping:
+            WIN.blit(JUMPING_RIGHT[round(self.jumpCount // 4)], (self.pos.x, self.pos.y))
+
+        elif self.falling and self.left:
+            WIN.blit(JUMPING_LEFT[1], (self.pos.x, self.pos.y))
+
+        elif self.falling:
+            WIN.blit(JUMPING_RIGHT[1], (self.pos.x, self.pos.y))
+        else:
+            WIN.blit(STANDING[round(self.idleCount // 3)], (self.pos.x, self.pos.y))
+            self.idleCount += 0.2
+
+        # pygame.draw.rect(WIN, (0, 0, 0), self.pos)

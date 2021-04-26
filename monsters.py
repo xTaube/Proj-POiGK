@@ -99,7 +99,6 @@ class Demon():
         if self.vel > 0:
             WIN.blit(self.WALK_RIGHT[round(self.walkCount // 6)], (self.posX, self.posY))
             self.walkCount += 0.5
-            print(self.walkCount)
         else:
             WIN.blit(self.WALK_LEFT[round(self.walkCount // 6)], (self.posX, self.posY))
             self.walkCount += 0.5
@@ -216,7 +215,6 @@ class Imp():
         if self.vel > 0:
             WIN.blit(self.WALK_RIGHT[round(self.walkCount // 6)], (self.posX, self.posY))
             self.walkCount += 0.5
-            print(self.walkCount)
         else:
             WIN.blit(self.WALK_LEFT[round(self.walkCount // 6)], (self.posX, self.posY))
             self.walkCount += 0.5
@@ -333,7 +331,6 @@ class Skeleton():
         if self.vel > 0:
             WIN.blit(self.WALK_RIGHT[round(self.walkCount // 6)], (self.posX, self.posY))
             self.walkCount += 0.5
-            print(self.walkCount)
         else:
             WIN.blit(self.WALK_LEFT[round(self.walkCount // 6)], (self.posX, self.posY))
             self.walkCount += 0.5
