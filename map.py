@@ -1,8 +1,8 @@
 import pygame
 import os
+from conf import SCREEN_WIDTH, SCREEN_HEIGHT
+from monsters import Demon, Imp, Skeleton
 
-SCREEN_WIDTH = 1920
-SCREEN_HEIGHT = 1080
 
 WIN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 
@@ -36,9 +36,9 @@ for tile in PLATFORM_TILES:
     tile.set_colorkey((255, 255, 255))
 
 class GameMap:
-    def __init__(self, game_level_map):
+    def __init__(self, game_level_map, monster_list):
         self.game_level_map = game_level_map
-        self.monster_list = 0
+        self.monster_list = monster_list
         self.tiles_rects = []
 
     def draw_map(self):
@@ -64,6 +64,10 @@ class GameMap:
         # for tile in self.tiles_rects:
         #     pygame.draw.rect(WIN, (255, 255, 255), tile)
 
+    def monster_animation(self):
+        for monster in self.monster_list:
+            monster.enemy_animation(WIN)
+
 gameMap_list = []
 
 Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
@@ -77,4 +81,4 @@ Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
               [ 8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8]
               ]
 
-gameMap_list.append(GameMap(Game_level))
+gameMap_list.append(GameMap(Game_level, [Demon(500, 575, 1400)]))
