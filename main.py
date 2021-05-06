@@ -1,7 +1,6 @@
 import pygame
 import player
 import map
-import monsters
 
 
 def draw_window(pl, gameMap):

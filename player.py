@@ -47,7 +47,7 @@ class Player():
     def __init__(self, posX, posY):
         self.pos = pygame.Rect(posX, posY, PLAYER_WIDTH, PLAYER_HEIGHT)
         self.walkCount = 0
-        self.jumpCount = 10
+        self.jumpCount = 15
         self.idleCount = 0
         self.ATTACK_COOLDOWN = ATTACK_CD
         self.attackCount = 0
@@ -80,11 +80,12 @@ class Player():
             if (abs(tile.bottom - self.pos.top) > PLAYER_WIDTH//4 and abs(tile.bottom - self.pos.top) < PLAYER_WIDTH//2) and (tile.left - PLAYER_WIDTH//2 < self.pos.x and tile.right - PLAYER_WIDTH//3 > self.pos.x):
                 collision_types["top"] = True
 
-            elif abs(tile.top - self.pos.bottom + PLAYER_WIDTH//3) < PLAYER_WIDTH//2 and abs(tile.right - self.pos.left - PLAYER_WIDTH//4) > PLAYER_WIDTH//4 and abs(tile.left - self.pos.right + PLAYER_WIDTH//4) > PLAYER_WIDTH//4:
+            elif abs(tile.top - self.pos.bottom + PLAYER_WIDTH//3) < PLAYER_WIDTH//2 and abs(tile.right - self.pos.left - PLAYER_WIDTH/5) > PLAYER_WIDTH/5 and abs(tile.left - self.pos.right + PLAYER_WIDTH/5) > PLAYER_WIDTH/4.5:
                 self.pos.bottom = tile.top + PLAYER_HEIGHT//6
                 collision_types["bottom"] = True
 
         self.collision_types = collision_types
+
         hit_list.clear()
         for monster in monster_list:
             if self.pos.colliderect(monster.pos):
@@ -92,7 +93,13 @@ class Player():
 
         for monster in hit_list:
             if self.isAttacking:
-                monster.get_hit(self.DMG)
+                print(abs(self.pos.left - monster.pos.right))
+                if self.left and abs(self.pos.left - monster.pos.right) > SCREEN_WIDTH/15 and abs(self.pos.left - monster.pos.right) < SCREEN_WIDTH/7.57:
+                    monster.get_hit(self.DMG)
+                    monster.hit_side = True
+                elif not self.left and abs(self.pos.right - monster.pos.left) > SCREEN_WIDTH/15 and abs(self.pos.right - monster.pos.left) < SCREEN_WIDTH/7.57:
+                    monster.get_hit(self.DMG)
+                    monster.hit_side = False
             elif monster.isAttacking:
                 self.get_hit(monster.DMG)
 
@@ -101,13 +108,13 @@ class Player():
         if key_pressed[pygame.K_RIGHT]:
             if not self.isAttacking and not self.collision_types["right"]:
                 self.pos.x += PL_VEL
-            self.right = True
-            self.left = False
+                self.right = True
+                self.left = False
         elif key_pressed[pygame.K_LEFT]:
             if not self.isAttacking and not self.collision_types["left"]:
                 self.pos.x -= PL_VEL
-            self.right = False
-            self.left = True
+                self.right = False
+                self.left = True
         else:
             self.right = False
             self.left = False

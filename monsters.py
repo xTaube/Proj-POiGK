@@ -4,8 +4,8 @@ from conf import SCREEN_WIDTH, SCREEN_HEIGHT
 
 
 class Demon():
-    DEMON_WIDTH = SCREEN_WIDTH // 8
-    DEMON_HEIGHT = round(DEMON_WIDTH*1.35)
+    DEMON_WIDTH = SCREEN_WIDTH // 5
+    DEMON_HEIGHT = round(DEMON_WIDTH*0.8)
     #####
     WALK_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\demon", "walk_1.png")),
                        pygame.image.load(os.path.join("enemy animation\\demon", "walk_2.png")),
@@ -79,26 +79,36 @@ class Demon():
     HIT_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\demon", "hit_1.png")),
                       pygame.image.load(os.path.join("enemy animation\\demon", "hit_2.png")),
                       pygame.image.load(os.path.join("enemy animation\\demon", "hit_3.png"))]
-    HIT = []
+    HIT_RIGHT = []
     for img in HIT_ANIMATIONS:
-        HIT.append(pygame.transform.scale(img, (DEMON_WIDTH, DEMON_HEIGHT)))
+        HIT_RIGHT.append(pygame.transform.scale(img, (DEMON_WIDTH, DEMON_HEIGHT)))
+
+    HIT_LEFT = []
+    for img in HIT_RIGHT:
+        HIT_LEFT.append(pygame.transform.flip(img, True, False))
+
     #####
-    def __init__(self, posX, posY,posEnd):
+    def __init__(self, posX, posY, posEnd):
         self.pos = pygame.Rect(posX, posY, self.DEMON_WIDTH, self.DEMON_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
         self.walkCount = 0
         self.hitCount = 0
-        self.vel = 1
+        self.vel = self.DEMON_WIDTH//120
         self.health = 25
         self.DMG = 5
+        self.hit_side = False     # False = left // True = right
         self.isDead = False
         self.isAttacking = False
         self.gettingDMG = False
 
     def enemy_animation(self, WIN):
         if self.gettingDMG:
-            WIN.blit(self.HIT[round(self.hitCount // 3)], (self.pos.x, self.pos.y))
+            if self.hit_side:
+                WIN.blit(self.HIT_RIGHT[round(self.hitCount // 3)], (self.pos.x, self.pos.y))
+            else:
+                WIN.blit(self.HIT_LEFT[round(self.hitCount // 3)], (self.pos.x, self.pos.y))
+
             self.hitCount += 0.2
             if self.hitCount >= 7:
                 self.hitCount = 0
@@ -114,6 +124,8 @@ class Demon():
             else:
                 WIN.blit(self.WALK_LEFT[round(self.walkCount // 6)], (self.pos.x, self.pos.y))
                 self.walkCount += 0.5
+
+            # pygame.draw.rect(WIN, (0, 0, 0), self.pos)
 
     def move(self):
         if self.vel > 0:
