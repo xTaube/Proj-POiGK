@@ -239,8 +239,8 @@ class Imp():
         self.isDead = False
         self.isAttacking = False
 
-    def enemy_animation(self, WIN):
-        self.move()
+    def enemy_animation(self, WIN, pl):
+        self.move(pl)
         if self.walkCount + 1 >= 36:
             self.walkCount = 0
 
@@ -251,7 +251,7 @@ class Imp():
             WIN.blit(self.WALK_LEFT[round(self.walkCount // 6)], (self.pos.x, self.pos.y))
             self.walkCount += 0.5
 
-    def move(self):
+    def move(self, pl):
         if self.vel > 0:
             if self.pos.x + self.vel < self.path[1]:
                 self.pos.x += self.vel

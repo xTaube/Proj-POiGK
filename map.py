@@ -64,9 +64,9 @@ class GameMap:
         # for tile in self.tiles_rects:
         #     pygame.draw.rect(WIN, (255, 255, 255), tile)
 
-    def monster_animation(self):
+    def monster_animation(self, pl):
         for monster in self.monster_list:
-            monster.enemy_animation(WIN)
+            monster.enemy_animation(WIN, pl)
 
 
 gameMap_list = []

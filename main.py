@@ -9,7 +9,7 @@ def draw_window(pl, gameMap):
         map.WIN.blit(element, (0, 0))
 
     gameMap.draw_map()
-    gameMap.monster_animation()
+    gameMap.monster_animation(pl)
     pl.player_animation(map.WIN)
     pygame.display.update()
 
