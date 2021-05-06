@@ -102,7 +102,7 @@ class Demon():
         self.isAttacking = False
         self.gettingDMG = False
 
-    def enemy_animation(self, WIN):
+    def enemy_animation(self, WIN, pl):
         if self.gettingDMG:
             if self.hit_side:
                 WIN.blit(self.HIT_RIGHT[round(self.hitCount // 3)], (self.pos.x, self.pos.y))
@@ -357,7 +357,7 @@ class Skeleton():
         self.isDead = False
         self.isAttacking = False
 
-    def enemy_animation(self, WIN):
+    def enemy_animation(self, WIN, pl):
         self.move()
         if self.walkCount + 1 >= 36:
             self.walkCount = 0
