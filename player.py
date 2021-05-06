@@ -1,7 +1,6 @@
 import pygame
 import os
 from conf import SCREEN_WIDTH, SCREEN_HEIGHT
-from map import WIN
 
 #-------------------------------------------------------------
 #animacje protagonisty
@@ -43,6 +42,25 @@ for img in ATTACK_RIGHT:
 PL_VEL = PLAYER_WIDTH//18
 ATTACK_CD = 30
 
+
+class Health_bar():
+    def __init__(self, max_health, health_bar_lenght):
+        self.max_health = max_health
+        self.current_health = self.max_health
+        self.health_bar_length = health_bar_lenght
+        self.health_ratio = self.max_health / self.health_bar_length
+
+    def draw_health_bar(self, WIN):
+        pygame.draw.rect(WIN, (70, 61, 61), (10, 10, self.health_bar_length, 25))
+        pygame.draw.rect(WIN, (255, 85, 85), (10, 10, self.current_health/self.health_ratio, 25))
+        pygame.draw.rect(WIN, (129, 129, 129), (10, 10, self.health_bar_length, 25), 4)
+
+    def expand_max_health(self, amount):
+        self.health_bar_length += amount * self.health_bar_length / self.max_health
+        self.max_health += amount
+        self.health_ratio = self.max_health / self.health_bar_length
+
+
 class Player():
     def __init__(self, posX, posY):
         self.pos = pygame.Rect(posX, posY, PLAYER_WIDTH, PLAYER_HEIGHT)
@@ -50,10 +68,10 @@ class Player():
         self.jumpCount = 15
         self.idleCount = 0
         self.ATTACK_COOLDOWN = ATTACK_CD
+        self.health_bar = Health_bar(100, 400)
         self.attackCount = 0
         self.gravitySpeed = 5
         self.DMG = 5
-        self.health = 100
 
         #states
         self.right = False
@@ -93,7 +111,6 @@ class Player():
 
         for monster in hit_list:
             if self.isAttacking:
-                print(abs(self.pos.left - monster.pos.right))
                 if self.left and abs(self.pos.left - monster.pos.right) > SCREEN_WIDTH/15 and abs(self.pos.left - monster.pos.right) < SCREEN_WIDTH/7.57:
                     monster.get_hit(self.DMG)
                     monster.hit_side = True
@@ -153,9 +170,16 @@ class Player():
             self.gravitySpeed += PLAYER_HEIGHT/200
 
     def get_hit(self, dmg):
-        self.health -= dmg
+        if self.health_bar.current_health != 0:
+            self.health_bar.current_health -= dmg
+        print(self.health_bar.current_health)
 
-    def player_animation(self):
+    def heal(self, health_amount):
+        if self.health_bar.current_health != self.health_bar.max_health:
+            self.health_bar.current_health += health_amount
+        print(self.health_bar.current_health)
+
+    def player_animation(self, WIN):
         if self.walkCount + 1 >= 36:
             self.walkCount = 0
 
@@ -202,4 +226,5 @@ class Player():
             WIN.blit(STANDING[round(self.idleCount // 3)], (self.pos.x, self.pos.y))
             self.idleCount += 0.2
 
+        self.health_bar.draw_health_bar(WIN)
         # pygame.draw.rect(WIN, (0, 0, 0), self.pos)
