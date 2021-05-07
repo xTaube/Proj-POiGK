@@ -69,6 +69,7 @@ class GameMap:
             monster.enemy_animation(WIN, pl)
 
 
+
 gameMap_list = []
 
 Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],

@@ -20,6 +20,19 @@ class Demon():
     for img in WALK_RIGHT:
         WALK_LEFT.append(pygame.transform.flip(img, True, False))
     #####
+    SPRINT_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\demon", "run_1.png")),
+                         pygame.image.load(os.path.join("enemy animation\\demon", "run_2.png")),
+                         pygame.image.load(os.path.join("enemy animation\\demon", "run_3.png")),
+                         pygame.image.load(os.path.join("enemy animation\\demon", "run_4.png")),
+                         pygame.image.load(os.path.join("enemy animation\\demon", "run_5.png")),
+                         pygame.image.load(os.path.join("enemy animation\\demon", "run_6.png"))]
+    SPRINT_RIGHT = []
+    for img in SPRINT_ANIMATIONS:
+        SPRINT_RIGHT.append(pygame.transform.scale(img, (DEMON_WIDTH, DEMON_HEIGHT)))
+    SPRINT_LEFT = []
+    for img in SPRINT_RIGHT:
+        SPRINT_LEFT.append(pygame.transform.flip(img, True, False))
+    #####
     STANDING_ANIMATIONS = [pygame.image.load(os.path.join("enemy animation\\demon", "ready_1.png")),
                            pygame.image.load(os.path.join("enemy animation\\demon", "ready_2.png")),
                            pygame.image.load(os.path.join("enemy animation\\demon", "ready_3.png")),
@@ -93,6 +106,7 @@ class Demon():
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
         self.walkCount = 0
+        self.sprintCount = 0
         self.hitCount = 0
         self.vel = self.DEMON_WIDTH//120
         self.health = 25
@@ -101,6 +115,7 @@ class Demon():
         self.isDead = False
         self.isAttacking = False
         self.gettingDMG = False
+        self.playerNearby = False
 
     def enemy_animation(self, WIN, pl):
         if self.gettingDMG:
@@ -114,10 +129,48 @@ class Demon():
                 self.hitCount = 0
                 self.gettingDMG = False
         else:
-            self.move()
-            if self.walkCount + 1 >= 36:
-                self.walkCount = 0
+            self.move(WIN, pl)
 
+
+            # pygame.draw.rect(WIN, (0, 0, 0), self.pos)
+
+    def move(self,WIN,pl):
+        self.player_nearby(pl)
+        if not self.playerNearby:
+            if self.vel > 0:
+                if self.pos.x + self.vel < self.path[1]:
+                    self.pos.x += self.vel
+                else:
+                    self.vel = self.vel * -1
+                    self.walkCount = 0
+            else:
+                if self.pos.x - self.vel > self.path[0]:
+                    self.pos.x += self.vel
+                else:
+                    self.vel = self.vel * -1
+                    self.walkCount = 0
+
+        if self.playerNearby:
+            if self.vel > 0 and self.pos.x > pl.pos.x:
+                self.vel = self.vel * -1
+                self.sprintCount = 0
+                self.pos.x += self.vel
+            if self.vel < 0 and self.pos.x < pl.pos.x:
+                self.vel = self.vel * -1
+                self.sprintCount = 0
+                self.pos.x += self.vel
+            if self.vel > 0 and self.pos.x < pl.pos.x:
+                self.pos.x += 1.5*self.vel
+            if self.vel < 0 and self.pos.x > pl.pos.x:
+                self.pos.x += 1.5*self.vel
+
+############
+        if self.walkCount + 1 >= 36:
+            self.walkCount = 0
+        if self.sprintCount + 1 >= 36:
+            self.sprintCount = 0
+
+        if not self.playerNearby:
             if self.vel > 0:
                 WIN.blit(self.WALK_RIGHT[round(self.walkCount // 6)], (self.pos.x, self.pos.y))
                 self.walkCount += 0.5
@@ -125,27 +178,25 @@ class Demon():
                 WIN.blit(self.WALK_LEFT[round(self.walkCount // 6)], (self.pos.x, self.pos.y))
                 self.walkCount += 0.5
 
-            # pygame.draw.rect(WIN, (0, 0, 0), self.pos)
-
-    def move(self):
-        if self.vel > 0:
-            if self.pos.x + self.vel < self.path[1]:
-                self.pos.x += self.vel
+        if self.playerNearby:
+            if self.vel > 0:
+                WIN.blit(self.SPRINT_RIGHT[round(self.sprintCount // 6)], (self.pos.x, self.pos.y))
+                self.sprintCount += 0.5
             else:
-                self.vel = self.vel * -1
-                self.walkCount = 0
-        else:
-            if self.pos.x - self.vel > self.path[0]:
-                self.pos.x += self.vel
-            else:
-                self.vel = self.vel * -1
-                self.walkCount = 0
+                WIN.blit(self.SPRINT_LEFT[round(self.sprintCount // 6)], (self.pos.x, self.pos.y))
+                self.sprintCount += 0.5
 
     def get_hit(self, dmg):
         if not self.gettingDMG:
             self.health -= dmg
             self.gettingDMG = True
         print(self.health)
+
+    def player_nearby(self, pl):
+        if pl.pos.x - self.DEMON_WIDTH*1.3 < self.pos.x < pl.pos.x + (self.DEMON_WIDTH // 2)*1.3:
+            self.playerNearby = True
+        else:
+            self.playerNearby = False
 
 class Imp():
     IMP_WIDTH = SCREEN_WIDTH // 12
@@ -358,7 +409,7 @@ class Skeleton():
         self.isAttacking = False
 
     def enemy_animation(self, WIN, pl):
-        self.move()
+        self.move(pl)
         if self.walkCount + 1 >= 36:
             self.walkCount = 0
 
@@ -369,7 +420,7 @@ class Skeleton():
             WIN.blit(self.WALK_LEFT[round(self.walkCount // 6)], (self.pos.x, self.pos.y))
             self.walkCount += 0.5
 
-    def move(self):
+    def move(self,pl):
         if self.vel > 0:
             if self.pos.x + self.vel < self.path[1]:
                 self.pos.x += self.vel

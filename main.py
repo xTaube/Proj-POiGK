@@ -10,6 +10,7 @@ def draw_window(pl, gameMap):
 
     gameMap.draw_map()
     gameMap.monster_animation(pl)
+
     pl.player_animation(map.WIN)
     pygame.display.update()
 

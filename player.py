@@ -44,10 +44,10 @@ ATTACK_CD = 30
 
 
 class Health_bar():
-    def __init__(self, max_health, health_bar_lenght):
+    def __init__(self, max_health, health_bar_length):
         self.max_health = max_health
         self.current_health = self.max_health
-        self.health_bar_length = health_bar_lenght
+        self.health_bar_length = health_bar_length
         self.health_ratio = self.max_health / self.health_bar_length
 
     def draw_health_bar(self, WIN):
