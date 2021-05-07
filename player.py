@@ -81,7 +81,7 @@ class Player():
         self.isAttacking = False
         self.collision_types = {"top": False, "bottom": False, "right": False, "left": False}
 
-    def colliding_check(self, tiles, monster_list):
+    def colliding_check(self, tiles, monster_list, item_list):
         hit_list = []
         collision_types = {"top": False, "bottom": False, "right": False, "left": False}
         for tile in tiles:
@@ -120,6 +120,14 @@ class Player():
             elif monster.isAttacking:
                 self.get_hit(monster.DMG)
 
+        hit_list.clear()
+        for item in item_list:
+            if self.pos.colliderect(item.pos):
+                if item.pos.left - PLAYER_WIDTH//2 < self.pos.x and item.pos.right - PLAYER_WIDTH//3 > self.pos.x:
+                    if item.isPossibleToTake(self):
+                        item.effect(self)
+                        item_list.remove(item)
+
     def move(self, key_pressed):
 
         if key_pressed[pygame.K_RIGHT]:
@@ -145,8 +153,8 @@ class Player():
         else:
             if not self.collision_types["top"]:
                 if self.jumpCount >= 0:
-                    self.pos.y -= (self.jumpCount ** 2) * PLAYER_HEIGHT/800
-                    self.jumpCount -= 0.5
+                    self.pos.y -= (self.jumpCount ** 2) * PLAYER_HEIGHT/900
+                    self.jumpCount -= 1
                 else:
                     self.isJumping = False
                     self.jumpCount = 15
@@ -161,7 +169,7 @@ class Player():
             if self.ATTACK_COOLDOWN == 0:
                 self.ATTACK_COOLDOWN = ATTACK_CD
 
-        if self.collision_types["bottom"]:
+        if self.collision_types["bottom"] or self.isJumping:
             self.falling = False
             self.gravitySpeed = PLAYER_HEIGHT/30
         else:
@@ -177,7 +185,12 @@ class Player():
     def heal(self, health_amount):
         if self.health_bar.current_health != self.health_bar.max_health:
             self.health_bar.current_health += health_amount
+            if self.health_bar.current_health > self.health_bar.max_health:
+                self.health_bar.current_health = self.health_bar.max_health
         print(self.health_bar.current_health)
+
+    def dmg_up(self, dmg_value):
+        self.DMG += dmg_value
 
     def player_animation(self, WIN):
         if self.walkCount + 1 >= 36:

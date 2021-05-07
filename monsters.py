@@ -193,7 +193,7 @@ class Demon():
         print(self.health)
 
     def player_nearby(self, pl):
-        if pl.pos.x - self.DEMON_WIDTH*1.3 < self.pos.x < pl.pos.x + (self.DEMON_WIDTH // 2)*1.3:
+        if pl.pos.x - self.DEMON_WIDTH*1.3 < self.pos.x < pl.pos.x + (self.DEMON_WIDTH // 2)*1.3 and (self.pos.y + self.DEMON_HEIGHT/2 > pl.pos.top and self.pos.y + self.DEMON_HEIGHT/2 < pl.pos.bottom):
             self.playerNearby = True
         else:
             self.playerNearby = False

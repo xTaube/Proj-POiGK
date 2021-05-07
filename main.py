@@ -9,7 +9,7 @@ def draw_window(pl, gameMap):
         map.WIN.blit(element, (0, 0))
 
     gameMap.draw_map()
-    gameMap.monster_animation(pl)
+    gameMap.every_animation(pl)
 
     pl.player_animation(map.WIN)
     pygame.display.update()
@@ -39,7 +39,7 @@ def main():
                 if event.key == pygame.K_c:
                     pl.heal(5)
         keys_pressed = pygame.key.get_pressed()
-        pl.colliding_check(gameMap[map_index].tiles_rects, gameMap[map_index].monster_list)
+        pl.colliding_check(gameMap[map_index].tiles_rects, gameMap[map_index].monster_list, gameMap[map_index].item_list)
         pl.move(keys_pressed)
         draw_window(pl, gameMap[map_index])
 
