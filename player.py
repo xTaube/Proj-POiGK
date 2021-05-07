@@ -47,12 +47,32 @@ class Health_bar():
     def __init__(self, max_health, health_bar_length):
         self.max_health = max_health
         self.current_health = self.max_health
+        self.targeted_health = max_health
         self.health_bar_length = health_bar_length
         self.health_ratio = self.max_health / self.health_bar_length
+        self.health_change_speed = 0.5
 
     def draw_health_bar(self, WIN):
+        transition_width = 0
+        transition_color = (255, 0, 0)
+        t = 0
+
+        if self.current_health < self.targeted_health:
+            self.current_health += self.health_change_speed
+            transition_width = int((self.targeted_health - self.current_health)/self.health_ratio)
+            transition_color = (0, 255, 0)
+        if self.current_health > self.targeted_health:
+            self.current_health -= self.health_change_speed
+            transition_width = int((self.current_health - self.targeted_health)/self.health_ratio)
+            t = transition_width
+            transition_color = (255, 255, 0)
+
+        health_bar_rect = pygame.Rect(10, 10, self.current_health/self.health_ratio, 25)
+        transition_bar_rect = pygame.Rect(health_bar_rect.right - t, 10, transition_width, 25)
+
         pygame.draw.rect(WIN, (70, 61, 61), (10, 10, self.health_bar_length, 25))
-        pygame.draw.rect(WIN, (255, 85, 85), (10, 10, self.current_health/self.health_ratio, 25))
+        pygame.draw.rect(WIN, (255, 85, 85), health_bar_rect)
+        pygame.draw.rect(WIN, transition_color, transition_bar_rect)
         pygame.draw.rect(WIN, (129, 129, 129), (10, 10, self.health_bar_length, 25), 4)
 
     def expand_max_health(self, amount):
@@ -178,16 +198,18 @@ class Player():
             self.gravitySpeed += PLAYER_HEIGHT/200
 
     def get_hit(self, dmg):
-        if self.health_bar.current_health != 0:
-            self.health_bar.current_health -= dmg
-        print(self.health_bar.current_health)
+        if self.health_bar.targeted_health > 0:
+            self.health_bar.targeted_health -= dmg
+        else:
+            self.health_bar.targeted_health = 0
+        print(self.health_bar.targeted_health)
 
     def heal(self, health_amount):
-        if self.health_bar.current_health != self.health_bar.max_health:
-            self.health_bar.current_health += health_amount
-            if self.health_bar.current_health > self.health_bar.max_health:
-                self.health_bar.current_health = self.health_bar.max_health
-        print(self.health_bar.current_health)
+        if self.health_bar.targeted_health != self.health_bar.max_health:
+            self.health_bar.targeted_health += health_amount
+            if self.health_bar.targeted_health > self.health_bar.max_health:
+                self.health_bar.targeted_health = self.health_bar.max_health
+        print(self.health_bar.targeted_health)
 
     def dmg_up(self, dmg_value):
         self.DMG += dmg_value

@@ -34,10 +34,10 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_x:
-                    pl.get_hit(5)
+                    pl.get_hit(30)
 
                 if event.key == pygame.K_c:
-                    pl.heal(5)
+                    pl.heal(30)
         keys_pressed = pygame.key.get_pressed()
         pl.colliding_check(gameMap[map_index].tiles_rects, gameMap[map_index].monster_list, gameMap[map_index].item_list)
         pl.move(keys_pressed)
