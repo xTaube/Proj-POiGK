@@ -35,10 +35,27 @@ PLATFORM_TILES = [pygame.transform.scale(pygame.image.load(os.path.join("map ass
 for tile in PLATFORM_TILES:
     tile.set_colorkey((255, 255, 255))
 
+BUTTONS_WIDTH = SCREEN_WIDTH // 5
+BUTTONS_HEIGHT = SCREEN_WIDTH // 15
+BUTTONS = [pygame.transform.scale(pygame.image.load(os.path.join("menu", "Resume Button.png")).convert(), (BUTTONS_WIDTH, BUTTONS_HEIGHT)),
+           pygame.transform.scale(pygame.image.load(os.path.join("menu", "New game Button.png")).convert(), (BUTTONS_WIDTH, BUTTONS_HEIGHT)),
+           pygame.transform.scale(pygame.image.load(os.path.join("menu", "Options Button.png")).convert(), (BUTTONS_WIDTH, BUTTONS_HEIGHT)),
+           pygame.transform.scale(pygame.image.load(os.path.join("menu", "Continue Button.png")).convert(), (BUTTONS_WIDTH, BUTTONS_HEIGHT))]
+
+
+class Button:
+    def __init__(self, posX, posY, img):
+        self.pos = pygame.Rect(posX, posY, BUTTONS_WIDTH, BUTTONS_HEIGHT)
+        self.img = img
+
+    def draw_button(self):
+        WIN.blit(self.img, self.pos)
+
 
 class GameMap:
-    def __init__(self, game_level_map, monster_list, item_list):
+    def __init__(self, game_level_map, starting_point, monster_list, item_list):
         self.game_level_map = game_level_map
+        self.starting_point = starting_point
         self.monster_list = monster_list
         self.item_list = item_list
         self.tiles_rects = []
@@ -185,9 +202,9 @@ Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
               [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
               [-1, -1, -1, -1, -1,  5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
               [-1, -1, -1,  0, -1, -1, -1, -1, -1, -1, -1, -1, -1, 12, 14, -1],
-              [-1,  4, -1, -1, -1, -1,  9, 10,  9, -1, -1, 11, 13, -1, -1, -1],
+              [-1, -1, -1, -1, -1, -1,  9, 10,  9, -1, -1, 11, 13, -1, -1, -1],
               [ 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4],
               [ 8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8]]
 
 
-gameMap_list.append(GameMap(Game_level, [Demon(500, 585, 1400)], [Dmg_up(5, 800, 550)]))
+gameMap_list.append(GameMap(Game_level, (200, 700), [Demon(500, 585, 1400)], [Life_up(5, 800, 550)]))

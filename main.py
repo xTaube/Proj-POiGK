@@ -1,6 +1,7 @@
 import pygame
 import player
 import map
+import sys
 
 
 def draw_window(pl, gameMap):
@@ -15,22 +16,69 @@ def draw_window(pl, gameMap):
     pygame.display.update()
 
 
-def main():
+def draw_menu(button_list):
+    map.WIN.fill((0, 0, 0))
 
+    for button in button_list:
+        button.draw_button()
+
+    pygame.display.update()
+
+
+def main_menu():
+    resume_button = map.Button(map.SCREEN_WIDTH//2 - map.BUTTONS_WIDTH//2, 100, map.BUTTONS[0])
+    new_game_button = map.Button(map.SCREEN_WIDTH//2 - map.BUTTONS_WIDTH//2, 300, map.BUTTONS[1])
+    options_button = map.Button(map.SCREEN_WIDTH//2 - map.BUTTONS_WIDTH//2, 700, map.BUTTONS[2])
+    continue_button = map.Button(map.SCREEN_WIDTH//2 - map.BUTTONS_WIDTH//2, 500, map.BUTTONS[3])
     FPS = 60
     map_index = 0
-    clock = pygame.time.Clock()
-    game_on = True
-    pl = player.Player(map.SCREEN_WIDTH//2, 450)
     gameMap = map.gameMap_list
+    pl = player.Player(gameMap[map_index].starting_point)
+    clock = pygame.time.Clock()
+    menu = True
+    click = False
+    gameIsRunning = False
 
+    while menu:
+        clock.tick(FPS)
+        mx, my = pygame.mouse.get_pos()
+
+        if new_game_button.pos.collidepoint((mx, my)):
+            if click:
+                gameIsRunning = True
+                map_index = 0
+                gameMap = map.gameMap_list
+                pl = player.Player(gameMap[map_index].starting_point)
+                game(FPS, clock, map_index, gameMap, pl)
+
+        if resume_button.pos.collidepoint((mx, my)):
+            if click and gameIsRunning:
+                game(FPS, clock, map_index, gameMap, pl)
+
+        click = False
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                menu = False
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                click = True
+
+        if gameIsRunning:
+            draw_menu([resume_button, new_game_button, options_button, continue_button])
+        else:
+            draw_menu([new_game_button, options_button, continue_button])
+
+
+def game(FPS, clock, map_index, gameMap, pl):
+    game_on = True
     while game_on:
         clock.tick(FPS)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game_on = False
                 pygame.quit()
-                quit()
+                sys.exit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_x:
@@ -38,6 +86,10 @@ def main():
 
                 if event.key == pygame.K_c:
                     pl.heal(30)
+
+                if event.key == pygame.K_ESCAPE:
+                    game_on = False
+
         keys_pressed = pygame.key.get_pressed()
         pl.colliding_check(gameMap[map_index].tiles_rects, gameMap[map_index].monster_list, gameMap[map_index].item_list)
         pl.move(keys_pressed)
@@ -45,4 +97,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main_menu()

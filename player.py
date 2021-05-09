@@ -82,8 +82,8 @@ class Health_bar():
 
 
 class Player():
-    def __init__(self, posX, posY):
-        self.pos = pygame.Rect(posX, posY, PLAYER_WIDTH, PLAYER_HEIGHT)
+    def __init__(self, pos):
+        self.pos = pygame.Rect(pos[0], pos[1], PLAYER_WIDTH, PLAYER_HEIGHT)
         self.walkCount = 0
         self.jumpCount = 15
         self.idleCount = 0
