@@ -12,7 +12,7 @@ def draw_window(pl, gameMap):
     gameMap.draw_map()
     gameMap.every_animation(pl)
 
-    pl.player_animation(map.WIN)
+    pl.player_animation(map.WIN, gameMap.monster_list, gameMap.killed_monsters)
     pygame.display.update()
 
 
@@ -32,7 +32,7 @@ def main_menu():
     continue_button = map.Button(map.SCREEN_WIDTH//2 - map.BUTTONS_WIDTH//2, 500, map.BUTTONS[3])
     FPS = 60
     map_index = 0
-    gameMap = map.gameMap_list
+    gameMap = map.create_game_map_list()
     pl = player.Player(gameMap[map_index].starting_point)
     clock = pygame.time.Clock()
     menu = True
@@ -47,7 +47,7 @@ def main_menu():
             if click:
                 gameIsRunning = True
                 map_index = 0
-                gameMap = map.gameMap_list
+                gameMap = map.create_game_map_list()
                 pl = player.Player(gameMap[map_index].starting_point)
                 game(FPS, clock, map_index, gameMap, pl)
 
@@ -89,6 +89,9 @@ def game(FPS, clock, map_index, gameMap, pl):
 
                 if event.key == pygame.K_ESCAPE:
                     game_on = False
+
+                if event.key == pygame.K_F5:
+                    pass
 
         keys_pressed = pygame.key.get_pressed()
         pl.colliding_check(gameMap[map_index].tiles_rects, gameMap[map_index].monster_list, gameMap[map_index].item_list)

@@ -7,7 +7,12 @@ from conf import SCREEN_WIDTH, SCREEN_HEIGHT
 PLAYER_WIDTH = SCREEN_WIDTH//15
 PLAYER_HEIGHT = round(PLAYER_WIDTH*1.35)
 
-WALK_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-run-0.png")), pygame.image.load(os.path.join("player animation", "pl-run-1.png")), pygame.image.load(os.path.join("player animation", "pl-run-2.png")), pygame.image.load(os.path.join("player animation", "pl-run-3.png")), pygame.image.load(os.path.join("player animation", "pl-run-4.png")), pygame.image.load(os.path.join("player animation", "pl-run-5.png"))]
+WALK_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-run-0.png")),
+                   pygame.image.load(os.path.join("player animation", "pl-run-1.png")),
+                   pygame.image.load(os.path.join("player animation", "pl-run-2.png")),
+                   pygame.image.load(os.path.join("player animation", "pl-run-3.png")),
+                   pygame.image.load(os.path.join("player animation", "pl-run-4.png")),
+                   pygame.image.load(os.path.join("player animation", "pl-run-5.png"))]
 WALK_RIGHT = []
 for img in WALK_ANIMATIONS:
     WALK_RIGHT.append(pygame.transform.scale(img, (PLAYER_WIDTH, PLAYER_HEIGHT)))
@@ -16,12 +21,17 @@ WALK_LEFT = []
 for img in WALK_RIGHT:
     WALK_LEFT.append(pygame.transform.flip(img, True, False))
 
-STANDING_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-idle-0.png")), pygame.image.load(os.path.join("player animation", "pl-idle-1.png")), pygame.image.load(os.path.join("player animation", "pl-idle-2.png"))]
+STANDING_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-idle-0.png")),
+                       pygame.image.load(os.path.join("player animation", "pl-idle-1.png")),
+                       pygame.image.load(os.path.join("player animation", "pl-idle-2.png"))]
 STANDING = []
 for img in STANDING_ANIMATIONS:
     STANDING.append(pygame.transform.scale(img, (PLAYER_WIDTH, PLAYER_HEIGHT)))
 
-JUMPING_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-jump-3.png")), pygame.image.load(os.path.join("player animation", "pl-jump-2.png")), pygame.image.load(os.path.join("player animation", "pl-jump-1.png")), pygame.image.load(os.path.join("player animation", "pl-jump-0.png"))]
+JUMPING_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-jump-3.png")),
+                      pygame.image.load(os.path.join("player animation", "pl-jump-2.png")),
+                      pygame.image.load(os.path.join("player animation", "pl-jump-1.png")),
+                      pygame.image.load(os.path.join("player animation", "pl-jump-0.png"))]
 JUMPING_RIGHT = []
 for img in JUMPING_ANIMATIONS:
     JUMPING_RIGHT.append(pygame.transform.scale(img, (PLAYER_WIDTH, PLAYER_HEIGHT)))
@@ -30,7 +40,11 @@ JUMPING_LEFT = []
 for img in JUMPING_RIGHT:
     JUMPING_LEFT.append(pygame.transform.flip(img, True, False))
 
-ATTACK_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-attack1-0.png")), pygame.image.load(os.path.join("player animation", "pl-attack1-1.png")), pygame.image.load(os.path.join("player animation", "pl-attack1-2.png")), pygame.image.load(os.path.join("player animation", "pl-attack1-3.png")), pygame.image.load(os.path.join("player animation", "pl-attack1-4.png"))]
+ATTACK_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-attack1-0.png")),
+                     pygame.image.load(os.path.join("player animation", "pl-attack1-1.png")),
+                     pygame.image.load(os.path.join("player animation", "pl-attack1-2.png")),
+                     pygame.image.load(os.path.join("player animation", "pl-attack1-3.png")),
+                     pygame.image.load(os.path.join("player animation", "pl-attack1-4.png"))]
 ATTACK_RIGHT = []
 for img in ATTACK_ANIMATIONS:
     ATTACK_RIGHT.append(pygame.transform.scale(img, (PLAYER_WIDTH, PLAYER_HEIGHT)))
@@ -38,7 +52,36 @@ for img in ATTACK_ANIMATIONS:
 ATTACK_LEFT = []
 for img in ATTACK_RIGHT:
     ATTACK_LEFT.append(pygame.transform.flip(img, True, False))
+
+HIT = [pygame.image.load(os.path.join("player animation", "pl-getDmg-0.png")),
+       pygame.image.load(os.path.join("player animation", "pl-getDmg-1.png")),
+       pygame.image.load(os.path.join("player animation", "pl-getDmg-2.png"))]
+
+HIT_RIGHT = []
+for img in HIT:
+    HIT_RIGHT.append(pygame.transform.scale(img, (PLAYER_WIDTH, PLAYER_HEIGHT)))
+
+HIT_LEFT = []
+for img in HIT_RIGHT:
+    HIT_LEFT.append(pygame.transform.flip(img, True, False))
+
+DEAD = [pygame.image.load(os.path.join("player animation", "pl-die-00.png")),
+        pygame.image.load(os.path.join("player animation", "pl-die-01.png")),
+        pygame.image.load(os.path.join("player animation", "pl-die-02.png")),
+        pygame.image.load(os.path.join("player animation", "pl-die-03.png")),
+        pygame.image.load(os.path.join("player animation", "pl-die-04.png")),
+        pygame.image.load(os.path.join("player animation", "pl-die-05.png")),
+        pygame.image.load(os.path.join("player animation", "pl-die-06.png")),]
+
+DEAD_RIGHT = []
+for img in DEAD:
+    DEAD_RIGHT.append(pygame.transform.scale(img, (PLAYER_WIDTH, PLAYER_HEIGHT)))
+
+DEAD_LEFT = []
+for img in DEAD_RIGHT:
+    DEAD_LEFT.append(pygame.transform.flip(img, True, False))
 #--------------------------------------------------------------------
+
 PL_VEL = PLAYER_WIDTH//18
 ATTACK_CD = 30
 
@@ -83,13 +126,16 @@ class Health_bar():
 
 class Player():
     def __init__(self, pos):
+        self.starting_pos = [pos[0], pos[1]]
         self.pos = pygame.Rect(pos[0], pos[1], PLAYER_WIDTH, PLAYER_HEIGHT)
         self.walkCount = 0
         self.jumpCount = 15
         self.idleCount = 0
+        self.attackCount = 0
+        self.hitCount = 0
+        self.deathCount = 0
         self.ATTACK_COOLDOWN = ATTACK_CD
         self.health_bar = Health_bar(100, 400)
-        self.attackCount = 0
         self.gravitySpeed = 5
         self.DMG = 5
 
@@ -99,6 +145,9 @@ class Player():
         self.isJumping = False
         self.falling = False
         self.isAttacking = False
+        self.gettingDmg = False
+        self.hitSide = False            #false - left // true - right
+        self.isDead = False
         self.collision_types = {"top": False, "bottom": False, "right": False, "left": False}
 
     def colliding_check(self, tiles, monster_list, item_list):
@@ -133,12 +182,19 @@ class Player():
             if self.isAttacking:
                 if self.left and abs(self.pos.left - monster.pos.right) > SCREEN_WIDTH/15 and abs(self.pos.left - monster.pos.right) < SCREEN_WIDTH/7.57:
                     monster.get_hit(self.DMG)
-                    monster.hit_side = True
+                    if monster.health <= 0:
+                        monster.isDead = True
+                    else:
+                        monster.hit_side = True
                 elif not self.left and abs(self.pos.right - monster.pos.left) > SCREEN_WIDTH/15 and abs(self.pos.right - monster.pos.left) < SCREEN_WIDTH/7.57:
                     monster.get_hit(self.DMG)
-                    monster.hit_side = False
+                    if monster.health <= 0:
+                        monster.isDead = True
+                    else:
+                        monster.hit_side = False
             elif monster.isAttacking:
-                self.get_hit(monster.DMG)
+                if not gettingDmg:
+                    self.get_hit(monster.DMG)
 
         hit_list.clear()
         for item in item_list:
@@ -151,12 +207,12 @@ class Player():
     def move(self, key_pressed):
 
         if key_pressed[pygame.K_RIGHT]:
-            if not self.isAttacking and not self.collision_types["right"]:
+            if not self.isAttacking and not self.collision_types["right"] and not self.gettingDmg and not self.isDead:
                 self.pos.x += PL_VEL
                 self.right = True
                 self.left = False
         elif key_pressed[pygame.K_LEFT]:
-            if not self.isAttacking and not self.collision_types["left"]:
+            if not self.isAttacking and not self.collision_types["left"] and not self.gettingDmg and not self.isDead:
                 self.pos.x -= PL_VEL
                 self.right = False
                 self.left = True
@@ -165,7 +221,7 @@ class Player():
             self.left = False
 
         if not(self.isJumping):
-            if key_pressed[pygame.K_SPACE] and self.collision_types["bottom"]:
+            if key_pressed[pygame.K_SPACE] and self.collision_types["bottom"] and not self.gettingDmg and not self.isDead:
                 self.isJumping = True
                 self.right = False
                 self.left = False
@@ -182,7 +238,7 @@ class Player():
                 self.isJumping = False
                 self.jumpCount = 15
 
-        if key_pressed[pygame.K_z] and self.ATTACK_COOLDOWN == ATTACK_CD:
+        if key_pressed[pygame.K_z] and self.ATTACK_COOLDOWN == ATTACK_CD and not self.gettingDmg and not self.isDead:
             self.isAttacking = True
         elif self.ATTACK_COOLDOWN < ATTACK_CD:
             self.ATTACK_COOLDOWN -= 1
@@ -198,68 +254,97 @@ class Player():
             self.gravitySpeed += PLAYER_HEIGHT/200
 
     def get_hit(self, dmg):
-        if self.health_bar.targeted_health > 0:
+        if self.health_bar.targeted_health - dmg > 0:
             self.health_bar.targeted_health -= dmg
         else:
             self.health_bar.targeted_health = 0
-        print(self.health_bar.targeted_health)
+            self.isDead = True
+        if not self.isDead:
+            self.gettingDmg = True
 
     def heal(self, health_amount):
         if self.health_bar.targeted_health != self.health_bar.max_health:
             self.health_bar.targeted_health += health_amount
             if self.health_bar.targeted_health > self.health_bar.max_health:
                 self.health_bar.targeted_health = self.health_bar.max_health
-        print(self.health_bar.targeted_health)
 
     def dmg_up(self, dmg_value):
         self.DMG += dmg_value
 
-    def player_animation(self, WIN):
-        if self.walkCount + 1 >= 36:
-            self.walkCount = 0
+    def player_animation(self, WIN, monster_list, killed_monster):
+        if self.isDead:
+            if self.deathCount >= 49:
+                self.deathCount = 0
+                self.pos.x, self.pos.y = self.starting_pos[0], self.starting_pos[1]
+                self.health_bar.targeted_health = self.health_bar.max_health
+                self.health_bar.current_health = self.health_bar.max_health
+                monster_list += killed_monster
+                killed_monster.clear()
+                self.isDead = False
+            else:
+                if self.hitSide:
+                    WIN.blit(DEAD_RIGHT[round(self.deathCount // 7)], self.pos)
+                else:
+                    WIN.blit(DEAD_LEFT[round(self.deathCount // 7)], self.pos)
+                self.deathCount += 0.6
 
-        if self.idleCount + 1 >= 9:
-            self.idleCount = 0
+        elif self.gettingDmg:
+            if self.hitCount >= 9:
+                self.hitCount = 0
+                self.gettingDmg = False
 
-        if self.attackCount + 1 >= 25:
-            self.attackCount = 0
-            self.ATTACK_COOLDOWN -= 1
-            self.isAttacking = False
+            if self.hitSide:
+                WIN.blit(HIT_RIGHT[round(self.hitCount // 3)], self.pos)
+            else:
+                WIN.blit(HIT_LEFT[round(self.hitCount // 3)], self.pos)
 
-        if self.isAttacking and self.left:
-            WIN.blit(ATTACK_LEFT[self.attackCount // 5], (self.pos.x, self.pos.y))
-            self.attackCount += 1
-
-        elif self.isAttacking:
-            WIN.blit(ATTACK_RIGHT[self.attackCount // 5], (self.pos.x, self.pos.y))
-            self.attackCount += 1
-
-        elif self.isAttacking and self.left:
-            WIN.blit(ATTACK_LEFT[self.attackCount // 5], (self.pos.x, self.pos.y))
-            self.attackCount += 1
-
-        elif self.left and not self.isJumping and not self.falling:
-            WIN.blit(WALK_LEFT[self.walkCount // 6], (self.pos.x, self.pos.y))
-            self.walkCount += 1
-
-        elif self.right and not self.isJumping and not self.falling:
-            WIN.blit(WALK_RIGHT[self.walkCount // 6], (self.pos.x, self.pos.y))
-            self.walkCount += 1
-
-        elif self.isJumping and self.left:
-            WIN.blit(JUMPING_LEFT[round(self.jumpCount // 4)], (self.pos.x, self.pos.y))
-
-        elif self.isJumping:
-            WIN.blit(JUMPING_RIGHT[round(self.jumpCount // 4)], (self.pos.x, self.pos.y))
-
-        elif self.falling and self.left:
-            WIN.blit(JUMPING_LEFT[1], (self.pos.x, self.pos.y))
-
-        elif self.falling:
-            WIN.blit(JUMPING_RIGHT[1], (self.pos.x, self.pos.y))
+            self.hitCount += 0.5
         else:
-            WIN.blit(STANDING[round(self.idleCount // 3)], (self.pos.x, self.pos.y))
-            self.idleCount += 0.2
+            if self.walkCount + 1 >= 36:
+                self.walkCount = 0
+
+            if self.idleCount + 1 >= 9:
+                self.idleCount = 0
+
+            if self.attackCount + 1 >= 25:
+                self.attackCount = 0
+                self.ATTACK_COOLDOWN -= 1
+                self.isAttacking = False
+
+            if self.isAttacking and self.left:
+                WIN.blit(ATTACK_LEFT[self.attackCount // 5], self.pos)
+                self.attackCount += 1
+
+            elif self.isAttacking:
+                WIN.blit(ATTACK_RIGHT[self.attackCount // 5], self.pos)
+                self.attackCount += 1
+
+            elif self.isAttacking and self.left:
+                WIN.blit(ATTACK_LEFT[self.attackCount // 5], self.pos)
+                self.attackCount += 1
+
+            elif self.left and not self.isJumping and not self.falling:
+                WIN.blit(WALK_LEFT[self.walkCount // 6], self.pos)
+                self.walkCount += 1
+
+            elif self.right and not self.isJumping and not self.falling:
+                WIN.blit(WALK_RIGHT[self.walkCount // 6], self.pos)
+                self.walkCount += 1
+
+            elif self.isJumping and self.left:
+                WIN.blit(JUMPING_LEFT[round(self.jumpCount // 4)], self.pos)
+
+            elif self.isJumping:
+                WIN.blit(JUMPING_RIGHT[round(self.jumpCount // 4)], self.pos)
+
+            elif self.falling and self.left:
+                WIN.blit(JUMPING_LEFT[1], self.pos)
+
+            elif self.falling:
+                WIN.blit(JUMPING_RIGHT[1], self.pos)
+            else:
+                WIN.blit(STANDING[round(self.idleCount // 3)], self.pos)
+                self.idleCount += 0.2
 
         self.health_bar.draw_health_bar(WIN)
         # pygame.draw.rect(WIN, (0, 0, 0), self.pos)
