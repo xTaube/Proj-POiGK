@@ -193,7 +193,7 @@ class Player():
                     else:
                         monster.hit_side = False
             elif monster.isAttacking:
-                if not gettingDmg:
+                if not self.gettingDmg:
                     self.get_hit(monster.DMG)
 
         hit_list.clear()
