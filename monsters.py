@@ -228,6 +228,7 @@ class Demon():
                 self.attackCount = 0
                 self.ATTACK_COOLDOWN -= 1
                 self.isAttacking = False
+                self.playerVeryNearby = False
 
             if self.isAttacking and self.left:
                 WIN.blit(self.HEAVY_ATTACK_RIGHT[round(self.attackCount // 6)], self.pos)
@@ -260,7 +261,6 @@ class Demon():
             self.playerNearby = True
         else:
             self.playerNearby = False
-            self.playerVeryNearby = False
 
     def player_very_nearby(self, pl):
         if pl.pos.x - self.DEMON_WIDTH * 0.6 < self.pos.x < pl.pos.x + (self.DEMON_WIDTH // 2) * 0.3 and (

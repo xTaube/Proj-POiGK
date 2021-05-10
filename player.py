@@ -192,9 +192,15 @@ class Player():
                         monster.isDead = True
                     else:
                         monster.hit_side = False
-            elif monster.isAttacking:
+            elif monster.isAttacking and monster.attackCount == 16:
                 if not self.gettingDmg:
-                    self.get_hit(monster.DMG)
+                    print(monster.pos.right - self.pos.left)
+                    if monster.right and abs(monster.pos.left - self.pos.right) > 80 and abs(monster.pos.left - self.pos.right) < 300:
+                        self.get_hit(monster.DMG)
+                        self.hitSide = True
+                    elif monster.left and abs(monster.pos.right - self.pos.left) > 100 and abs(monster.pos.right - self.pos.left) < 300:
+                        self.get_hit(monster.DMG)
+                        self.hitSide = False
 
         hit_list.clear()
         for item in item_list:
