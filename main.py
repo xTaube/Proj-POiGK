@@ -71,6 +71,7 @@ def main_menu():
 
 
 def game(FPS, clock, map_index, gameMap, pl):
+
     game_on = True
     while game_on:
         clock.tick(FPS)
