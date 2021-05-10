@@ -58,6 +58,7 @@ class GameMap:
         self.starting_point = starting_point
         self.monster_list = monster_list
         self.item_list = item_list
+        self.killed_monsters = []
         self.tiles_rects = []
 
     def draw_map(self):
@@ -85,7 +86,7 @@ class GameMap:
 
     def every_animation(self, pl):
         for monster in self.monster_list:
-            monster.enemy_animation(WIN, pl)
+            monster.enemy_animation(WIN, pl, self.monster_list, self.killed_monsters)
 
         for items in self.item_list:
             items.animation()
@@ -194,17 +195,18 @@ class Dmg_up:
             return True
 
 
-gameMap_list = []
+def create_game_map_list():
+    gameMap_list = []
 
-Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-              [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-              [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-              [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-              [-1, -1, -1, -1, -1,  5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-              [-1, -1, -1,  0, -1, -1, -1, -1, -1, -1, -1, -1, -1, 12, 14, -1],
-              [-1, -1, -1, -1, -1, -1,  9, 10,  9, -1, -1, 11, 13, -1, -1, -1],
-              [ 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4],
-              [ 8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8]]
+    Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+                 [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+                 [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+                 [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+                 [-1, -1, -1, -1, -1,  5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+                 [-1, -1, -1,  0, -1, -1, -1, -1, -1, -1, -1, -1, -1, 12, 14, -1],
+                 [-1, -1, -1, -1, -1, -1,  9, 10,  9, -1, -1, 11, 13, -1, -1, -1],
+                 [ 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4],
+                 [ 8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8]]
 
-
-gameMap_list.append(GameMap(Game_level, (200, 700), [Demon(500, 585, 1400)], [Life_up(5, 800, 550)]))
+    gameMap_list.append(GameMap(Game_level, (200, 700), [Demon(500, 585, 1400)], [Life_up(5, 800, 550), Heal(10, 300, 550), Dmg_up(5, 1200, 650)]))
+    return gameMap_list

@@ -2,13 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28ebda1d-35a4-4c18-9b87-9f3061c1daa8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/menu/Continue Button.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/menu/New game Button.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/menu/Options Button.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/menu/Resume Button.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/player animation/pl-die-00.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/player animation/pl-die-01.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/player animation/pl-die-02.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/player animation/pl-die-03.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/player animation/pl-die-04.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/player animation/pl-die-05.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/player animation/pl-die-06.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/monsters.py" beforeDir="false" afterPath="$PROJECT_DIR$/monsters.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,6 +100,7 @@
       <workItem from="1620333106919" duration="707000" />
       <workItem from="1620379665584" duration="8805000" />
       <workItem from="1620392087127" duration="14190000" />
+      <workItem from="1620641313412" duration="9437000" />
     </task>
     <servers />
   </component>
@@ -119,6 +124,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Projekt_POiGK$main.coverage" NAME="main Coverage Results" MODIFIED="1618612995400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Proj_POiGK$main.coverage" NAME="main Coverage Results" MODIFIED="1620572874829" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Proj_POiGK$main.coverage" NAME="main Coverage Results" MODIFIED="1620650533945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
