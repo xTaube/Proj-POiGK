@@ -1,7 +1,7 @@
 import pygame
 import os
 from conf import SCREEN_WIDTH, SCREEN_HEIGHT
-
+import time
 ATTACK_CD = 50
 
 
@@ -112,9 +112,13 @@ class Demon():
                            pygame.image.load(os.path.join("enemy animation\\demon", "ready_4.png")),
                            pygame.image.load(os.path.join("enemy animation\\demon", "ready_5.png")),
                            pygame.image.load(os.path.join("enemy animation\\demon", "ready_6.png"))]
-    STANDING = []
+    STANDING_RIGHT = []
     for img in STANDING_ANIMATIONS:
-        STANDING.append(pygame.transform.scale(img, (DEMON_WIDTH, DEMON_HEIGHT)))
+        STANDING_RIGHT.append(pygame.transform.scale(img, (DEMON_WIDTH, DEMON_HEIGHT)))
+
+    STANDING_LEFT = []
+    for img in STANDING_RIGHT:
+        STANDING_LEFT.append(pygame.transform.flip(img, True, False))
 
     #####
     def __init__(self, posX, posY, posEnd):
@@ -199,11 +203,11 @@ class Demon():
                 # self.sprintCount = 0
                 # self.pos.x += self.vel
             if self.vel > 0 and self.pos.centerx + self.DEMON_WIDTH // 15 < pl.pos.x:
-                self.pos.x += 1.2 * self.vel
+                self.pos.x += 1.25 * self.vel
                 # self.left = True
                 # self.right = False
             if self.vel < 0 and self.pos.x + self.DEMON_WIDTH // 10 > pl.pos.x:
-                self.pos.x += 1.2 * self.vel
+                self.pos.x += 1.25 * self.vel
                 # self.left = False
                 # self.right = True
 
@@ -215,7 +219,7 @@ class Demon():
         if self.idleCount + 1 >= 36:
             self.idleCount = 0
 
-        if not self.playerNearby:
+        if not self.playerNearby and not self.playerVeryNearby:
             if self.vel > 0:
                 WIN.blit(self.WALK_RIGHT[round(self.walkCount // 6)], self.pos)
                 self.walkCount += 0.5
@@ -230,16 +234,21 @@ class Demon():
                 self.isAttacking = False
                 self.playerVeryNearby = False
 
-            if self.isAttacking and self.left:
+
+            elif self.isAttacking and self.left and not pl.isDead:
                 WIN.blit(self.HEAVY_ATTACK_RIGHT[round(self.attackCount // 6)], self.pos)
                 self.attackCount += 1
 
-            elif self.isAttacking and self.right:
+            elif self.isAttacking and self.right and not pl.isDead:
                 WIN.blit(self.LIGHT_ATTACK_LEFT[round(self.attackCount // 6)], self.pos)
                 self.attackCount += 1
             else:
-                WIN.blit(self.STANDING[round(self.idleCount // 6)], self.pos)
-                self.idleCount += 0.3
+                if self.left:
+                    WIN.blit(self.STANDING_RIGHT[round(self.idleCount // 6)], self.pos)
+                    self.idleCount += 0.3
+                elif self.right:
+                    WIN.blit(self.STANDING_LEFT[round(self.idleCount // 6)], self.pos)
+                    self.idleCount += 0.3
 
         elif self.playerNearby:
             if self.vel > 0:
@@ -249,6 +258,12 @@ class Demon():
                 WIN.blit(self.SPRINT_LEFT[round(self.sprintCount // 6)], self.pos)
                 self.sprintCount += 0.5
 
+
+
+
+
+
+
     def get_hit(self, dmg):
         if not self.gettingDMG:
             self.health -= dmg
@@ -256,15 +271,15 @@ class Demon():
         print(self.health)
 
     def player_nearby(self, pl):
-        if pl.pos.x - self.DEMON_WIDTH * 1.2 < self.pos.x < pl.pos.x + (self.DEMON_WIDTH // 2) * 1.2 and (
-                self.pos.y + self.DEMON_HEIGHT / 2 > pl.pos.top and self.pos.y + self.DEMON_HEIGHT / 2 < pl.pos.bottom):
+        if pl.pos.x - self.DEMON_WIDTH * 1.35 < self.pos.x < pl.pos.x + (self.DEMON_WIDTH // 2) * 1.35 and (
+                pl.pos.top < self.pos.y + self.DEMON_HEIGHT / 2 < pl.pos.bottom):
             self.playerNearby = True
         else:
             self.playerNearby = False
 
     def player_very_nearby(self, pl):
-        if pl.pos.x - self.DEMON_WIDTH * 0.6 < self.pos.x < pl.pos.x + (self.DEMON_WIDTH // 2) * 0.3 and (
-                self.pos.y + self.DEMON_HEIGHT / 2 > pl.pos.top and self.pos.y + self.DEMON_HEIGHT / 2 < pl.pos.bottom):
+        if pl.pos.x - self.DEMON_WIDTH * 0.6 < self.pos.x + self.DEMON_WIDTH // 12 < pl.pos.x + (self.DEMON_WIDTH // 2) * 0.3 and (
+                pl.pos.top < self.pos.y + self.DEMON_HEIGHT / 2 < pl.pos.bottom):
             self.playerVeryNearby = True
         if pl.pos.x - self.DEMON_WIDTH * 0.6 < self.pos.x - self.DEMON_WIDTH // 4:
             self.right = True   # monster jest na prawo od gracza

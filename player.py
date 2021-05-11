@@ -139,6 +139,7 @@ class Player():
         self.gravitySpeed = 5
         self.DMG = 5
 
+
         #states
         self.right = False
         self.left = False
@@ -287,6 +288,7 @@ class Player():
                 monster_list += killed_monster
                 killed_monster.clear()
                 self.isDead = False
+
             else:
                 if self.hitSide:
                     WIN.blit(DEAD_RIGHT[round(self.deathCount // 7)], self.pos)
