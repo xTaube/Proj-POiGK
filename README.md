@@ -12,5 +12,6 @@ Technologies:
  - python 3.8
  - pygame
 
-Status:
- Project is in progress
+Status: project is in progress
+
+Contributors: @JakubKoniuszewski & @xTaube
