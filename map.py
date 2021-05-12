@@ -208,5 +208,5 @@ def create_game_map_list():
                  [ 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4],
                  [ 8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8]]
 
-    gameMap_list.append(GameMap(Game_level, (200, 700), [Demon(500, 585, 1400), Demon(400, 585, 1000)], [Life_up(5, 800, 550), Heal(10, 300, 550), Dmg_up(5, 1200, 650)]))
+    gameMap_list.append(GameMap(Game_level, (200, 700), [Demon(600, 585, 1300), Demon(500, 585, 1000)], [Life_up(5, 800, 550), Heal(10, 300, 550), Dmg_up(5, 1200, 650)]))
     return gameMap_list

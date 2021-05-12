@@ -176,8 +176,13 @@ class Demon():
             # pygame.draw.rect(WIN, (0, 0, 0), self.pos)
 
     def move(self, WIN, pl):
+
         self.player_nearby(pl)
         self.player_very_nearby(pl)
+
+        if pl.isDead:
+            self.playerNearby = False
+            self.playerVeryNearby = False
 
         if not self.playerNearby:
             if self.vel > 0:
@@ -220,6 +225,7 @@ class Demon():
             self.idleCount = 0
 
         if not self.playerNearby and not self.playerVeryNearby:
+            self.isAttacking = False
             if self.vel > 0:
                 WIN.blit(self.WALK_RIGHT[round(self.walkCount // 6)], self.pos)
                 self.walkCount += 0.5
@@ -236,7 +242,7 @@ class Demon():
 
 
             elif self.isAttacking and self.left and not pl.isDead:
-                WIN.blit(self.HEAVY_ATTACK_RIGHT[round(self.attackCount // 6)], self.pos)
+                WIN.blit(self.LIGHT_ATTACK_RIGHT[round(self.attackCount // 6)], self.pos)
                 self.attackCount += 1
 
             elif self.isAttacking and self.right and not pl.isDead:
@@ -250,7 +256,8 @@ class Demon():
                     WIN.blit(self.STANDING_LEFT[round(self.idleCount // 6)], self.pos)
                     self.idleCount += 0.3
 
-        elif self.playerNearby:
+        elif self.playerNearby and not self.playerVeryNearby:
+            self.isAttacking = False
             if self.vel > 0:
                 WIN.blit(self.SPRINT_RIGHT[round(self.sprintCount // 6)], self.pos)
                 self.sprintCount += 0.5
@@ -271,15 +278,16 @@ class Demon():
         print(self.health)
 
     def player_nearby(self, pl):
-        if pl.pos.x - self.DEMON_WIDTH * 1.35 < self.pos.x < pl.pos.x + (self.DEMON_WIDTH // 2) * 1.35 and (
-                pl.pos.top < self.pos.y + self.DEMON_HEIGHT / 2 < pl.pos.bottom):
+        if pl.pos.x - self.DEMON_WIDTH * 1.3 < self.pos.x < pl.pos.x + (self.DEMON_WIDTH // 2) * 1.3 and (
+                pl.pos.top*0.63 < pl.pos.top - (pl.pos.bottom - pl.pos.top)):
             self.playerNearby = True
         else:
+            self.playerVeryNearby = False
             self.playerNearby = False
 
     def player_very_nearby(self, pl):
-        if pl.pos.x - self.DEMON_WIDTH * 0.6 < self.pos.x + self.DEMON_WIDTH // 12 < pl.pos.x + (self.DEMON_WIDTH // 2) * 0.3 and (
-                pl.pos.top < self.pos.y + self.DEMON_HEIGHT / 2 < pl.pos.bottom):
+        if pl.pos.x - self.DEMON_WIDTH * 0.65 < self.pos.x + self.DEMON_WIDTH // 12 < pl.pos.x + (self.DEMON_WIDTH // 2) * 0.3 and (
+                pl.pos.top< self.pos.y + self.DEMON_HEIGHT / 2 < pl.pos.bottom):
             self.playerVeryNearby = True
         if pl.pos.x - self.DEMON_WIDTH * 0.6 < self.pos.x - self.DEMON_WIDTH // 4:
             self.right = True   # monster jest na prawo od gracza
