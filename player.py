@@ -82,9 +82,8 @@ for img in DEAD_RIGHT:
     DEAD_LEFT.append(pygame.transform.flip(img, True, False))
 #--------------------------------------------------------------------
 
-PL_VEL = PLAYER_WIDTH//18
 ATTACK_CD = 30
-
+JUMPING_CD = 15
 
 class Health_bar():
     def __init__(self, max_health, health_bar_length):
@@ -135,8 +134,10 @@ class Player():
         self.hitCount = 0
         self.deathCount = 0
         self.ATTACK_COOLDOWN = ATTACK_CD
+        self.JUMP_COOLDOWN = JUMPING_CD
         self.health_bar = Health_bar(100, 400)
         self.gravitySpeed = 5
+        self.vel = PLAYER_WIDTH//18
         self.DMG = 5
 
 
@@ -165,7 +166,7 @@ class Player():
             elif abs(tile.right - self.pos.left - PLAYER_WIDTH//3) < PLAYER_WIDTH//10 and abs(tile.top - self.pos.bottom) > PLAYER_WIDTH//3:
                 collision_types["left"] = True
 
-            if (abs(tile.bottom - self.pos.top) > PLAYER_WIDTH//4 and abs(tile.bottom - self.pos.top) < PLAYER_WIDTH//2) and (tile.left - PLAYER_WIDTH//2 < self.pos.x and tile.right - PLAYER_WIDTH//3 > self.pos.x):
+            if (abs(tile.bottom - self.pos.top) > PLAYER_WIDTH//4 and abs(tile.bottom - self.pos.top) < PLAYER_WIDTH//2) and (tile.left - PLAYER_WIDTH/1.5 < self.pos.x and tile.right - PLAYER_WIDTH//3 > self.pos.x):
                 collision_types["top"] = True
 
             elif abs(tile.top - self.pos.bottom + PLAYER_WIDTH//3) < PLAYER_WIDTH//2 and abs(tile.right - self.pos.left - PLAYER_WIDTH/5) > PLAYER_WIDTH/5 and abs(tile.left - self.pos.right + PLAYER_WIDTH/5) > PLAYER_WIDTH/4.5:
@@ -215,12 +216,12 @@ class Player():
 
         if key_pressed[pygame.K_RIGHT]:
             if not self.isAttacking and not self.collision_types["right"] and not self.gettingDmg and not self.isDead:
-                self.pos.x += PL_VEL
+                self.pos.x += self.vel
                 self.right = True
                 self.left = False
         elif key_pressed[pygame.K_LEFT]:
             if not self.isAttacking and not self.collision_types["left"] and not self.gettingDmg and not self.isDead:
-                self.pos.x -= PL_VEL
+                self.pos.x -= self.vel
                 self.right = False
                 self.left = True
         else:
@@ -228,11 +229,18 @@ class Player():
             self.left = False
 
         if not(self.isJumping):
-            if key_pressed[pygame.K_SPACE] and self.collision_types["bottom"] and not self.gettingDmg and not self.isDead:
+            if key_pressed[pygame.K_SPACE] and self.collision_types["bottom"] and not self.gettingDmg and not self.isDead and self.JUMP_COOLDOWN == JUMPING_CD:
                 self.isJumping = True
                 self.right = False
                 self.left = False
                 self.walkCount = 0
+                self.JUMP_COOLDOWN -= 1
+                self.vel = PLAYER_WIDTH // 10
+
+            elif self.JUMP_COOLDOWN < JUMPING_CD:
+                self.JUMP_COOLDOWN -= 1
+                if self.JUMP_COOLDOWN <= 0:
+                    self.JUMP_COOLDOWN = JUMPING_CD
         else:
             if not self.collision_types["top"]:
                 if self.jumpCount >= 0:
@@ -241,9 +249,11 @@ class Player():
                 else:
                     self.isJumping = False
                     self.jumpCount = 15
+                    self.vel = PLAYER_WIDTH // 18
             else:
                 self.isJumping = False
                 self.jumpCount = 15
+                self.vel = PLAYER_WIDTH // 18
 
         if key_pressed[pygame.K_z] and self.ATTACK_COOLDOWN == ATTACK_CD and not self.gettingDmg and not self.isDead:
             self.isAttacking = True
@@ -346,10 +356,10 @@ class Player():
                 WIN.blit(JUMPING_RIGHT[round(self.jumpCount // 4)], self.pos)
 
             elif self.falling and self.left:
-                WIN.blit(JUMPING_LEFT[1], self.pos)
+                WIN.blit(JUMPING_LEFT[0], self.pos)
 
             elif self.falling:
-                WIN.blit(JUMPING_RIGHT[1], self.pos)
+                WIN.blit(JUMPING_RIGHT[0], self.pos)
             else:
                 WIN.blit(STANDING[round(self.idleCount // 3)], self.pos)
                 self.idleCount += 0.2

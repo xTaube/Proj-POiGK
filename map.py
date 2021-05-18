@@ -2,7 +2,7 @@ import pygame
 import os
 from conf import SCREEN_WIDTH, SCREEN_HEIGHT
 from monsters import Demon, Imp, Skeleton
-
+pygame.init()
 
 WIN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 
@@ -42,6 +42,7 @@ BUTTONS = [pygame.transform.scale(pygame.image.load(os.path.join("menu", "Resume
            pygame.transform.scale(pygame.image.load(os.path.join("menu", "Options Button.png")).convert(), (BUTTONS_WIDTH, BUTTONS_HEIGHT)),
            pygame.transform.scale(pygame.image.load(os.path.join("menu", "Continue Button.png")).convert(), (BUTTONS_WIDTH, BUTTONS_HEIGHT))]
 
+Control_options = pygame.transform.scale(pygame.image.load(os.path.join("menu", "Control_options.png")).convert(), (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 class Button:
     def __init__(self, posX, posY, img):
@@ -51,6 +52,16 @@ class Button:
     def draw_button(self):
         WIN.blit(self.img, self.pos)
 
+
+# class Options_text:
+#     font = pygame.font.SysFont('Comic Sans MS', 50)
+#
+#     def __init__(self, text, pos):
+#         self.textsurface = self.font.render(text, False, (255, 255, 255))
+#         self.pos = pos
+#
+#     def draw_text(self):
+#         WIN.blit(self.textsurface, self.pos)
 
 class GameMap:
     def __init__(self, game_level_map, starting_point, monster_list, item_list):
