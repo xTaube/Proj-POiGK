@@ -128,6 +128,7 @@ class Health_bar():
 
 
 class Player():
+    """Klasa opisująca protagonistę"""
     def __init__(self, pos):
         self.starting_pos = [pos[0], pos[1]]
         self.pos = pygame.Rect(pos[0], pos[1], PLAYER_WIDTH, PLAYER_HEIGHT)
@@ -245,7 +246,7 @@ class Player():
                 self.left = False
                 self.walkCount = 0
                 self.JUMP_COOLDOWN -= 1
-                self.vel = PLAYER_WIDTH // 10
+                self.vel = self.vel*2
 
             elif self.JUMP_COOLDOWN < JUMPING_CD:
                 self.JUMP_COOLDOWN -= 1
