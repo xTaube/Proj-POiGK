@@ -24,9 +24,13 @@ for img in WALK_RIGHT:
 STANDING_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-idle-0.png")),
                        pygame.image.load(os.path.join("player animation", "pl-idle-1.png")),
                        pygame.image.load(os.path.join("player animation", "pl-idle-2.png"))]
-STANDING = []
+STANDING_RIGHT = []
 for img in STANDING_ANIMATIONS:
-    STANDING.append(pygame.transform.scale(img, (PLAYER_WIDTH, PLAYER_HEIGHT)))
+    STANDING_RIGHT.append(pygame.transform.scale(img, (PLAYER_WIDTH, PLAYER_HEIGHT)))
+
+STANDING_LEFT = []
+for img in STANDING_RIGHT:
+    STANDING_LEFT.append(pygame.transform.flip(img, True, False))
 
 JUMPING_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-jump-3.png")),
                       pygame.image.load(os.path.join("player animation", "pl-jump-2.png")),
@@ -144,6 +148,8 @@ class Player():
         #states
         self.right = False
         self.left = False
+        self.isRight = False
+        self.isLeft = False
         self.isJumping = False
         self.falling = False
         self.isAttacking = False
@@ -219,11 +225,15 @@ class Player():
                 self.pos.x += self.vel
                 self.right = True
                 self.left = False
+                self.isRight = True
+                self.isLeft = False
         elif key_pressed[pygame.K_LEFT]:
             if not self.isAttacking and not self.collision_types["left"] and not self.gettingDmg and not self.isDead:
                 self.pos.x -= self.vel
                 self.right = False
                 self.left = True
+                self.isRight = False
+                self.isLeft = True
         else:
             self.right = False
             self.left = False
@@ -329,11 +339,11 @@ class Player():
                 self.ATTACK_COOLDOWN -= 1
                 self.isAttacking = False
 
-            if self.isAttacking and self.left:
+            if self.isAttacking and self.isLeft:
                 WIN.blit(ATTACK_LEFT[self.attackCount // 5], self.pos)
                 self.attackCount += 1
 
-            elif self.isAttacking:
+            elif self.isAttacking and self.isRight:
                 WIN.blit(ATTACK_RIGHT[self.attackCount // 5], self.pos)
                 self.attackCount += 1
 
@@ -361,8 +371,12 @@ class Player():
             elif self.falling:
                 WIN.blit(JUMPING_RIGHT[0], self.pos)
             else:
-                WIN.blit(STANDING[round(self.idleCount // 3)], self.pos)
-                self.idleCount += 0.2
+                if self.isLeft:
+                    WIN.blit(STANDING_LEFT[round(self.idleCount // 3)], self.pos)
+                    self.idleCount += 0.2
+                else:
+                    WIN.blit(STANDING_RIGHT[round(self.idleCount // 3)], self.pos)
+                    self.idleCount += 0.2
 
         self.health_bar.draw_health_bar(WIN)
         # pygame.draw.rect(WIN, (0, 0, 0), self.pos)
