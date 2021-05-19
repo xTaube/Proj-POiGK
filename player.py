@@ -96,7 +96,7 @@ class Health_bar():
         self.targeted_health = max_health
         self.health_bar_length = health_bar_length
         self.health_ratio = self.max_health / self.health_bar_length
-        self.health_change_speed = 0.5
+        self.health_change_speed = 1
 
     def draw_health_bar(self, WIN):
         transition_width = 0
@@ -255,8 +255,8 @@ class Player():
         else:
             if not self.collision_types["top"]:
                 if self.jumpCount >= 0:
-                    self.pos.y -= (self.jumpCount ** 2) * PLAYER_HEIGHT/900
-                    self.jumpCount -= 1
+                    self.pos.y -= (self.jumpCount ** 2 - self.jumpCount) * PLAYER_HEIGHT/1150
+                    self.jumpCount -= 0.75
                 else:
                     self.isJumping = False
                     self.jumpCount = 15
@@ -299,17 +299,18 @@ class Player():
     def dmg_up(self, dmg_value):
         self.DMG += dmg_value
 
-    def player_animation(self, WIN, monster_list, killed_monster):
+    def player_animation(self, WIN, monster_list, killed_monster, cleared):
         if self.isDead:
             if self.deathCount >= 49:
                 self.deathCount = 0
                 self.pos.x, self.pos.y = self.starting_pos[0], self.starting_pos[1]
                 self.health_bar.targeted_health = self.health_bar.max_health
                 self.health_bar.current_health = self.health_bar.max_health
-                monster_list += killed_monster
-                killed_monster.clear()
-                self.isDead = False
+                if not cleared:
+                    monster_list += killed_monster
+                    killed_monster.clear()
 
+                self.isDead = False
             else:
                 if self.hitSide:
                     WIN.blit(DEAD_RIGHT[round(self.deathCount // 7)], self.pos)
