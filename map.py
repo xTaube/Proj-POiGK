@@ -1,7 +1,7 @@
 import pygame
 import os
 from conf import SCREEN_WIDTH, SCREEN_HEIGHT
-from monsters import Demon, Imp, Skeleton
+from monsters import Demon, Imp, Skeleton, Knight
 pygame.init()
 
 WIN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
@@ -29,7 +29,9 @@ PLATFORM_TILES = [pygame.transform.scale(pygame.image.load(os.path.join("map ass
                   pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "tree1.png")).convert(), (SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9)),                                                     #11
                   pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "tree2.png")).convert(), (SCREEN_WIDTH // 8, SCREEN_HEIGHT // 4)),                                                      #12
                   pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "rockpile2.png")).convert(), (SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9)),                                                 #13
-                  pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "rockpile3.png")).convert(), (SCREEN_WIDTH // 8, SCREEN_HEIGHT // 4))]                                                  #14
+                  pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "rockpile3.png")).convert(), (SCREEN_WIDTH // 8, SCREEN_HEIGHT // 4)),                                                  #14
+                  pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "rock_wall_2.png")).convert(), (SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9)),   #15
+                  pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "path_tile_2.png")).convert(), (SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9)) ]       #16
 
 
 for tile in PLATFORM_TILES:
@@ -77,7 +79,7 @@ class GameMap:
         for col in range(len(self.game_level_map)):
             for row in range(len(self.game_level_map[0])):
                 if self.game_level_map[col][row] != -1:
-                    if self.game_level_map[col][row] > 8:
+                    if self.game_level_map[col][row] > 8 and self.game_level_map[col][row] < 15:  # dla 15,16 kolizja
                         if self.game_level_map[col][row] == 12 or self.game_level_map[col][row] == 14:
                             WIN.blit(PLATFORM_TILES[self.game_level_map[col][row]], (row * SCREEN_WIDTH // 16, col * SCREEN_WIDTH // 16 - SCREEN_HEIGHT // 100))
                         else:
@@ -92,8 +94,8 @@ class GameMap:
                             else:
                                 self.tiles_rects.append(pygame.Rect(row * SCREEN_WIDTH // 16, col * SCREEN_HEIGHT // 9, SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9))
 
-        # for tile in self.tiles_rects:
-        #     pygame.draw.rect(WIN, (255, 255, 255), tile)
+       # for tile in self.tiles_rects:
+        #    pygame.draw.rect(WIN, (255, 255, 255), tile)
 
     def every_animation(self, pl):
         for monster in self.monster_list:
@@ -211,15 +213,15 @@ def create_game_map_list():
 
     Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
                  [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-                 [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-                 [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-                 [-1, -1, -1, -1, -1,  5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-                 [-1, -1, -1,  0, -1, -1, -1, -1,  0, -1, -1, 0, -1, 12, 14, -1],
-                 [-1, -1, -1, -1, -1, -1,  9, 10,  9, 11, -1, 11, 13, -1, -1, -1],
-                 [ 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4],
+                 [-1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1],
+                 [9, 5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+                 [16, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+                 [6, -1, -1, 0, 0, 0, -1, -1, -1, 0, 0, 0, -1, 12, 14, -1],
+                 [6, 9, 9, -1, 10, -1, 10, -1,  10, -1, 10, 10, 13, -1, -1, -1],
+                 [ 15,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  3,  3,  4],
                  [ 8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8]]
 
-    gameMap_list.append(GameMap(Game_level, (200, 700), [Imp(500, 585, 1000)], [Life_up(5, 800, 550), Heal(10, 300, 550), Dmg_up(5, 1200, 650)]))
+    gameMap_list.append(GameMap(Game_level, (200, 700),[Demon(600, 585, 1400),Imp(220, 350, 600),Skeleton(950, 350, 1350),Knight(550, -50, 1350)], [Life_up(10, 1450, 160), Heal(20, 125, 280), Dmg_up(5, 1450, 510)]))
     return gameMap_list
-
+#Demon(600, 585, 1400),Imp(220, 350, 600),Skeleton(950, 350, 1350),Knight(550, -50, 1350)
 #Imp(600, 585, 1300),

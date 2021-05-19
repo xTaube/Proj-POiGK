@@ -188,7 +188,7 @@ class Player():
 
         for monster in hit_list:
             if self.isAttacking:
-                if self.left and abs(self.pos.left - monster.pos.right) > SCREEN_WIDTH/15 and abs(self.pos.left - monster.pos.right) < SCREEN_WIDTH/7.57:
+                if self.isLeft and abs(self.pos.left - monster.pos.right) > SCREEN_WIDTH/15 and abs(self.pos.left - monster.pos.right) < SCREEN_WIDTH/7.57:
                     monster.get_hit(self.DMG)
                     if monster.health <= 0:
                         monster.isDead = True
