@@ -188,7 +188,7 @@ class Player():
                 hit_list.append(monster)
 
         for monster in hit_list:
-            if self.isAttacking:
+            if self.isAttacking and self.attackCount == 14:
                 if self.isLeft and abs(self.pos.left - monster.pos.right) > SCREEN_WIDTH/15 and abs(self.pos.left - monster.pos.right) < SCREEN_WIDTH/7.57:
                     monster.get_hit(self.DMG)
                     if monster.health <= 0:
@@ -205,10 +205,10 @@ class Player():
                 if not self.gettingDmg:
                     print(monster.pos.right - self.pos.left)
                     if monster.right and abs(monster.pos.left - self.pos.right) > 80 and abs(monster.pos.left - self.pos.right) < 300:
-                        self.get_hit(monster.DMG)
+                        self.get_hit(monster.DMG, monster_list)
                         self.hitSide = True
                     elif monster.left and abs(monster.pos.right - self.pos.left) > 100 and abs(monster.pos.right - self.pos.left) < 300:
-                        self.get_hit(monster.DMG)
+                        self.get_hit(monster.DMG, monster_list)
                         self.hitSide = False
 
         hit_list.clear()
@@ -255,7 +255,7 @@ class Player():
         else:
             if not self.collision_types["top"]:
                 if self.jumpCount >= 0:
-                    self.pos.y -= (self.jumpCount ** 2 - self.jumpCount) * PLAYER_HEIGHT/1150
+                    self.pos.y -= (self.jumpCount ** 2 - self.jumpCount) * PLAYER_HEIGHT/1165
                     self.jumpCount -= 0.75
                 else:
                     self.isJumping = False
@@ -281,12 +281,14 @@ class Player():
             self.pos.y += self.gravitySpeed
             self.gravitySpeed += PLAYER_HEIGHT/200
 
-    def get_hit(self, dmg):
+    def get_hit(self, dmg, monster_list):
         if self.health_bar.targeted_health - dmg > 0:
             self.health_bar.targeted_health -= dmg
         else:
             self.health_bar.targeted_health = 0
             self.isDead = True
+            for monster in monster_list:
+                monster.health = monster.MAX_HEALTH
         if not self.isDead:
             self.gettingDmg = True
 

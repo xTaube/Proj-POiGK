@@ -36,7 +36,7 @@ def draw_options():
 
     pygame.display.update()
 
-def check_map_conditions(pl, map_id, max_map_id):
+def check_map_conditions(pl, map_id, max_map_id, monster_list):
     if pl.pos.right > map.SCREEN_WIDTH and map_id != max_map_id:
         map_id += 1
         pl.pos.x -= map.SCREEN_WIDTH - player.PLAYER_WIDTH
@@ -52,7 +52,7 @@ def check_map_conditions(pl, map_id, max_map_id):
         pl.collision_types["left"] = True
 
     if pl.pos.top > map.SCREEN_HEIGHT:
-        pl.get_hit(pl.health_bar.max_health)
+        pl.get_hit(pl.health_bar.max_health, monster_list)
 
     return map_id
 
@@ -136,7 +136,7 @@ def game(FPS, clock, map_index, gameMap, pl):
 
         keys_pressed = pygame.key.get_pressed()
         pl.colliding_check(gameMap[map_index].tiles_rects, gameMap[map_index].monster_list, gameMap[map_index].item_list)
-        map_index = check_map_conditions(pl, map_index, len(gameMap)-1)
+        map_index = check_map_conditions(pl, map_index, len(gameMap)-1, gameMap[map_index].monster_list)
         pl.move(keys_pressed)
         draw_window(pl, gameMap[map_index])
 

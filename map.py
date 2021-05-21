@@ -30,8 +30,9 @@ PLATFORM_TILES = [pygame.transform.scale(pygame.image.load(os.path.join("map ass
                   pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "tree2.png")).convert(), (SCREEN_WIDTH // 8, SCREEN_HEIGHT // 4)),                                                      #12
                   pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "rockpile2.png")).convert(), (SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9)),                                                 #13
                   pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "rockpile3.png")).convert(), (SCREEN_WIDTH // 8, SCREEN_HEIGHT // 4)),                                                  #14
-                  pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "rock_wall_2.png")).convert(), (SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9)),   #15
-                  pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "path_tile_2.png")).convert(), (SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9)) ]       #16
+                  pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "rock_wall_2.png")).convert(), (SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9)),                                               #15
+                  pygame.transform.scale(pygame.transform.flip(pygame.image.load(os.path.join("map assets\\Ruin", "rock_wall_2.png")).convert(), True, False), (SCREEN_WIDTH//16, SCREEN_HEIGHT//9)),               #16
+                  pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "path_tile_2.png")).convert(), (SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9)) ]                                              #17
 
 
 for tile in PLATFORM_TILES:
@@ -214,10 +215,10 @@ def create_game_map_list():
 
     Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
                  [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-                 [-1, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1, -1],
-                 [ 9,  5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-                 [16, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-                 [ 6, -1, -1,  0,  0,  0, -1, -1, -1,  0,  0,  0, -1, 12, 14, -1],
+                 [-1, -1, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1, -1],
+                 [ 9, -1,  5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+                 [17, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+                 [ 6, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, 12, 14, -1],
                  [ 6,  9,  9, -1, 10, -1, 10, -1, 10, -1, 10, 10, 13, -1, -1, -1],
                  [15,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  3,  3,  4],
                  [ 8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8]]
@@ -226,24 +227,24 @@ def create_game_map_list():
         GameMap(
             Game_level, (200, 700),
             [Imp(220, 350, 600),Skeleton(950, 350, 1350),Knight(550, -50, 1350)],
-            [Life_up(10, 1450, 160), Heal(20, 125, 280), Dmg_up(5, 1450, 510)])
+            [Heal(20, 246, 280), Dmg_up(5, 1450, 150)])
     )
 
     Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
                  [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-                 [-1, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1, -1],
-                 [-1,  5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-                 [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-                 [-1, -1, -1, -1, -1, -1, -1, -1, -1,  0,  0,  0, -1, 12, 14, -1],
-                 [-1,  9,  9, -1, 10, -1, 10, -1, 10, -1, 10, 10, 13, -1, -1, -1],
-                 [ 4,  4,  4,  4,  4,  4, -1,  4,  4,  4,  4,  4,  4,  3,  3,  4],
-                 [ 8,  8,  8,  8,  8,  8, -1,  8,  8,  8,  8,  8,  8,  8,  8,  8]]
+                 [-1, -1,  5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 12, -1, -1],
+                 [-1, -1, -1, -1, -1, -1,  0, -1, -1, -1, -1, -1, -1, -1, 10, -1],
+                 [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  2,  4,  3,  4],
+                 [-1, -1, -1, 14, -1, -1, -1, -1, -1, -1,  5, -1,  7,  8,  8,  8],
+                 [-1, -1, -1, -1, -1,  9, -1, -1, 10, -1, -1, -1,  7,  8,  8,  8],
+                 [ 4,  4,  3,  4,  4,  1, -1, -1,  2,  4,  4,  4, 16,  8,  8,  8],
+                 [ 8,  8,  8,  8,  8,  6, -1, -1,  7,  8,  8,  8,  8,  8,  8,  8]]
 
     gameMap_list.append(
         GameMap(
             Game_level, (50, 700),
-            [Skeleton(950, 350, 1350), Knight(550, -50, 1350)],
-            [])
+            [Knight(600, 70, 700),Skeleton(1400, 225, 1600)],
+            [Life_up(40, 247, 160)])
     )
     return gameMap_list
 #Demon(600, 585, 1400),Imp(220, 350, 600),Skeleton(950, 350, 1350),Knight(550, -50, 1350)

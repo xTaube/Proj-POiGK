@@ -132,7 +132,8 @@ class Demon():
         self.hitCount = 0
         self.deathCount = 0
         self.vel = self.DEMON_WIDTH // 120
-        self.health = 30
+        self.MAX_HEALTH = 30
+        self.health = self.MAX_HEALTH
         self.DMG = 8
         self.hit_side = False  # False = left // True = right
         self.isDead = False
@@ -424,7 +425,8 @@ class Imp():
         self.hitCount = 0
         self.deathCount = 0
         self.vel = self.IMP_WIDTH // 120
-        self.health = 25
+        self.MAX_HEALTH = 25
+        self.health = self.MAX_HEALTH
         self.DMG = 5
         self.hit_side = False  # False = left // True = right
         self.isDead = False
@@ -709,7 +711,8 @@ class Skeleton():
         self.hitCount = 0
         self.deathCount = 0
         self.vel = self.SKELETON_WIDTH // 90
-        self.health = 20
+        self.MAX_HEALTH = 20
+        self.health = self.MAX_HEALTH
         self.DMG = 10
         self.hit_side = False  # False = left // True = right
         self.isDead = False
@@ -995,7 +998,8 @@ class Knight():
         self.hitCount = 0
         self.deathCount = 0
         self.vel = self.KNIGHT_WIDTH // 100
-        self.health = 50
+        self.MAX_HEALTH = 50
+        self.health = self.MAX_HEALTH
         self.DMG = 20
         self.hit_side = False  # False = left // True = right
         self.isDead = False
