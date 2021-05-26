@@ -144,6 +144,7 @@ class Demon():
         self.left = False
         self.right = False
         self.ATTACK_COOLDOWN = ATTACK_CD
+        self.bottomColission = True
 
     def enemy_animation(self, WIN, pl, monster_list, killed_monsters):
         if self.isDead:
@@ -437,6 +438,7 @@ class Imp():
         self.left = False
         self.right = False
         self.ATTACK_COOLDOWN = ATTACK_CD
+        self.bottomColission = True
 
     def enemy_animation(self, WIN, pl, monster_list, killed_monsters):
         if self.isDead:
@@ -467,7 +469,7 @@ class Imp():
 
         else:
             self.move(WIN, pl)
-            # pygame.draw.rect(WIN, (0, 0, 0), self.pos)
+           # pygame.draw.rect(WIN, (0, 0, 0), self.pos)
 
     def move(self, WIN, pl):
 
@@ -492,7 +494,7 @@ class Imp():
                     self.vel = self.vel * -1
                     self.walkCount = 0
 
-        if self.playerNearby and not self.playerVeryNearby:
+        if self.playerNearby and not self.playerVeryNearby and self.bottomColission:
             if self.vel > 0 and self.pos.x + self.IMP_WIDTH // 10 > pl.pos.x:
                 self.vel = self.vel * -1
                 # self.sprintCount = 0
@@ -527,7 +529,7 @@ class Imp():
                 WIN.blit(self.WALK_LEFT[round(self.walkCount // 6)], self.pos)
                 self.walkCount += 0.5
 
-        if self.playerVeryNearby:
+        if self.playerVeryNearby and self.bottomColission:
             if self.attackCount + 1 >= 36:
                 self.attackCount = 0
                 self.ATTACK_COOLDOWN -= 1
@@ -550,7 +552,7 @@ class Imp():
                     WIN.blit(self.STANDING_LEFT[round(self.idleCount // 6)], self.pos)
                     self.idleCount += 0.3
 
-        elif self.playerNearby and not self.playerVeryNearby:
+        elif self.playerNearby and not self.playerVeryNearby and self.bottomColission:
             self.isAttacking = False
             if self.vel > 0:
                 WIN.blit(self.SPRINT_RIGHT[round(self.sprintCount // 6)], self.pos)
@@ -559,6 +561,17 @@ class Imp():
                 WIN.blit(self.SPRINT_LEFT[round(self.sprintCount // 6)], self.pos)
                 self.sprintCount += 0.5
 
+        if (not self.bottomColission and self.playerNearby and not self.playerVeryNearby) or (not self.bottomColission and self.playerNearby and self.playerVeryNearby):
+            if self.left:
+                WIN.blit(self.STANDING_RIGHT[round(self.idleCount // 6)], self.pos)
+                self.idleCount += 0.3
+            elif self.right:
+                WIN.blit(self.STANDING_LEFT[round(self.idleCount // 6)], self.pos)
+                self.idleCount += 0.3
+
+
+
+
     def get_hit(self, dmg):
         if not self.gettingDMG:
             self.health -= dmg
@@ -566,7 +579,7 @@ class Imp():
         print(self.health)
 
     def player_nearby(self, pl):
-        if pl.pos.x - self.IMP_WIDTH * 1.2 < self.pos.x < pl.pos.x + (self.IMP_WIDTH // 2) * 1.2 and (self.pos.bottom * 0.95 < pl.pos.bottom < self.pos.bottom * 1.1):
+        if pl.pos.x - self.IMP_WIDTH * 1.2 < self.pos.x < pl.pos.x + (self.IMP_WIDTH // 2) * 1.2 and (self.pos.bottom * 0.95 < pl.pos.bottom < self.pos.bottom * 1.1)  :
             self.playerNearby = True
         else:
             self.playerVeryNearby = False
@@ -575,7 +588,7 @@ class Imp():
     def player_very_nearby(self, pl):
         if pl.pos.x - self.IMP_WIDTH * 0.5 < self.pos.x + self.IMP_WIDTH // 6 < pl.pos.x + (
                 self.IMP_WIDTH // 2) * 0.3 and (
-                pl.pos.top < self.pos.y + self.IMP_HEIGHT / 2 < pl.pos.bottom):
+                pl.pos.top < self.pos.y + self.IMP_HEIGHT / 2 < pl.pos.bottom) :
             self.playerVeryNearby = True
         if pl.pos.x - self.IMP_WIDTH * 0.6 < self.pos.x - self.IMP_WIDTH // 4:
             self.right = True  # monster jest na prawo od gracza
@@ -723,6 +736,7 @@ class Skeleton():
         self.left = False
         self.right = False
         self.ATTACK_COOLDOWN = ATTACK_CD
+        self.bottomColission = True
 
     def enemy_animation(self, WIN, pl, monster_list, killed_monsters):
         if self.isDead:
@@ -1010,6 +1024,7 @@ class Knight():
         self.left = False
         self.right = False
         self.ATTACK_COOLDOWN = ATTACK_CD
+        self.bottomColission = True
 
     def enemy_animation(self, WIN, pl, monster_list, killed_monsters):
         if self.isDead:

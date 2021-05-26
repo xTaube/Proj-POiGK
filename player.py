@@ -2,10 +2,12 @@ import pygame
 import os
 from conf import SCREEN_WIDTH, SCREEN_HEIGHT
 
-#-------------------------------------------------------------
-#animacje protagonisty
-PLAYER_WIDTH = SCREEN_WIDTH//15
-PLAYER_HEIGHT = round(PLAYER_WIDTH*1.35)
+MONSTER_WIDTH = SCREEN_WIDTH // 5
+MONSTER_HEIGHT = round(MONSTER_WIDTH * 0.8)
+# -------------------------------------------------------------
+# animacje protagonisty
+PLAYER_WIDTH = SCREEN_WIDTH // 15
+PLAYER_HEIGHT = round(PLAYER_WIDTH * 1.35)
 
 WALK_ANIMATIONS = [pygame.image.load(os.path.join("player animation", "pl-run-0.png")),
                    pygame.image.load(os.path.join("player animation", "pl-run-1.png")),
@@ -75,7 +77,7 @@ DEAD = [pygame.image.load(os.path.join("player animation", "pl-die-00.png")),
         pygame.image.load(os.path.join("player animation", "pl-die-03.png")),
         pygame.image.load(os.path.join("player animation", "pl-die-04.png")),
         pygame.image.load(os.path.join("player animation", "pl-die-05.png")),
-        pygame.image.load(os.path.join("player animation", "pl-die-06.png")),]
+        pygame.image.load(os.path.join("player animation", "pl-die-06.png")), ]
 
 DEAD_RIGHT = []
 for img in DEAD:
@@ -84,10 +86,11 @@ for img in DEAD:
 DEAD_LEFT = []
 for img in DEAD_RIGHT:
     DEAD_LEFT.append(pygame.transform.flip(img, True, False))
-#--------------------------------------------------------------------
+# --------------------------------------------------------------------
 
 ATTACK_CD = 30
 JUMPING_CD = 15
+
 
 class Health_bar():
     def __init__(self, max_health, health_bar_length):
@@ -105,15 +108,15 @@ class Health_bar():
 
         if self.current_health < self.targeted_health:
             self.current_health += self.health_change_speed
-            transition_width = int((self.targeted_health - self.current_health)/self.health_ratio)
+            transition_width = int((self.targeted_health - self.current_health) / self.health_ratio)
             transition_color = (0, 255, 0)
         if self.current_health > self.targeted_health:
             self.current_health -= self.health_change_speed
-            transition_width = int((self.current_health - self.targeted_health)/self.health_ratio)
+            transition_width = int((self.current_health - self.targeted_health) / self.health_ratio)
             t = transition_width
             transition_color = (255, 255, 0)
 
-        health_bar_rect = pygame.Rect(10, 10, self.current_health/self.health_ratio, 25)
+        health_bar_rect = pygame.Rect(10, 10, self.current_health / self.health_ratio, 25)
         transition_bar_rect = pygame.Rect(health_bar_rect.right - t, 10, transition_width, 25)
 
         pygame.draw.rect(WIN, (70, 61, 61), (10, 10, self.health_bar_length, 25))
@@ -129,6 +132,7 @@ class Health_bar():
 
 class Player():
     """Klasa opisująca protagonistę"""
+
     def __init__(self, pos):
         self.starting_pos = [pos[0], pos[1]]
         self.pos = pygame.Rect(pos[0], pos[1], PLAYER_WIDTH, PLAYER_HEIGHT)
@@ -142,11 +146,10 @@ class Player():
         self.JUMP_COOLDOWN = JUMPING_CD
         self.health_bar = Health_bar(100, 400)
         self.gravitySpeed = 5
-        self.vel = PLAYER_WIDTH//18
+        self.vel = PLAYER_WIDTH // 18
         self.DMG = 5
 
-
-        #states
+        # states
         self.right = False
         self.left = False
         self.isRight = False
@@ -155,47 +158,72 @@ class Player():
         self.falling = False
         self.isAttacking = False
         self.gettingDmg = False
-        self.hitSide = False            #false - left // true - right
+        self.hitSide = False  # false - left // true - right
         self.isDead = False
         self.collision_types = {"top": False, "bottom": False, "right": False, "left": False}
 
     def colliding_check(self, tiles, monster_list, item_list):
         hit_list = []
+        monster_hit_list = []
         collision_types = {"top": False, "bottom": False, "right": False, "left": False}
         for tile in tiles:
             if self.pos.colliderect(tile):
                 hit_list.append(tile)
 
         for tile in hit_list:
-            if abs(tile.left - self.pos.right + PLAYER_WIDTH//3) < PLAYER_WIDTH//10 and abs(tile.top - self.pos.bottom) > PLAYER_WIDTH//3:
+            if abs(tile.left - self.pos.right + PLAYER_WIDTH // 3) < PLAYER_WIDTH // 10 and abs(
+                    tile.top - self.pos.bottom) > PLAYER_WIDTH // 3:
                 collision_types["right"] = True
 
-            elif abs(tile.right - self.pos.left - PLAYER_WIDTH//3) < PLAYER_WIDTH//10 and abs(tile.top - self.pos.bottom) > PLAYER_WIDTH//3:
+            elif abs(tile.right - self.pos.left - PLAYER_WIDTH // 3) < PLAYER_WIDTH // 10 and abs(
+                    tile.top - self.pos.bottom) > PLAYER_WIDTH // 3:
                 collision_types["left"] = True
 
-            if (abs(tile.bottom - self.pos.top) > PLAYER_WIDTH//4 and abs(tile.bottom - self.pos.top) < PLAYER_WIDTH//2) and (tile.left - PLAYER_WIDTH/1.5 < self.pos.x and tile.right - PLAYER_WIDTH//3 > self.pos.x):
+            if (abs(tile.bottom - self.pos.top) > PLAYER_WIDTH // 4 and abs(
+                    tile.bottom - self.pos.top) < PLAYER_WIDTH // 2) and (
+                    tile.left - PLAYER_WIDTH / 1.5 < self.pos.x and tile.right - PLAYER_WIDTH // 3 > self.pos.x):
                 collision_types["top"] = True
 
-            elif abs(tile.top - self.pos.bottom + PLAYER_WIDTH//3) < PLAYER_WIDTH//2 and abs(tile.right - self.pos.left - PLAYER_WIDTH/5) > PLAYER_WIDTH/5 and abs(tile.left - self.pos.right + PLAYER_WIDTH/5) > PLAYER_WIDTH/4.5:
-                self.pos.bottom = tile.top + PLAYER_HEIGHT//6
+            elif abs(tile.top - self.pos.bottom + PLAYER_WIDTH // 3) < PLAYER_WIDTH // 2 and abs(
+                    tile.right - self.pos.left - PLAYER_WIDTH / 5) > PLAYER_WIDTH / 5 and abs(
+                    tile.left - self.pos.right + PLAYER_WIDTH / 5) > PLAYER_WIDTH / 4.5:
+                self.pos.bottom = tile.top + PLAYER_HEIGHT // 6
                 collision_types["bottom"] = True
 
         self.collision_types = collision_types
 
         hit_list.clear()
+
         for monster in monster_list:
             if self.pos.colliderect(monster.pos):
                 hit_list.append(monster)
+            for tile in tiles:
+                if monster.pos.colliderect(tile) and tile.left <= monster.pos.centerx <= tile.right and tile.bottom*1.05 > monster.pos.bottom > tile.bottom*0.9:
+                    monster_hit_list.append(tile)
+            for tile in monster_hit_list:
+                if tile.left < monster.pos.centerx < tile.right:
+
+                    print(tile.left)
+                    print(monster.pos.centerx)
+                    print(tile.right)
+
+                    # monster.pos.bottom = tile.top + MONSTER_HEIGHT // 6
+                    monster.bottomColission = True
+            if not monster_hit_list:
+                monster.bottomColission = False
+            monster_hit_list.clear()
 
         for monster in hit_list:
             if self.isAttacking and self.attackCount == 14:
-                if self.isLeft and abs(self.pos.left - monster.pos.right) > SCREEN_WIDTH/15 and abs(self.pos.left - monster.pos.right) < SCREEN_WIDTH/7.57:
+                if self.isLeft and abs(self.pos.left - monster.pos.right) > SCREEN_WIDTH / 15 and abs(
+                        self.pos.left - monster.pos.right) < SCREEN_WIDTH / 7.57:
                     monster.get_hit(self.DMG)
                     if monster.health <= 0:
                         monster.isDead = True
                     else:
                         monster.hit_side = True
-                elif not self.left and abs(self.pos.right - monster.pos.left) > SCREEN_WIDTH/15 and abs(self.pos.right - monster.pos.left) < SCREEN_WIDTH/7.57:
+                elif not self.left and abs(self.pos.right - monster.pos.left) > SCREEN_WIDTH / 15 and abs(
+                        self.pos.right - monster.pos.left) < SCREEN_WIDTH / 7.57:
                     monster.get_hit(self.DMG)
                     if monster.health <= 0:
                         monster.isDead = True
@@ -204,17 +232,19 @@ class Player():
             elif monster.isAttacking and monster.attackCount == 16:
                 if not self.gettingDmg:
                     print(monster.pos.right - self.pos.left)
-                    if monster.right and abs(monster.pos.left - self.pos.right) > 80 and abs(monster.pos.left - self.pos.right) < 300:
+                    if monster.right and abs(monster.pos.left - self.pos.right) > 80 and abs(
+                            monster.pos.left - self.pos.right) < 300:
                         self.get_hit(monster.DMG, monster_list)
                         self.hitSide = True
-                    elif monster.left and abs(monster.pos.right - self.pos.left) > 100 and abs(monster.pos.right - self.pos.left) < 300:
+                    elif monster.left and abs(monster.pos.right - self.pos.left) > 100 and abs(
+                            monster.pos.right - self.pos.left) < 300:
                         self.get_hit(monster.DMG, monster_list)
                         self.hitSide = False
 
         hit_list.clear()
         for item in item_list:
             if self.pos.colliderect(item.pos):
-                if item.pos.left - PLAYER_WIDTH//2 < self.pos.x and item.pos.right - PLAYER_WIDTH//3 > self.pos.x:
+                if item.pos.left - PLAYER_WIDTH // 2 < self.pos.x and item.pos.right - PLAYER_WIDTH // 3 > self.pos.x:
                     if item.isPossibleToTake(self):
                         item.effect(self)
                         item_list.remove(item)
@@ -239,14 +269,15 @@ class Player():
             self.right = False
             self.left = False
 
-        if not(self.isJumping):
-            if key_pressed[pygame.K_SPACE] and self.collision_types["bottom"] and not self.gettingDmg and not self.isDead and self.JUMP_COOLDOWN == JUMPING_CD:
+        if not (self.isJumping):
+            if key_pressed[pygame.K_SPACE] and self.collision_types[
+                "bottom"] and not self.gettingDmg and not self.isDead and self.JUMP_COOLDOWN == JUMPING_CD:
                 self.isJumping = True
                 self.right = False
                 self.left = False
                 self.walkCount = 0
                 self.JUMP_COOLDOWN -= 1
-                self.vel = self.vel*2
+                self.vel = self.vel * 2
 
             elif self.JUMP_COOLDOWN < JUMPING_CD:
                 self.JUMP_COOLDOWN -= 1
@@ -255,7 +286,7 @@ class Player():
         else:
             if not self.collision_types["top"]:
                 if self.jumpCount >= 0:
-                    self.pos.y -= (self.jumpCount ** 2 - self.jumpCount) * PLAYER_HEIGHT/1165
+                    self.pos.y -= (self.jumpCount ** 2 - self.jumpCount) * PLAYER_HEIGHT / 1165
                     self.jumpCount -= 0.75
                 else:
                     self.isJumping = False
@@ -275,11 +306,11 @@ class Player():
 
         if self.collision_types["bottom"] or self.isJumping:
             self.falling = False
-            self.gravitySpeed = PLAYER_HEIGHT/30
+            self.gravitySpeed = PLAYER_HEIGHT / 30
         else:
             self.falling = True
             self.pos.y += self.gravitySpeed
-            self.gravitySpeed += PLAYER_HEIGHT/200
+            self.gravitySpeed += PLAYER_HEIGHT / 200
 
     def get_hit(self, dmg, monster_list):
         if self.health_bar.targeted_health - dmg > 0:
