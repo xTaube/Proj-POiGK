@@ -121,7 +121,8 @@ class Demon():
         STANDING_LEFT.append(pygame.transform.flip(img, True, False))
 
     #####
-    def __init__(self, posX, posY, posEnd):
+    def __init__(self, posX, posY, posEnd, id):
+        self.id = id
         self.pos = pygame.Rect(posX, posY, self.DEMON_WIDTH, self.DEMON_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
@@ -266,17 +267,10 @@ class Demon():
                 WIN.blit(self.SPRINT_LEFT[round(self.sprintCount // 6)], self.pos)
                 self.sprintCount += 0.5
 
-
-
-
-
-
-
     def get_hit(self, dmg):
         if not self.gettingDMG:
             self.health -= dmg
             self.gettingDMG = True
-        print(self.health)
 
     def player_nearby(self, pl):
         if pl.pos.x - self.DEMON_WIDTH * 1.3 < self.pos.x < pl.pos.x + (self.DEMON_WIDTH // 2) * 1.3 and (self.pos.bottom * 0.95 < pl.pos.bottom < self.pos.bottom * 1.1):
@@ -414,7 +408,8 @@ class Imp():
         STANDING_LEFT.append(pygame.transform.flip(img, True, False))
 
     #####
-    def __init__(self, posX, posY, posEnd):
+    def __init__(self, posX, posY, posEnd, id):
+        self.id = id
         self.pos = pygame.Rect(posX, posY, self.IMP_WIDTH, self.IMP_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
@@ -563,7 +558,6 @@ class Imp():
         if not self.gettingDMG:
             self.health -= dmg
             self.gettingDMG = True
-        print(self.health)
 
     def player_nearby(self, pl):
         if pl.pos.x - self.IMP_WIDTH * 1.2 < self.pos.x < pl.pos.x + (self.IMP_WIDTH // 2) * 1.2 and (self.pos.bottom * 0.95 < pl.pos.bottom < self.pos.bottom * 1.1):
@@ -700,7 +694,8 @@ class Skeleton():
         STANDING_LEFT.append(pygame.transform.flip(img, True, False))
 
     #####
-    def __init__(self, posX, posY, posEnd):
+    def __init__(self, posX, posY, posEnd, id):
+        self.id = id
         self.pos = pygame.Rect(posX, posY, self.SKELETON_WIDTH, self.SKELETON_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
@@ -849,12 +844,9 @@ class Skeleton():
         if not self.gettingDMG:
             self.health -= dmg
             self.gettingDMG = True
-        print(self.health)
 
     def player_nearby(self, pl):
         if pl.pos.x - self.SKELETON_WIDTH * 1.35 < self.pos.x < pl.pos.x + (self.SKELETON_WIDTH // 2) * 1.35 and (self.pos.bottom * 0.95 < pl.pos.bottom < self.pos.bottom * 1.1):
-            print(pl.pos.top)
-            print(self.pos.top)
             self.playerNearby = True
         else:
             self.playerVeryNearby = False
@@ -987,7 +979,8 @@ class Knight():
         STANDING_LEFT.append(pygame.transform.flip(img, True, False))
 
     #####
-    def __init__(self, posX, posY, posEnd):
+    def __init__(self, posX, posY, posEnd, id):
+        self.id = id
         self.pos = pygame.Rect(posX, posY, self.KNIGHT_WIDTH, self.KNIGHT_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
@@ -1136,7 +1129,6 @@ class Knight():
         if not self.gettingDMG:
             self.health -= dmg
             self.gettingDMG = True
-        print(self.health)
 
     def player_nearby(self, pl):
         if pl.pos.x - self.KNIGHT_WIDTH * 1.4 < self.pos.x < pl.pos.x + (self.KNIGHT_WIDTH // 2) * 1.4 and (self.pos.bottom * 0.7 < pl.pos.bottom < self.pos.bottom * 1.1):

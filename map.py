@@ -67,11 +67,13 @@ class Button:
 #         WIN.blit(self.textsurface, self.pos)
 
 class GameMap:
-    def __init__(self, game_level_map, starting_point, monster_list, item_list):
+    def __init__(self, game_level_map, starting_point, monster_list, item_list, id):
+        self.id = id
         self.game_level_map = game_level_map
         self.starting_point = starting_point
         self.monster_list = monster_list
         self.item_list = item_list
+        self.taken_items = []
         self.killed_monsters = []
         self.tiles_rects = []
         self.cleared = False
@@ -99,7 +101,7 @@ class GameMap:
        # for tile in self.tiles_rects:
         #    pygame.draw.rect(WIN, (255, 255, 255), tile)
 
-    def every_animation(self, pl):
+    def every_animation(self, pl, item_list):
         for monster in self.monster_list:
             monster.enemy_animation(WIN, pl, self.monster_list, self.killed_monsters)
 
@@ -119,7 +121,8 @@ class Life_up:
     for animation in ANIMATION:
         animation.set_colorkey((0, 0, 0))
 
-    def __init__(self, health_amount, posX, posY):
+    def __init__(self, health_amount, posX, posY, id):
+        self.id = id
         self.pos = pygame.Rect(posX, posY, SCREEN_WIDTH // 18, SCREEN_HEIGHT // 11)
         self.health_amount = health_amount
         self.animation_count = 0
@@ -151,7 +154,8 @@ class Heal:
     for animation in ANIMATION:
         animation.set_colorkey((0, 0, 0))
 
-    def __init__(self, health_amount, posX, posY):
+    def __init__(self, health_amount, posX, posY, id):
+        self.id = id
         self.pos = pygame.Rect(posX, posY, SCREEN_WIDTH // 18, SCREEN_HEIGHT // 11)
         self.health_amount = health_amount
         self.animation_count = 0
@@ -189,7 +193,8 @@ class Dmg_up:
     for animation in ANIMATION:
         animation.set_colorkey((0, 0, 0))
 
-    def __init__(self, dmg_value, posX, posY):
+    def __init__(self, dmg_value, posX, posY, id):
+        self.id = id
         self.pos = pygame.Rect(posX, posY, SCREEN_WIDTH // 18, SCREEN_HEIGHT // 11)
         self.dmg_value = dmg_value
         self.animation_count = 0
@@ -226,8 +231,9 @@ def create_game_map_list():
     gameMap_list.append(
         GameMap(
             Game_level, (200, 700),
-            [Imp(220, 350, 600),Skeleton(950, 350, 1350),Knight(550, -50, 1350)],
-            [Heal(20, 246, 280), Dmg_up(5, 1450, 150)])
+            [Imp(220, 350, 600, 0),Skeleton(950, 350, 1350, 1),Knight(550, -50, 1350, 2)],
+            [Heal(20, 246, 280, 0), Dmg_up(5, 1450, 150, 1)],
+            0)
     )
 
     Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
@@ -243,9 +249,8 @@ def create_game_map_list():
     gameMap_list.append(
         GameMap(
             Game_level, (50, 700),
-            [Knight(600, 70, 700),Skeleton(1400, 225, 1600)],
-            [Life_up(40, 247, 160)])
+            [Knight(600, 70, 700, 0),Skeleton(1400, 225, 1600, 1)],
+            [Life_up(40, 247, 160, 0)],
+            1)
     )
     return gameMap_list
-#Demon(600, 585, 1400),Imp(220, 350, 600),Skeleton(950, 350, 1350),Knight(550, -50, 1350)
-#Imp(600, 585, 1300),

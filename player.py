@@ -159,7 +159,7 @@ class Player():
         self.isDead = False
         self.collision_types = {"top": False, "bottom": False, "right": False, "left": False}
 
-    def colliding_check(self, tiles, monster_list, item_list):
+    def colliding_check(self, tiles, monster_list, item_list, taken_items):
         hit_list = []
         collision_types = {"top": False, "bottom": False, "right": False, "left": False}
         for tile in tiles:
@@ -203,7 +203,6 @@ class Player():
                         monster.hit_side = False
             elif monster.isAttacking and monster.attackCount == 16:
                 if not self.gettingDmg:
-                    print(monster.pos.right - self.pos.left)
                     if monster.right and abs(monster.pos.left - self.pos.right) > 80 and abs(monster.pos.left - self.pos.right) < 300:
                         self.get_hit(monster.DMG, monster_list)
                         self.hitSide = True
@@ -217,6 +216,7 @@ class Player():
                 if item.pos.left - PLAYER_WIDTH//2 < self.pos.x and item.pos.right - PLAYER_WIDTH//3 > self.pos.x:
                     if item.isPossibleToTake(self):
                         item.effect(self)
+                        taken_items.append(item)
                         item_list.remove(item)
 
     def move(self, key_pressed):

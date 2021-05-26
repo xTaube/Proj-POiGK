@@ -1,0 +1,1 @@
+{"Map_index": 0, "Player": {"Health": 140, "Max_health": 140, "DMG": 15, "Position": [1152, 95]}, "Game_map": {"0": {"Killed_monsters": [0, 1, 2], "Taken_items": [0, 1, 1], "Cleared": true}, "1": {"Killed_monsters": [], "Taken_items": [0], "Cleared": false}}}
