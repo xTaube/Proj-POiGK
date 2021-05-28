@@ -162,7 +162,7 @@ class Player():
         self.isDead = False
         self.collision_types = {"top": False, "bottom": False, "right": False, "left": False}
 
-    def colliding_check(self, tiles, monster_list, item_list):
+    def colliding_check(self, tiles, monster_list, item_list, taken_items):
         hit_list = []
         monster_hit_list = []
         collision_types = {"top": False, "bottom": False, "right": False, "left": False}
@@ -198,20 +198,18 @@ class Player():
             if self.pos.colliderect(monster.pos):
                 hit_list.append(monster)
             for tile in tiles:
-                if monster.pos.colliderect(tile) and tile.left < monster.pos.centerx < tile.right and tile.bottom*1.05 > monster.pos.bottom > tile.bottom*0.9:
+                if monster.pos.colliderect(tile) and tile.left <= monster.pos.centerx <= tile.right and tile.bottom * 1.05 > monster.pos.bottom > tile.bottom * 0.85:
                     monster_hit_list.append(tile)
             for tile in monster_hit_list:
                 if tile.left < monster.pos.centerx < tile.right:
-                    # print(tile.left)
-                    # print(monster.pos.centerx)
-                    # print(tile.right)
-                    #
+                    # print(tile.bottom)
+                    # print(monster.pos.bottom)
+                    # print(tile.bottom* 1.05)
+                    # print(tile.bottom* 0.85)
                     # monster.pos.bottom = tile.top + MONSTER_HEIGHT // 6
                     monster.bottomColission = True
             if not monster_hit_list:
-
                 monster.bottomColission = False
-
             monster_hit_list.clear()
 
         for monster in hit_list:
@@ -248,6 +246,7 @@ class Player():
                 if item.pos.left - PLAYER_WIDTH // 2 < self.pos.x and item.pos.right - PLAYER_WIDTH // 3 > self.pos.x:
                     if item.isPossibleToTake(self):
                         item.effect(self)
+                        taken_items.append(item)
                         item_list.remove(item)
 
     def move(self, key_pressed):

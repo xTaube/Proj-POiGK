@@ -121,7 +121,7 @@ class Demon():
         STANDING_LEFT.append(pygame.transform.flip(img, True, False))
 
     #####
-    def __init__(self, posX, posY, posEnd):
+    def __init__(self, posX, posY, posEnd, id):
         self.pos = pygame.Rect(posX, posY, self.DEMON_WIDTH, self.DEMON_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
@@ -145,6 +145,7 @@ class Demon():
         self.right = False
         self.ATTACK_COOLDOWN = ATTACK_CD
         self.bottomColission = True
+        self.id = id
 
     def enemy_animation(self, WIN, pl, monster_list, killed_monsters):
         if self.isDead:
@@ -418,7 +419,7 @@ class Imp():
         STANDING_LEFT.append(pygame.transform.flip(img, True, False))
 
     #####
-    def __init__(self, posX, posY, posEnd):
+    def __init__(self, posX, posY, posEnd, id):
         self.pos = pygame.Rect(posX, posY, self.IMP_WIDTH, self.IMP_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
@@ -442,6 +443,7 @@ class Imp():
         self.right = False
         self.ATTACK_COOLDOWN = ATTACK_CD
         self.bottomColission = True
+        self.id = id
 
     def enemy_animation(self, WIN, pl, monster_list, killed_monsters):
         if self.isDead:
@@ -716,7 +718,7 @@ class Skeleton():
         STANDING_LEFT.append(pygame.transform.flip(img, True, False))
 
     #####
-    def __init__(self, posX, posY, posEnd):
+    def __init__(self, posX, posY, posEnd, id):
         self.pos = pygame.Rect(posX, posY, self.SKELETON_WIDTH, self.SKELETON_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
@@ -740,6 +742,7 @@ class Skeleton():
         self.right = False
         self.ATTACK_COOLDOWN = ATTACK_CD
         self.bottomColission = True
+        self.id = id
 
     def enemy_animation(self, WIN, pl, monster_list, killed_monsters):
         if self.isDead:
@@ -1013,7 +1016,7 @@ class Knight():
         STANDING_LEFT.append(pygame.transform.flip(img, True, False))
 
     #####
-    def __init__(self, posX, posY, posEnd):
+    def __init__(self, posX, posY, posEnd, id):
         self.pos = pygame.Rect(posX, posY, self.KNIGHT_WIDTH, self.KNIGHT_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
@@ -1037,6 +1040,7 @@ class Knight():
         self.right = False
         self.ATTACK_COOLDOWN = ATTACK_CD
         self.bottomColission = True
+        self.id = id
 
     def enemy_animation(self, WIN, pl, monster_list, killed_monsters):
         if self.isDead:

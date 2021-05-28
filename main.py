@@ -151,7 +151,7 @@ def game(FPS, clock, map_index, gameMap, pl):
                     game_save(pl, gameMap, map_id)
 
         keys_pressed = pygame.key.get_pressed()
-        pl.colliding_check(gameMap[map_id].tiles_rects, gameMap[map_id].monster_list, gameMap[map_id].item_list, gameMap[map_id].taken_items)
+        pl.colliding_check(gameMap[map_id].tiles_rects, gameMap[map_id].monster_list, gameMap[map_id].item_list, gameMap[map_id].taken_items, )
         map_id = check_map_conditions(pl, map_id, len(gameMap)-1, gameMap[map_id].monster_list)
         pl.move(keys_pressed)
         draw_window(pl, gameMap[map_id])
@@ -213,14 +213,16 @@ def load_gm_data(gmaps, gm_data):
                 gm.killed_monsters.append(monster)
 
         for monster in gm.killed_monsters:
-            gm.monster_list.remove(monster)
+            if monster in gm.monster_list:
+                gm.monster_list.remove(monster)
 
         for item in gm.item_list:
             if item.id in taken_items:
                 gm.taken_items.append(item)
 
         for item in gm.taken_items:
-            gm.item_list.remove(item)
+            if item in gm.item_list:
+                gm.item_list.remove(item)
 
 
         gm.cleared = gm_d["Cleared"]
