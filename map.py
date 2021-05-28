@@ -226,7 +226,7 @@ def create_game_map_list():
     gameMap_list.append(
         GameMap(
             Game_level, (200, 700),
-            [Imp(180, 350, 500),Imp(600, 585, 1400)],
+            [Demon(180, 310, 500),Demon(600, 585, 1400)],
             [Heal(20, 246, 280), Dmg_up(5, 1450, 150)])
     )
 #,Skeleton(950, 350, 1350),Knight(550, -50, 1350)

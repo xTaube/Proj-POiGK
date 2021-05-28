@@ -198,19 +198,20 @@ class Player():
             if self.pos.colliderect(monster.pos):
                 hit_list.append(monster)
             for tile in tiles:
-                if monster.pos.colliderect(tile) and tile.left <= monster.pos.centerx <= tile.right and tile.bottom*1.05 > monster.pos.bottom > tile.bottom*0.9:
+                if monster.pos.colliderect(tile) and tile.left < monster.pos.centerx < tile.right and tile.bottom*1.05 > monster.pos.bottom > tile.bottom*0.9:
                     monster_hit_list.append(tile)
             for tile in monster_hit_list:
                 if tile.left < monster.pos.centerx < tile.right:
-
-                    print(tile.left)
-                    print(monster.pos.centerx)
-                    print(tile.right)
-
+                    # print(tile.left)
+                    # print(monster.pos.centerx)
+                    # print(tile.right)
+                    #
                     # monster.pos.bottom = tile.top + MONSTER_HEIGHT // 6
                     monster.bottomColission = True
             if not monster_hit_list:
+
                 monster.bottomColission = False
+
             monster_hit_list.clear()
 
         for monster in hit_list:

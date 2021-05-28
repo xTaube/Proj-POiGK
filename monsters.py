@@ -200,7 +200,7 @@ class Demon():
                     self.vel = self.vel * -1
                     self.walkCount = 0
 
-        if self.playerNearby and not self.playerVeryNearby:
+        if self.playerNearby and not self.playerVeryNearby and self.bottomColission:
             if self.vel > 0 and self.pos.x + self.DEMON_WIDTH // 10 > pl.pos.x:
                 self.vel = self.vel * -1
                 # self.sprintCount = 0
@@ -235,7 +235,7 @@ class Demon():
                 WIN.blit(self.WALK_LEFT[round(self.walkCount // 6)], self.pos)
                 self.walkCount += 0.5
 
-        if self.playerVeryNearby:
+        if self.playerVeryNearby and self.bottomColission:
             if self.attackCount + 1 >= 36:
                 self.attackCount = 0
                 self.ATTACK_COOLDOWN -= 1
@@ -258,7 +258,7 @@ class Demon():
                     WIN.blit(self.STANDING_LEFT[round(self.idleCount // 6)], self.pos)
                     self.idleCount += 0.3
 
-        elif self.playerNearby and not self.playerVeryNearby:
+        elif self.playerNearby and not self.playerVeryNearby and self.bottomColission:
             self.isAttacking = False
             if self.vel > 0:
                 WIN.blit(self.SPRINT_RIGHT[round(self.sprintCount // 6)], self.pos)
@@ -267,11 +267,14 @@ class Demon():
                 WIN.blit(self.SPRINT_LEFT[round(self.sprintCount // 6)], self.pos)
                 self.sprintCount += 0.5
 
-
-
-
-
-
+        if (not self.bottomColission and self.playerNearby and not self.playerVeryNearby) or (
+                not self.bottomColission and self.playerNearby and self.playerVeryNearby):
+            if self.left:
+                WIN.blit(self.STANDING_RIGHT[round(self.idleCount // 6)], self.pos)
+                self.idleCount += 0.3
+            elif self.right:
+                WIN.blit(self.STANDING_LEFT[round(self.idleCount // 6)], self.pos)
+                self.idleCount += 0.3
 
     def get_hit(self, dmg):
         if not self.gettingDMG:
@@ -792,7 +795,7 @@ class Skeleton():
                     self.vel = self.vel * -1
                     self.walkCount = 0
 
-        if self.playerNearby and not self.playerVeryNearby:
+        if self.playerNearby and not self.playerVeryNearby and self.bottomColission:
             if self.vel > 0 and self.pos.x + self.SKELETON_WIDTH // 10 > pl.pos.x:
                 self.vel = self.vel * -1
                 # self.sprintCount = 0
@@ -827,7 +830,7 @@ class Skeleton():
                 WIN.blit(self.WALK_LEFT[round(self.walkCount // 6)], self.pos)
                 self.walkCount += 0.5
 
-        if self.playerVeryNearby:
+        if self.playerVeryNearby and self.bottomColission:
             if self.attackCount + 1 >= 36:
                 self.attackCount = 0
                 self.ATTACK_COOLDOWN -= 1
@@ -850,7 +853,7 @@ class Skeleton():
                     WIN.blit(self.STANDING_LEFT[round(self.idleCount // 3)], self.pos)
                     self.idleCount += 0.3
 
-        elif self.playerNearby and not self.playerVeryNearby:
+        elif self.playerNearby and not self.playerVeryNearby and self.bottomColission:
             self.isAttacking = False
             if self.vel > 0:
                 WIN.blit(self.SPRINT_RIGHT[round(self.sprintCount // 6)], self.pos)
@@ -858,6 +861,15 @@ class Skeleton():
             else:
                 WIN.blit(self.SPRINT_LEFT[round(self.sprintCount // 6)], self.pos)
                 self.sprintCount += 0.5
+
+        if (not self.bottomColission and self.playerNearby and not self.playerVeryNearby) or (
+                not self.bottomColission and self.playerNearby and self.playerVeryNearby):
+            if self.left:
+                WIN.blit(self.STANDING_RIGHT[round(self.idleCount // 3)], self.pos)
+                self.idleCount += 0.3
+            elif self.right:
+                WIN.blit(self.STANDING_LEFT[round(self.idleCount // 3)], self.pos)
+                self.idleCount += 0.3
 
     def get_hit(self, dmg):
         if not self.gettingDMG:
@@ -1080,7 +1092,7 @@ class Knight():
                     self.vel = self.vel * -1
                     self.walkCount = 0
 
-        if self.playerNearby and not self.playerVeryNearby:
+        if self.playerNearby and not self.playerVeryNearby and self.bottomColission:
             if self.vel > 0 and self.pos.x + self.KNIGHT_WIDTH // 10 > pl.pos.x:
                 self.vel = self.vel * -1
                 # self.sprintCount = 0
@@ -1115,7 +1127,7 @@ class Knight():
                 WIN.blit(self.WALK_LEFT[round(self.walkCount // 6)], self.pos)
                 self.walkCount += 0.5
 
-        if self.playerVeryNearby:
+        if self.playerVeryNearby and self.bottomColission:
             if self.attackCount + 1 >= 36:
                 self.attackCount = 0
                 self.ATTACK_COOLDOWN -= 1
@@ -1138,7 +1150,7 @@ class Knight():
                     WIN.blit(self.STANDING_LEFT[round(self.idleCount // 3)], self.pos)
                     self.idleCount += 0.3
 
-        elif self.playerNearby and not self.playerVeryNearby:
+        elif self.playerNearby and not self.playerVeryNearby and self.bottomColission:
             self.isAttacking = False
             if self.vel > 0:
                 WIN.blit(self.SPRINT_RIGHT[round(self.sprintCount // 6)], self.pos)
@@ -1146,6 +1158,15 @@ class Knight():
             else:
                 WIN.blit(self.SPRINT_LEFT[round(self.sprintCount // 6)], self.pos)
                 self.sprintCount += 0.6
+
+        if (not self.bottomColission and self.playerNearby and not self.playerVeryNearby) or (
+                not self.bottomColission and self.playerNearby and self.playerVeryNearby):
+            if self.left:
+                WIN.blit(self.STANDING_RIGHT[round(self.idleCount // 3)], self.pos)
+                self.idleCount += 0.3
+            elif self.right:
+                WIN.blit(self.STANDING_LEFT[round(self.idleCount // 3)], self.pos)
+                self.idleCount += 0.3
 
     def get_hit(self, dmg):
         if not self.gettingDMG:
