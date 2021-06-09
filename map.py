@@ -2,8 +2,9 @@ import pygame
 import os
 from conf import SCREEN_WIDTH, SCREEN_HEIGHT
 from monsters import Demon, Imp, Skeleton, Knight, Wizard
-pygame.init()
 
+
+pygame.init()
 WIN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 
 BACKGROUNDS = [pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "cloudySky.png")).convert(), (SCREEN_WIDTH, SCREEN_HEIGHT)),
@@ -32,7 +33,13 @@ PLATFORM_TILES = [pygame.transform.scale(pygame.image.load(os.path.join("map ass
                   pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "rockpile3.png")).convert(), (SCREEN_WIDTH // 8, SCREEN_HEIGHT // 4)),                                                  #14
                   pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "rock_wall_2.png")).convert(), (SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9)),                                               #15
                   pygame.transform.scale(pygame.transform.flip(pygame.image.load(os.path.join("map assets\\Ruin", "rock_wall_2.png")).convert(), True, False), (SCREEN_WIDTH//16, SCREEN_HEIGHT//9)),               #16
-                  pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "path_tile_2.png")).convert(), (SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9)) ]                                              #17
+                  pygame.transform.scale(pygame.image.load(os.path.join("map assets\\Ruin", "path_tile_2.png")).convert(), (SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9)),                                               #17
+                  pygame.transform.scale(pygame.transform.flip(pygame.image.load(os.path.join("map assets\\Ruin", "path_tile.png")).convert(), False, True), (SCREEN_WIDTH//16, SCREEN_HEIGHT//9)),             #18sufit
+                  pygame.transform.scale(pygame.transform.flip(pygame.image.load(os.path.join("map assets\\Ruin", "rock_wall_2.png")).convert(), False, True), (SCREEN_WIDTH//16, SCREEN_HEIGHT//9)),           #19
+                  pygame.transform.scale(pygame.transform.flip(pygame.image.load(os.path.join("map assets\\Ruin", "rock_wall_2.png")).convert(), True, True), (SCREEN_WIDTH//16, SCREEN_HEIGHT//9)),            #20
+                  pygame.transform.scale(pygame.transform.flip(pygame.image.load(os.path.join("map assets\\Ruin", "end_path_tile.png")).convert(), False, True), (SCREEN_WIDTH//16, SCREEN_HEIGHT//9)),         #21
+                  pygame.transform.scale(pygame.transform.flip(pygame.image.load(os.path.join("map assets\\Ruin", "end_path_tile.png")).convert(), True, True), (SCREEN_WIDTH//16, SCREEN_HEIGHT//9)),          #22
+                  pygame.transform.scale(pygame.transform.flip(pygame.image.load(os.path.join("map assets\\Ruin", "path_tile.png")).convert(), True, True), (SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9))  ]        #23
 
 
 for tile in PLATFORM_TILES:
@@ -264,7 +271,7 @@ def create_game_map_list():
                   [-1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1],
                   [9, -1, 5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
                   [17, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-                  [6, -1, -1, 0, 0, 0, -1, -1, 0, 0, 0, 0, -1, 12, 14, -1],
+                  [6, -1, -1, 0, 0, 0, -1, -1, -1, 0, 0, 0, -1, 12, 14, -1],
                   [6, 9, 9, -1, 10, -1, 10, -1, 10, -1, 10, 10, 13, -1, -1, -1],
                   [15, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 4],
                   [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]]
@@ -272,16 +279,16 @@ def create_game_map_list():
     gameMap_list.append(
         GameMap(
             Game_level, (200, 700),
-            [Wizard(220, 180, 590, 0), Skeleton(950, 350, 1350, 1), Knight(550, -50, 1350, 2)],
-            [Life_up(50, 1450, 150, 1)],
+            [Imp(220, 350, 590, 0), Imp(950, 350, 1350, 1), Demon(550, -10, 1300, 2), Skeleton(750, 580, 1350, 3)],
+            [Life_up(25, 1450, 150, 0), Heal(10, 246, 280, 1)],
             0)
     )
-#Heal(20, 246, 280, 0)
-    Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
-                  [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+#Heal(20, 246, 280, 0) Knight(650, 550, 1250, 2)
+    Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 22, 20],
+                  [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 22],
                   [-1, -1, 5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 12, -1, -1],
                   [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 9, -1, -1, 9],
-                  [-1, -1, -1, 0, -1, -1, 0, -1, -1, -1, -1, -1, 2, 3, 3, 4],
+                  [-1, -1, -1, -1, 0, 0, 0, -1, -1, -1, -1, -1, 2, 3, 3, 4],
                   [-1, -1, -1, 14, -1, -1, -1, -1, -1, -1, 5, -1, 7, 8, 8, 8],
                   [10, -1, -1, -1, -1, 9, -1, -1, 10, -1, -1, -1, 7, 8, 8, 8],
                   [4, 4, 3, 4, 4, 1, -1, -1, 2, 4, 4, 4, 16, 8, 8, 8],
@@ -290,9 +297,63 @@ def create_game_map_list():
     gameMap_list.append(
         GameMap(
             Game_level, (50, 700),
-            [Knight(600, 184, 700, 0), Imp(1400, 225, 1600, 1)],
-            [Dmg_up(40, 247, 160, 0)],
+            [Knight(350, 184, 700, 0), Skeleton(1400, 225, 1600, 1)],
+            [Life_up(25, 247, 160, 0)],
             1)
     )
-    return gameMap_list
 
+    Game_level = [[8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+                  [23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 20, 8, 8],
+                  [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 22, 20, 8],
+                  [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 22, 20],
+                  [1, -1, -1, -1, -1, 5, -1, 5, -1, 5, -1, 5, -1, -1, -1, 22],
+                  [15, 1, -1, -1, -1, -1, 14, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+                  [8, 15, 1, 9, -1, -1, -1, -1, 10, -1, -1, -1, -1, -1, 13, 9],
+                  [8, 8, 15, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3],
+                  [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+                  [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]]
+
+    gameMap_list.append(
+        GameMap(
+            Game_level, (50, 400),
+            [Demon(300, 580, 900, 0), Demon(1000, 580, 1600, 1)],
+            [Heal(50, 240, 640, 0), Life_up(25, 1327, 385, 1)],
+            2)
+    )
+
+    Game_level = [[8, 8, 8, 19, 21, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+                  [8, 8, 19, 21, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+                  [8, 19, 21, -1, -1, -1, -1, -1, -1, 5, -1, -1, -1, -1, -1, 2],
+                  [19, 21, -1, -1, -1, -1, 5, -1, -1, -1, -1, -1, -1, -1, -1, 7],
+                  [21, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 5, -1, 7],
+                  [-1, -1, -1, 5, -1, -1, 5, -1, -1, -1, -1, -1, -1, -1, -1, 7],
+                  [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 7],
+                  [1, -1, -1, -1, -1, -1, -1, -1, -1, 5, -1, -1, -1, -1, -1, 7],
+                  [6, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 5, -1, 7]]
+
+    gameMap_list.append(
+        GameMap(
+            Game_level, (30, 700),
+            [],
+            [Dmg_up(25, 1570, 865, 0)],
+            3)
+    )
+
+    Game_level = [[-1, -1, -1, -1, -1, 22, 23, 20, 19, 23, 21, -1, -1, -1, -1, -1],
+                  [-1, -1, -1, -1, -1, -1, -1, 22, 21, -1, -1, -1, -1, -1, -1, -1],
+                  [ 4,  4,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  2,  4,  4],
+                  [19, 23, 21, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 22, 23, 20],
+                  [ 6, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  7],
+                  [ 6, -1, 12, 12, -1, -1, -1, -1, -1, -1, -1, 12, 12, -1, -1,  7],
+                  [ 6, 10, -1, 10, -1, 10, -1, -1, -1, -1, 10, -1, 10, -1, 10,  7],
+                  [15,  4,  3,  3,  3,  4,  3,  4,  4,  3,  4,  3,  3,  3,  4, 16],
+                  [ 8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8,  8]]
+
+    gameMap_list.append(
+        GameMap(
+            Game_level, (30, 100),
+            [Wizard(100, 422, 1350, 0)],
+            [Heal(50, 250, 160, 0)],
+            4)
+    )
+    return gameMap_list

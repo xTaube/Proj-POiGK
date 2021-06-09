@@ -2,6 +2,10 @@ import pygame
 import os
 from conf import SCREEN_WIDTH, SCREEN_HEIGHT
 import time
+
+pygame.init()
+pygame.font.init()
+print(pygame.font.get_fonts())
 ATTACK_CD = 50
 
 
@@ -1397,15 +1401,56 @@ class Wizard():
     for img in STANDING_RIGHT:
         STANDING_LEFT.append(pygame.transform.flip(img, True, False))
 
+
+    class Health_bar():
+        '''
+        boss healthbar animation and apperance
+        '''
+        def __init__(self, max_health, health_bar_length):
+            self.max_health = max_health
+            self.current_health = self.max_health
+            self.targeted_health = max_health
+            self.health_bar_length = health_bar_length
+            self.health_ratio = self.max_health / self.health_bar_length
+            self.health_change_speed = 1
+
+        def draw_health_bar(self, WIN):
+            bossfont = pygame.font.SysFont('Comic Sans MS', 32)
+            text = bossfont.render('Wizard', False, (255,255,255))
+            transition_width = 0
+            transition_color = (255, 0, 0)
+            t = 0
+
+            if self.current_health < self.targeted_health:
+                self.current_health += self.health_change_speed
+                transition_width = int((self.targeted_health - self.current_health) / self.health_ratio)
+                transition_color = (0, 255, 0)
+            if self.current_health > self.targeted_health:
+                self.current_health -= self.health_change_speed
+                transition_width = int((self.current_health - self.targeted_health) / self.health_ratio)
+                t = transition_width
+                transition_color = (255, 255, 0)
+
+            health_bar_rect = pygame.Rect(SCREEN_WIDTH//2 - self.health_bar_length//2, 1000, self.current_health / self.health_ratio, 40)
+            transition_bar_rect = pygame.Rect(health_bar_rect.right - t, 1000, transition_width, 40)
+
+            pygame.draw.rect(WIN, (70, 61, 61), (SCREEN_WIDTH//2 - self.health_bar_length//2, 1000, self.health_bar_length, 40))
+            pygame.draw.rect(WIN, (99, 1, 20), health_bar_rect)
+            pygame.draw.rect(WIN, transition_color, transition_bar_rect)
+            pygame.draw.rect(WIN, (129, 129, 129), (SCREEN_WIDTH//2 - self.health_bar_length//2, 1000, self.health_bar_length, 40), 4)
+            WIN.blit(text, (SCREEN_WIDTH//2 - text.get_width()//2, 950))
+
+
     #####
     def __init__(self, posX, posY, posEnd, id):
         self.pos = pygame.Rect(posX, posY, self.WIZARD_WIDTH, self.WIZARD_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
         self.vel = self.WIZARD_WIDTH // 100
-        self.MAX_HEALTH = 250
-        self.health = self.MAX_HEALTH
-        self.ATTACK_COOLDOWN = ATTACK_CD
+        self.health_bar = self.Health_bar(250, 700)
+        self.health = self.health_bar.targeted_health
+        self.bossAttackCD = 20
+        self.ATTACK_COOLDOWN = self.bossAttackCD
         self.id = id
         self.DMG = 20
         self.walkCount = 0
@@ -1437,7 +1482,6 @@ class Wizard():
                 self.deathCount = 0
                 killed_monsters.append(self)
                 monster_list.remove(self)
-                self.isDead = False
                 self.gettingDMG = False
             else:
                 if self.hit_side:
@@ -1456,10 +1500,11 @@ class Wizard():
             if self.hitCount >= 9:
                 self.hitCount = 0
                 self.gettingDMG = False
-
         else:
             self.move(WIN, pl)
         #pygame.draw.rect(WIN, (0, 0, 0), self.pos)
+
+        self.health_bar.draw_health_bar(WIN)
 
     def move(self, WIN, pl):
         '''
@@ -1564,7 +1609,11 @@ class Wizard():
         boss getting hit logic
         '''
         if not self.gettingDMG:
-            self.health -= dmg
+            if self.health_bar.targeted_health - dmg <= 0:
+                self.health_bar.targeted_health = 0
+            else:
+                self.health_bar.targeted_health -= dmg
+            self.health = self.health_bar.targeted_health
             self.gettingDMG = True
 
     def player_nearby(self, pl):
@@ -1591,12 +1640,12 @@ class Wizard():
             self.right = False
             self.left = True
 
-        if self.ATTACK_COOLDOWN == ATTACK_CD and not self.gettingDMG:
+        if self.ATTACK_COOLDOWN == self.bossAttackCD and not self.gettingDMG:
             self.isAttacking = True
-        elif self.ATTACK_COOLDOWN < ATTACK_CD:
+        elif self.ATTACK_COOLDOWN < self.bossAttackCD:
             self.ATTACK_COOLDOWN -= 1
             if self.ATTACK_COOLDOWN == 0:
-                self.ATTACK_COOLDOWN = ATTACK_CD
+                self.ATTACK_COOLDOWN = self.bossAttackCD
 
         else:
             self.playerVeryNearby = False

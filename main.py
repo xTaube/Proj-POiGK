@@ -35,7 +35,7 @@ def draw_options():
 
     pygame.display.update()
 
-def check_map_conditions(pl, map_id, max_map_id, monster_list):
+def check_map_conditions(pl, map_id, max_map_id, killed_monsters, game_level_map):
     '''
     function is checking if we can change to another map panel
     '''
@@ -55,7 +55,13 @@ def check_map_conditions(pl, map_id, max_map_id, monster_list):
         pl.collision_types["left"] = True
 
     if pl.pos.top > map.SCREEN_HEIGHT:
-        pl.get_hit(pl.health_bar.max_health, monster_list)
+        pl.get_hit(pl.health_bar.max_health)
+
+    for monster in killed_monsters:
+        if monster.isBoss:
+            if monster.isDead:
+                game_level_map[4][10] = 5
+                game_level_map[6][7] = 5
 
     return m_id
 
@@ -104,6 +110,8 @@ def main_menu():
                     map_index = save_data["Map_index"]
                     player_data = save_data["Player"]
                     gm_data = save_data["Game_map"]
+                    gameMap = map.create_game_map_list()
+                    pl = player.Player(gameMap[map_index].starting_point)
                     load_player_data(pl, player_data)
                     load_gm_data(gameMap, gm_data)
 
@@ -122,7 +130,7 @@ def main_menu():
                 click = True
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE and gameIsRunning:
+                if event.key == pygame.K_ESCAPE and gameIsRunning and not pl.gameOver:
                     map_index = game(FPS, clock, map_index, gameMap, pl)
 
         if gameIsRunning and not pl.gameOver:
@@ -159,7 +167,7 @@ def game(FPS, clock, map_index, gameMap, pl):
 
         keys_pressed = pygame.key.get_pressed()
         pl.colliding_check(gameMap[map_id].tiles_rects, gameMap[map_id].monster_list, gameMap[map_id].item_list, gameMap[map_id].taken_items, )
-        map_id = check_map_conditions(pl, map_id, len(gameMap)-1, gameMap[map_id].monster_list)
+        map_id = check_map_conditions(pl, map_id, len(gameMap)-1, gameMap[map_id].killed_monsters, gameMap[map_id].game_level_map)
         pl.move(keys_pressed)
         draw_window(pl, gameMap[map_id])
 

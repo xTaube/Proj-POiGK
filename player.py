@@ -240,11 +240,11 @@ class Player():
                 if not self.gettingDmg:
                     if monster.right and abs(monster.pos.left - self.pos.right) > 80 and abs(
                             monster.pos.left - self.pos.right) < 300:
-                        self.get_hit(monster.DMG, monster_list)
+                        self.get_hit(monster.DMG)
                         self.hitSide = True
                     elif monster.left and abs(monster.pos.right - self.pos.left) > 100 and abs(
                             monster.pos.right - self.pos.left) < 300:
-                        self.get_hit(monster.DMG, monster_list)
+                        self.get_hit(monster.DMG)
                         self.hitSide = False
 
         hit_list.clear()
@@ -321,7 +321,7 @@ class Player():
             self.pos.y += self.gravitySpeed
             self.gravitySpeed += PLAYER_HEIGHT / 200
 
-    def get_hit(self, dmg, monster_list):
+    def get_hit(self, dmg):
         '''
         hero getting hit logic
         '''
@@ -330,8 +330,7 @@ class Player():
         else:
             self.health_bar.targeted_health = 0
             self.isDead = True
-            for monster in monster_list:
-                monster.health = monster.MAX_HEALTH
+
         if not self.isDead:
             self.gettingDmg = True
 
