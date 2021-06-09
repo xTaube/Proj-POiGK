@@ -2,51 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28ebda1d-35a4-4c18-9b87-9f3061c1daa8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/fall_back_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/fall_back_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/fall_back_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/fall_back_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/fall_back_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/fall_back_6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/fall_back_7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/take_hit_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/take_hit_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/take_hit_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/walk_1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/walk_2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/walk_3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/walk_4.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blank.py" beforeDir="false" afterPath="$PROJECT_DIR$/blank.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/map.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/monsters.py" beforeDir="false" afterPath="$PROJECT_DIR$/monsters.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/save_data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/save_data.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +73,7 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\Jacob\anaconda3\envs\Projekt-POiGK\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\Michal\anaconda3\envs\Projekt-POiGK\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -214,30 +174,9 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/monsters.py</url>
-          <line>917</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/monsters.py</url>
-          <line>315</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/monsters.py</url>
-          <line>7</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Proj_POiGK$main.coverage" NAME="main Coverage Results" MODIFIED="1623167945828" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Projekt_POiGK$main.coverage" NAME="main Coverage Results" MODIFIED="1618612995400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Proj_POiGK$map.coverage" NAME="map Coverage Results" MODIFIED="1623061631688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Projekt_POiGK$main.coverage" NAME="main Coverage Results" MODIFIED="1618612995400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Proj_POiGK$main.coverage" NAME="main Coverage Results" MODIFIED="1623230499135" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

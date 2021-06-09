@@ -48,25 +48,24 @@ BUTTONS = [pygame.transform.scale(pygame.image.load(os.path.join("menu", "Resume
 Control_options = pygame.transform.scale(pygame.image.load(os.path.join("menu", "Control_options.png")).convert(), (SCREEN_WIDTH, SCREEN_HEIGHT))
 
 class Button:
+    '''
+    defining button
+    '''
     def __init__(self, posX, posY, img):
         self.pos = pygame.Rect(posX, posY, BUTTONS_WIDTH, BUTTONS_HEIGHT)
         self.img = img
 
     def draw_button(self):
+        '''
+        drawing button
+        '''
         WIN.blit(self.img, self.pos)
 
 
-# class Options_text:
-#     font = pygame.font.SysFont('Comic Sans MS', 50)
-#
-#     def __init__(self, text, pos):
-#         self.textsurface = self.font.render(text, False, (255, 255, 255))
-#         self.pos = pos
-#
-#     def draw_text(self):
-#         WIN.blit(self.textsurface, self.pos)
-
 class GameMap:
+    '''
+    this class defines a single panel of whole map
+    '''
     def __init__(self, game_level_map, starting_point, monster_list, item_list, id):
         self.id = id
         self.game_level_map = game_level_map
@@ -79,6 +78,9 @@ class GameMap:
         self.cleared = False
 
     def draw_map(self):
+        '''
+        displaying current map panel
+        '''
         self.tiles_rects.clear()
         for col in range(len(self.game_level_map)):
             for row in range(len(self.game_level_map[0])):
@@ -98,11 +100,10 @@ class GameMap:
                             else:
                                 self.tiles_rects.append(pygame.Rect(row * SCREEN_WIDTH // 16, col * SCREEN_HEIGHT // 9, SCREEN_WIDTH // 16, SCREEN_HEIGHT // 9))
 
-# RYSOWANIE RECTOW
-        # for tile in self.tiles_rects:
-        #     pygame.draw.rect(WIN, (255, 255, 255), tile)
-
     def every_animation(self, pl, item_list):
+        '''
+        displaying monsters and items sprites
+        '''
         for monster in self.monster_list:
             monster.enemy_animation(WIN, pl, self.monster_list, self.killed_monsters)
 
@@ -111,6 +112,9 @@ class GameMap:
 
 
 class Life_up:
+    '''
+    defines item which extends hero health bar
+    '''
     ANIMATION = [pygame.transform.scale(pygame.image.load(os.path.join("items\\life_up", "Life_up-0.png")).convert(), (SCREEN_WIDTH // 18, SCREEN_HEIGHT // 11)),
                  pygame.transform.scale(pygame.image.load(os.path.join("items\\life_up", "Life_up-1.png")).convert(), (SCREEN_WIDTH // 18, SCREEN_HEIGHT // 11)),
                  pygame.transform.scale(pygame.image.load(os.path.join("items\\life_up", "Life_up-2.png")).convert(), (SCREEN_WIDTH // 18, SCREEN_HEIGHT // 11)),
@@ -129,16 +133,25 @@ class Life_up:
         self.animation_count = 0
 
     def animation(self):
+        '''
+        item displaying logic
+        '''
         WIN.blit(self.ANIMATION[self.animation_count // 6], (self.pos.x, self.pos.y))
         self.animation_count += 1
         if self.animation_count >= 36:
             self.animation_count = 0
 
     def effect(self, pl):
+        '''
+        item effect logic
+        '''
         pl.health_bar.expand_max_health(self.health_amount)
         pl.heal(self.health_amount)
 
     def isPossibleToTake(self, pl):
+        '''
+        checking if hero can take the item
+        '''
         if pl.health_bar.max_health == 300:
             return False
         else:
@@ -146,6 +159,9 @@ class Life_up:
 
 
 class Heal:
+    '''
+    defines item which heals hero
+    '''
     ANIMATION = [pygame.transform.scale(pygame.image.load(os.path.join("items\\heal", "Heart-0.png")).convert(), (SCREEN_WIDTH // 18, SCREEN_HEIGHT // 11)),
                  pygame.transform.scale(pygame.image.load(os.path.join("items\\heal", "Heart-1.png")).convert(), (SCREEN_WIDTH // 18, SCREEN_HEIGHT // 11)),
                  pygame.transform.scale(pygame.image.load(os.path.join("items\\heal", "Heart-2.png")).convert(), (SCREEN_WIDTH // 18, SCREEN_HEIGHT // 11)),
@@ -162,15 +178,24 @@ class Heal:
         self.animation_count = 0
 
     def animation(self):
+        '''
+        item displaying logic
+        '''
         WIN.blit(self.ANIMATION[round(self.animation_count // 4)], (self.pos.x, self.pos.y))
         self.animation_count += 0.5
         if self.animation_count >= 16:
             self.animation_count = 0
 
     def effect(self, pl):
+        '''
+        item effect logic
+        '''
         pl.heal(self.health_amount)
 
     def isPossibleToTake(self, pl):
+        '''
+        checking if hero can take the item
+        '''
         if pl.health_bar.current_health == pl.health_bar.max_health:
             return False
         else:
@@ -178,6 +203,9 @@ class Heal:
 
 
 class Dmg_up:
+    '''
+    defines item which boosts hero damage
+    '''
     ANIMATION = [pygame.transform.scale(pygame.image.load(os.path.join("items\\dmg_up", "Espada_1.png")).convert(), (SCREEN_WIDTH // 22, SCREEN_HEIGHT // 15)),
                  pygame.transform.scale(pygame.image.load(os.path.join("items\\dmg_up", "Espada_2.png")).convert(), (SCREEN_WIDTH // 22, SCREEN_HEIGHT // 15)),
                  pygame.transform.scale(pygame.image.load(os.path.join("items\\dmg_up", "Espada_3.png")).convert(), (SCREEN_WIDTH // 22, SCREEN_HEIGHT // 15)),
@@ -201,15 +229,24 @@ class Dmg_up:
         self.animation_count = 0
 
     def animation(self):
+        '''
+        item displaying logic
+        '''
         WIN.blit(self.ANIMATION[self.animation_count // 12], (self.pos.x, self.pos.y))
         self.animation_count += 1
         if self.animation_count >= 144:
             self.animation_count = 0
 
     def effect(self, pl):
+        '''
+        item effect logic
+        '''
         pl.dmg_up(self.dmg_value)
 
     def isPossibleToTake(self, pl):
+        '''
+        checking if hero can take the item
+        '''
         if pl.DMG == 50:
             return False
         else:
@@ -217,6 +254,9 @@ class Dmg_up:
 
 
 def create_game_map_list():
+    '''
+    in this function we create map from single panels
+    '''
     gameMap_list = []
 
     Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],

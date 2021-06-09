@@ -5,7 +5,9 @@ from conf import SCREEN_WIDTH, SCREEN_HEIGHT
 MONSTER_WIDTH = SCREEN_WIDTH // 5
 MONSTER_HEIGHT = round(MONSTER_WIDTH * 0.8)
 # -------------------------------------------------------------
+
 # animacje protagonisty
+
 PLAYER_WIDTH = SCREEN_WIDTH // 15
 PLAYER_HEIGHT = round(PLAYER_WIDTH * 1.35)
 
@@ -93,6 +95,10 @@ JUMPING_CD = 15
 
 
 class Health_bar():
+    '''
+    player Healthbar animation and apperance
+    '''
+
     def __init__(self, max_health, health_bar_length):
         self.max_health = max_health
         self.current_health = self.max_health
@@ -131,7 +137,9 @@ class Health_bar():
 
 
 class Player():
-    """Klasa opisująca protagonistę"""
+    """
+    Hero behavior and states
+    """
 
     def __init__(self, pos):
         self.starting_pos = [pos[0], pos[1]]
@@ -163,6 +171,9 @@ class Player():
         self.collision_types = {"top": False, "bottom": False, "right": False, "left": False}
 
     def colliding_check(self, tiles, monster_list, item_list, taken_items):
+        '''
+        function is checking if hero collide with anything
+        '''
         hit_list = []
         monster_hit_list = []
         collision_types = {"top": False, "bottom": False, "right": False, "left": False}
@@ -186,7 +197,7 @@ class Player():
 
             elif abs(tile.top - self.pos.bottom + PLAYER_WIDTH // 3) < PLAYER_WIDTH // 2 and abs(
                     tile.right - self.pos.left - PLAYER_WIDTH / 5) > PLAYER_WIDTH / 5 and abs(
-                    tile.left - self.pos.right + PLAYER_WIDTH / 5) > PLAYER_WIDTH / 4.5:
+                tile.left - self.pos.right + PLAYER_WIDTH / 5) > PLAYER_WIDTH / 4.5:
                 self.pos.bottom = tile.top + PLAYER_HEIGHT // 6
                 collision_types["bottom"] = True
 
@@ -198,15 +209,11 @@ class Player():
             if self.pos.colliderect(monster.pos):
                 hit_list.append(monster)
             for tile in tiles:
-                if monster.pos.colliderect(tile) and tile.left <= monster.pos.centerx <= tile.right and tile.bottom * 1.05 > monster.pos.bottom > tile.bottom * 0.85:
+                if monster.pos.colliderect(
+                        tile) and tile.left <= monster.pos.centerx <= tile.right and tile.bottom * 1.05 > monster.pos.bottom > tile.bottom * 0.85:
                     monster_hit_list.append(tile)
             for tile in monster_hit_list:
                 if tile.left < monster.pos.centerx < tile.right:
-                    # print(tile.bottom)
-                    # print(monster.pos.bottom)
-                    # print(tile.bottom* 1.05)
-                    # print(tile.bottom* 0.85)
-                    # monster.pos.bottom = tile.top + MONSTER_HEIGHT // 6
                     monster.bottomColission = True
             if not monster_hit_list:
                 monster.bottomColission = False
@@ -230,7 +237,6 @@ class Player():
                         monster.hit_side = False
             elif monster.isAttacking and monster.attackCount == (48 if monster.isBoss else 16):
                 if not self.gettingDmg:
-                    print(monster.pos.right - self.pos.left)
                     if monster.right and abs(monster.pos.left - self.pos.right) > 80 and abs(
                             monster.pos.left - self.pos.right) < 300:
                         self.get_hit(monster.DMG, monster_list)
@@ -250,7 +256,9 @@ class Player():
                         item_list.remove(item)
 
     def move(self, key_pressed):
-
+        '''
+        Hero movement
+        '''
         if key_pressed[pygame.K_RIGHT]:
             if not self.isAttacking and not self.collision_types["right"] and not self.gettingDmg and not self.isDead:
                 self.pos.x += self.vel
@@ -313,6 +321,9 @@ class Player():
             self.gravitySpeed += PLAYER_HEIGHT / 200
 
     def get_hit(self, dmg, monster_list):
+        '''
+        hero getting hit logic
+        '''
         if self.health_bar.targeted_health - dmg > 0:
             self.health_bar.targeted_health -= dmg
         else:
@@ -324,15 +335,24 @@ class Player():
             self.gettingDmg = True
 
     def heal(self, health_amount):
+        '''
+        hero healing logic
+        '''
         if self.health_bar.targeted_health != self.health_bar.max_health:
             self.health_bar.targeted_health += health_amount
             if self.health_bar.targeted_health > self.health_bar.max_health:
                 self.health_bar.targeted_health = self.health_bar.max_health
 
     def dmg_up(self, dmg_value):
+        '''
+        damage boost
+        '''
         self.DMG += dmg_value
 
     def player_animation(self, WIN, monster_list, killed_monster, cleared):
+        '''
+        hero animation logic
+        '''
         if self.isDead:
             if self.deathCount >= 49:
                 self.deathCount = 0
@@ -414,4 +434,3 @@ class Player():
                     self.idleCount += 0.2
 
         self.health_bar.draw_health_bar(WIN)
-        # pygame.draw.rect(WIN, (0, 0, 0), self.pos)

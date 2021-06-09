@@ -6,6 +6,9 @@ ATTACK_CD = 50
 
 
 class Demon():
+    '''
+    demon enemy
+    '''
     DEMON_WIDTH = SCREEN_WIDTH // 5
     DEMON_HEIGHT = round(DEMON_WIDTH * 0.8)
     #####
@@ -125,16 +128,21 @@ class Demon():
         self.pos = pygame.Rect(posX, posY, self.DEMON_WIDTH, self.DEMON_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
+        self.vel = self.DEMON_WIDTH // 120
+        self.MAX_HEALTH = 30
+        self.health = self.MAX_HEALTH
+        self.DMG = 8
+        self.ATTACK_COOLDOWN = ATTACK_CD
+        self.id = id
         self.walkCount = 0
         self.sprintCount = 0
         self.attackCount = 0
         self.idleCount = 0
         self.hitCount = 0
         self.deathCount = 0
-        self.vel = self.DEMON_WIDTH // 120
-        self.MAX_HEALTH = 30
-        self.health = self.MAX_HEALTH
-        self.DMG = 8
+
+        #states
+        self.bottomColission = True
         self.hit_side = False  # False = left // True = right
         self.isDead = False
         self.isAttacking = False
@@ -143,12 +151,12 @@ class Demon():
         self.playerVeryNearby = False
         self.left = False
         self.right = False
-        self.ATTACK_COOLDOWN = ATTACK_CD
-        self.bottomColission = True
-        self.id = id
         self.isBoss = False
 
     def enemy_animation(self, WIN, pl, monster_list, killed_monsters):
+        '''
+        demon sprites displaying logic
+        '''
         if self.isDead:
             if self.deathCount >= 16:
                 self.health = 30
@@ -180,7 +188,9 @@ class Demon():
             # pygame.draw.rect(WIN, (0, 0, 0), self.pos)
 
     def move(self, WIN, pl):
-
+        '''
+        demon movement
+        '''
         self.player_nearby(pl)
         self.player_very_nearby(pl)
 
@@ -279,12 +289,17 @@ class Demon():
                 self.idleCount += 0.3
 
     def get_hit(self, dmg):
+        '''
+        demon getting hit logic
+        '''
         if not self.gettingDMG:
             self.health -= dmg
             self.gettingDMG = True
-        print(self.health)
 
     def player_nearby(self, pl):
+        '''
+        demon start to chase hero if hero is nearby
+        '''
         if pl.pos.x - self.DEMON_WIDTH * 1.3 < self.pos.x < pl.pos.x + (self.DEMON_WIDTH // 2) * 1.3 and (self.pos.bottom * 0.95 < pl.pos.bottom < self.pos.bottom * 1.1):
             self.playerNearby = True
         else:
@@ -292,6 +307,9 @@ class Demon():
             self.playerNearby = False
 
     def player_very_nearby(self, pl):
+        '''
+        demon start to attack hero if hero is very nearby
+        '''
         if pl.pos.x - self.DEMON_WIDTH * 0.65 < self.pos.x + self.DEMON_WIDTH // 12 < pl.pos.x + (self.DEMON_WIDTH // 2) * 0.3 and (
                 pl.pos.top< self.pos.y + self.DEMON_HEIGHT / 2 < pl.pos.bottom):
             self.playerVeryNearby = True
@@ -314,6 +332,9 @@ class Demon():
 
 
 class Imp():
+    '''
+    imp enemy
+    '''
     IMP_WIDTH = SCREEN_WIDTH // 5
     IMP_HEIGHT = round(IMP_WIDTH * 0.8)
     #####
@@ -424,17 +445,22 @@ class Imp():
         self.pos = pygame.Rect(posX, posY, self.IMP_WIDTH, self.IMP_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
+        self.vel = self.IMP_WIDTH // 120
+        self.MAX_HEALTH = 25
+        self.health = self.MAX_HEALTH
+        self.DMG = 5
+        self.ATTACK_COOLDOWN = ATTACK_CD
+        self.id = id
         self.walkCount = 0
         self.sprintCount = 0
         self.attackCount = 0
         self.idleCount = 0
         self.hitCount = 0
         self.deathCount = 0
-        self.vel = self.IMP_WIDTH // 120
-        self.MAX_HEALTH = 25
-        self.health = self.MAX_HEALTH
-        self.DMG = 5
+
+        #states
         self.hit_side = False  # False = left // True = right
+        self.bottomColission = True
         self.isDead = False
         self.isAttacking = False
         self.gettingDMG = False
@@ -442,12 +468,12 @@ class Imp():
         self.playerVeryNearby = False
         self.left = False
         self.right = False
-        self.ATTACK_COOLDOWN = ATTACK_CD
-        self.bottomColission = True
-        self.id = id
         self.isBoss = False
 
     def enemy_animation(self, WIN, pl, monster_list, killed_monsters):
+        '''
+        imp sprites displaying logic
+        '''
         if self.isDead:
             if self.deathCount >= 25:
                 self.health = 25
@@ -479,7 +505,9 @@ class Imp():
         #pygame.draw.rect(WIN, (0, 0, 0), self.pos)
 
     def move(self, WIN, pl):
-
+        '''
+        imp movement
+        '''
         self.player_nearby(pl)
         self.player_very_nearby(pl)
 
@@ -580,12 +608,17 @@ class Imp():
 
 
     def get_hit(self, dmg):
+        '''
+        imp getting hit logic
+        '''
         if not self.gettingDMG:
             self.health -= dmg
             self.gettingDMG = True
-        print(self.health)
 
     def player_nearby(self, pl):
+        '''
+        imp start to chase hero if hero is nearby
+        '''
         if pl.pos.x - self.IMP_WIDTH * 1.2 < self.pos.x < pl.pos.x + (self.IMP_WIDTH // 2) * 1.2 and (self.pos.bottom * 0.95 < pl.pos.bottom < self.pos.bottom * 1.1)  :
             self.playerNearby = True
         else:
@@ -593,6 +626,9 @@ class Imp():
             self.playerNearby = False
 
     def player_very_nearby(self, pl):
+        '''
+        imp start to attack hero if hero is very nearby
+        '''
         if pl.pos.x - self.IMP_WIDTH * 0.5 < self.pos.x + self.IMP_WIDTH // 6 < pl.pos.x + (
                 self.IMP_WIDTH // 2) * 0.3 and (
                 pl.pos.top < self.pos.y + self.IMP_HEIGHT / 2 < pl.pos.bottom) :
@@ -616,6 +652,9 @@ class Imp():
 
 
 class Skeleton():
+    '''
+    skeleton enemy
+    '''
     SKELETON_WIDTH = SCREEN_WIDTH // 5
     SKELETON_HEIGHT = round(SKELETON_WIDTH * 0.8)
     #####
@@ -724,16 +763,20 @@ class Skeleton():
         self.pos = pygame.Rect(posX, posY, self.SKELETON_WIDTH, self.SKELETON_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
+        self.vel = self.SKELETON_WIDTH // 90
+        self.MAX_HEALTH = 20
+        self.health = self.MAX_HEALTH
+        self.DMG = 10
+        self.ATTACK_COOLDOWN = ATTACK_CD
+        self.id = id
         self.walkCount = 0
         self.sprintCount = 0
         self.attackCount = 0
         self.idleCount = 0
         self.hitCount = 0
         self.deathCount = 0
-        self.vel = self.SKELETON_WIDTH // 90
-        self.MAX_HEALTH = 20
-        self.health = self.MAX_HEALTH
-        self.DMG = 10
+
+        #states
         self.hit_side = False  # False = left // True = right
         self.isDead = False
         self.isAttacking = False
@@ -742,12 +785,13 @@ class Skeleton():
         self.playerVeryNearby = False
         self.left = False
         self.right = False
-        self.ATTACK_COOLDOWN = ATTACK_CD
         self.bottomColission = True
-        self.id = id
         self.isBoss = False
 
     def enemy_animation(self, WIN, pl, monster_list, killed_monsters):
+        '''
+        skeleton sprites displaying logic
+        '''
         if self.isDead:
             if self.deathCount >= 36:
                 self.health = 20
@@ -779,7 +823,9 @@ class Skeleton():
         #pygame.draw.rect(WIN, (0, 0, 0), self.pos)
 
     def move(self, WIN, pl):
-
+        '''
+        skeleton movement
+        '''
         self.player_nearby(pl)
         self.player_very_nearby(pl)
 
@@ -878,21 +924,27 @@ class Skeleton():
                 self.idleCount += 0.3
 
     def get_hit(self, dmg):
+        '''
+        skeleton getting hit logic
+        '''
         if not self.gettingDMG:
             self.health -= dmg
             self.gettingDMG = True
-        print(self.health)
 
     def player_nearby(self, pl):
+        '''
+        skeleton start to chase hero if hero is nearby
+        '''
         if pl.pos.x - self.SKELETON_WIDTH * 1.35 < self.pos.x < pl.pos.x + (self.SKELETON_WIDTH // 2) * 1.35 and (self.pos.bottom * 0.95 < pl.pos.bottom < self.pos.bottom * 1.1):
-            print(pl.pos.top)
-            print(self.pos.top)
             self.playerNearby = True
         else:
             self.playerVeryNearby = False
             self.playerNearby = False
 
     def player_very_nearby(self, pl):
+        '''
+        skeleton start to attack hero if hero is very nearby
+        '''
         if pl.pos.x - self.SKELETON_WIDTH * 0.5 < self.pos.x + self.SKELETON_WIDTH // 6 < pl.pos.x + (
                 self.SKELETON_WIDTH // 2) * 0.3 and (
                 pl.pos.top < self.pos.y + self.SKELETON_HEIGHT / 2 < pl.pos.bottom):
@@ -916,6 +968,9 @@ class Skeleton():
 
 
 class Knight():
+    '''
+    Knight enemy
+    '''
     KNIGHT_WIDTH = SCREEN_WIDTH // 5
     KNIGHT_HEIGHT = round(KNIGHT_WIDTH * 0.9)
     #####
@@ -1023,16 +1078,20 @@ class Knight():
         self.pos = pygame.Rect(posX, posY, self.KNIGHT_WIDTH, self.KNIGHT_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
-        self.walkCount = 0
-        self.sprintCount = 0
-        self.attackCount = 0
-        self.idleCount = 0
-        self.hitCount = 0
-        self.deathCount = 0
         self.vel = self.KNIGHT_WIDTH // 100
         self.MAX_HEALTH = 50
         self.health = self.MAX_HEALTH
         self.DMG = 20
+        self.ATTACK_COOLDOWN = ATTACK_CD
+        self.id = id
+        self.walkCount = 0
+        self.attackCount = 0
+        self.sprintCount = 0
+        self.hitCount = 0
+        self.idleCount = 0
+        self.deathCount = 0
+
+        #states
         self.hit_side = False  # False = left // True = right
         self.isDead = False
         self.isAttacking = False
@@ -1041,12 +1100,13 @@ class Knight():
         self.playerVeryNearby = False
         self.left = False
         self.right = False
-        self.ATTACK_COOLDOWN = ATTACK_CD
         self.bottomColission = True
-        self.id = id
         self.isBoss = False
 
     def enemy_animation(self, WIN, pl, monster_list, killed_monsters):
+        '''
+        knight sprite displaying logic
+        '''
         if self.isDead:
             if self.deathCount >= 25:
                 self.health = 50
@@ -1078,7 +1138,9 @@ class Knight():
             # pygame.draw.rect(WIN, (0, 0, 0), self.pos)
 
     def move(self, WIN, pl):
-
+        '''
+        knight movement
+        '''
         self.player_nearby(pl)
         self.player_very_nearby(pl)
 
@@ -1177,12 +1239,17 @@ class Knight():
                 self.idleCount += 0.3
 
     def get_hit(self, dmg):
+        '''
+        knight getting hit logic
+        '''
         if not self.gettingDMG:
             self.health -= dmg
             self.gettingDMG = True
-        print(self.health)
 
     def player_nearby(self, pl):
+        '''
+        knight start to chase hero if hero is nearby
+        '''
         if pl.pos.x - self.KNIGHT_WIDTH * 1.75 < self.pos.x < pl.pos.x + (self.KNIGHT_WIDTH // 2) * 1.75 and (self.pos.bottom * 0.7 < pl.pos.bottom < self.pos.bottom * 1.1):
             self.playerNearby = True
         else:
@@ -1190,6 +1257,9 @@ class Knight():
             self.playerNearby = False
 
     def player_very_nearby(self, pl):
+        '''
+        knight start to attack hero if hero is very nearby
+        '''
         if pl.pos.x - self.KNIGHT_WIDTH * 0.5 < self.pos.x + self.KNIGHT_WIDTH // 6 < pl.pos.x + (
                 self.KNIGHT_WIDTH // 2) * 0.3 and (
                 pl.pos.top < self.pos.y + self.KNIGHT_HEIGHT / 2 < pl.pos.bottom):
@@ -1213,6 +1283,7 @@ class Knight():
 
 
 class Wizard():
+    '''Boss, slightly stronger enemy'''
     WIZARD_WIDTH = SCREEN_WIDTH // 4
     WIZARD_HEIGHT = round(WIZARD_WIDTH * 1)
     #####
@@ -1331,16 +1402,20 @@ class Wizard():
         self.pos = pygame.Rect(posX, posY, self.WIZARD_WIDTH, self.WIZARD_HEIGHT)
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
+        self.vel = self.WIZARD_WIDTH // 100
+        self.health = self.MAX_HEALTH
+        self.ATTACK_COOLDOWN = ATTACK_CD
+        self.id = id
+        self.DMG = 20
+        self.MAX_HEALTH = 50
         self.walkCount = 0
         self.sprintCount = 0
         self.attackCount = 0
         self.idleCount = 0
         self.hitCount = 0
         self.deathCount = 0
-        self.vel = self.WIZARD_WIDTH // 100
-        self.MAX_HEALTH = 50
-        self.health = self.MAX_HEALTH
-        self.DMG = 20
+
+        #states
         self.hit_side = False  # False = left // True = right
         self.isDead = False
         self.isAttacking = False
@@ -1349,12 +1424,13 @@ class Wizard():
         self.playerVeryNearby = False
         self.left = False
         self.right = False
-        self.ATTACK_COOLDOWN = ATTACK_CD
         self.bottomColission = True
-        self.id = id
         self.isBoss = True
 
     def enemy_animation(self, WIN, pl, monster_list, killed_monsters):
+        '''
+        sprite displaying logic
+        '''
         if self.isDead:
             if self.deathCount >= 49:
                 self.health = 50
@@ -1386,7 +1462,9 @@ class Wizard():
         #pygame.draw.rect(WIN, (0, 0, 0), self.pos)
 
     def move(self, WIN, pl):
-
+        '''
+        boss movement
+        '''
         self.player_nearby(pl)
         self.player_very_nearby(pl)
 
@@ -1411,20 +1489,15 @@ class Wizard():
         if self.playerNearby and not self.playerVeryNearby and self.bottomColission:
             if self.vel > 0 and self.pos.x + self.WIZARD_WIDTH // 10 > pl.pos.x:
                 self.vel = self.vel * -1
-                # self.sprintCount = 0
-                # self.pos.x += self.vel
+
             if self.vel < 0 and self.pos.centerx + self.WIZARD_WIDTH // 15 < pl.pos.x:
                 self.vel = self.vel * -1
-                # self.sprintCount = 0
-                # self.pos.x += self.vel
+
             if self.vel > 0 and self.pos.centerx + self.WIZARD_WIDTH // 15 < pl.pos.x:
                 self.pos.x += 2 * self.vel
-                # self.left = True
-                # self.right = False
+
             if self.vel < 0 and self.pos.x + self.WIZARD_WIDTH // 10 > pl.pos.x:
                 self.pos.x += 2 * self.vel
-                # self.left = False
-                # self.right = True
 
         ############
         if self.walkCount + 1 >= 16:
@@ -1487,13 +1560,17 @@ class Wizard():
 
 
     def get_hit(self, dmg):
+        '''
+        boss getting hit logic
+        '''
         if not self.gettingDMG:
             self.health -= dmg
             self.gettingDMG = True
-        print(self.health)
 
     def player_nearby(self, pl):
-
+        '''
+        boss starts to chase the hero when hero is nearby
+        '''
         if pl.pos.x - self.WIZARD_WIDTH * 2 < self.pos.x < pl.pos.x + (self.WIZARD_WIDTH // 2) * 2 and (self.pos.bottom * 0.8 < pl.pos.bottom < self.pos.bottom * 1.15):
             self.playerNearby = True
         else:
@@ -1501,6 +1578,9 @@ class Wizard():
             self.playerNearby = False
 
     def player_very_nearby(self, pl):
+        '''
+        boss starts to attack hero when hero is very nearby
+        '''
         if pl.pos.x - self.WIZARD_WIDTH * 0.5 < self.pos.x + self.WIZARD_WIDTH // 6 < pl.pos.x + (
                 self.WIZARD_WIDTH // 2) * 0.3 and (pl.pos.top < self.pos.bottom*0.8 < pl.pos.bottom):
             self.playerVeryNearby = True

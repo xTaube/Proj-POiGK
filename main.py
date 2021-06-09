@@ -5,7 +5,6 @@ import sys
 import json
 
 def draw_window(pl, gameMap):
-
     for element in map.BACKGROUNDS:
         map.WIN.blit(element, (0, 0))
 
@@ -37,6 +36,9 @@ def draw_options():
     pygame.display.update()
 
 def check_map_conditions(pl, map_id, max_map_id, monster_list):
+    '''
+    function is checking if we can change to another map panel
+    '''
     m_id = map_id
     if pl.pos.right > map.SCREEN_WIDTH and m_id != max_map_id:
         m_id += 1
@@ -58,6 +60,9 @@ def check_map_conditions(pl, map_id, max_map_id, monster_list):
     return m_id
 
 def main_menu():
+    '''
+    main menu view
+    '''
     resume_button = map.Button(map.SCREEN_WIDTH//2 - map.BUTTONS_WIDTH//2, 100, map.BUTTONS[0])
     new_game_button = map.Button(map.SCREEN_WIDTH//2 - map.BUTTONS_WIDTH//2, 300, map.BUTTONS[1])
     options_button = map.Button(map.SCREEN_WIDTH//2 - map.BUTTONS_WIDTH//2, 700, map.BUTTONS[2])
@@ -195,6 +200,9 @@ def game_save(pl, gameMap, index):
         json.dump(save_data, save_file)
 
 def load_player_data(pl, player_data):
+    '''
+    load player params from save_data.txt
+    '''
     pl.health_bar.expand_max_health(player_data["Max_health"] - pl.health_bar.max_health)
     pl.health_bar.current_health = player_data["Health"]
     pl.health_bar.targeted_health = player_data["Health"]
@@ -203,6 +211,9 @@ def load_player_data(pl, player_data):
     pl.pos.y = player_data["Position"][1]
 
 def load_gm_data(gmaps, gm_data):
+    '''
+    load game map params from save_data.txt
+    '''
     for gm in gmaps:
         gm_d = gm_data[str(gm.id)]
         killed_monsters = gm_d["Killed_monsters"]
