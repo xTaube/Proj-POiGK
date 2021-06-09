@@ -1403,11 +1403,11 @@ class Wizard():
         self.posEnd = posEnd
         self.path = [self.pos.x, self.posEnd]
         self.vel = self.WIZARD_WIDTH // 100
+        self.MAX_HEALTH = 250
         self.health = self.MAX_HEALTH
         self.ATTACK_COOLDOWN = ATTACK_CD
         self.id = id
         self.DMG = 20
-        self.MAX_HEALTH = 50
         self.walkCount = 0
         self.sprintCount = 0
         self.attackCount = 0

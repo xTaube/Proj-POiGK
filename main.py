@@ -11,10 +11,10 @@ def draw_window(pl, gameMap):
     gameMap.draw_map()
     gameMap.every_animation(pl, gameMap.item_list)
 
-    pl.player_animation(map.WIN, gameMap.monster_list, gameMap.killed_monsters, gameMap.cleared)
+    pl.player_animation(map.WIN, gameMap.monster_list, gameMap.killed_monsters)
 
-    if not gameMap.monster_list:
-        gameMap.cleared = True
+    # if not gameMap.monster_list:
+    #     gameMap.cleared = True
 
     pygame.display.update()
 
@@ -86,6 +86,7 @@ def main_menu():
                 map_index = 0
                 gameMap = map.create_game_map_list()
                 pl = player.Player(gameMap[map_index].starting_point)
+                game_save(pl, gameMap, map_index)
                 map_index = game(FPS, clock, map_index, gameMap, pl)
 
         if resume_button.pos.collidepoint((mx, my)):
@@ -107,6 +108,7 @@ def main_menu():
                     load_gm_data(gameMap, gm_data)
 
                 gameIsRunning = True
+                pl.gameOver = False
                 map_index = game(FPS, clock, map_index, gameMap, pl)
 
         click = False
@@ -123,7 +125,7 @@ def main_menu():
                 if event.key == pygame.K_ESCAPE and gameIsRunning:
                     map_index = game(FPS, clock, map_index, gameMap, pl)
 
-        if gameIsRunning:
+        if gameIsRunning and not pl.gameOver:
             draw_menu([resume_button, new_game_button, options_button, continue_button])
         else:
             draw_menu([new_game_button, options_button, continue_button])
@@ -160,6 +162,9 @@ def game(FPS, clock, map_index, gameMap, pl):
         map_id = check_map_conditions(pl, map_id, len(gameMap)-1, gameMap[map_id].monster_list)
         pl.move(keys_pressed)
         draw_window(pl, gameMap[map_id])
+
+        if pl.gameOver:
+            break
 
 
 def options(FPS, clock):

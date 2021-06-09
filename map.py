@@ -273,7 +273,7 @@ def create_game_map_list():
         GameMap(
             Game_level, (200, 700),
             [Wizard(220, 180, 590, 0), Skeleton(950, 350, 1350, 1), Knight(550, -50, 1350, 2)],
-            [Life_up(5, 1450, 150, 1)],
+            [Life_up(50, 1450, 150, 1)],
             0)
     )
 #Heal(20, 246, 280, 0)

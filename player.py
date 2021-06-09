@@ -168,6 +168,7 @@ class Player():
         self.gettingDmg = False
         self.hitSide = False  # false - left // true - right
         self.isDead = False
+        self.gameOver = False
         self.collision_types = {"top": False, "bottom": False, "right": False, "left": False}
 
     def colliding_check(self, tiles, monster_list, item_list, taken_items):
@@ -349,7 +350,7 @@ class Player():
         '''
         self.DMG += dmg_value
 
-    def player_animation(self, WIN, monster_list, killed_monster, cleared):
+    def player_animation(self, WIN, monster_list, killed_monster):
         '''
         hero animation logic
         '''
@@ -359,11 +360,8 @@ class Player():
                 self.pos.x, self.pos.y = self.starting_pos[0], self.starting_pos[1]
                 self.health_bar.targeted_health = self.health_bar.max_health
                 self.health_bar.current_health = self.health_bar.max_health
-                if not cleared:
-                    monster_list += killed_monster
-                    killed_monster.clear()
-
                 self.isDead = False
+                self.gameOver = True
             else:
                 if self.hitSide:
                     WIN.blit(DEAD_RIGHT[round(self.deathCount // 7)], self.pos)
