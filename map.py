@@ -1,7 +1,7 @@
 import pygame
 import os
 from conf import SCREEN_WIDTH, SCREEN_HEIGHT
-from monsters import Demon, Imp, Skeleton, Knight
+from monsters import Demon, Imp, Skeleton, Knight, Wizard
 pygame.init()
 
 WIN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
@@ -232,16 +232,16 @@ def create_game_map_list():
     gameMap_list.append(
         GameMap(
             Game_level, (200, 700),
-            [Imp(220, 350, 600, 0), Skeleton(950, 350, 1350, 1), Knight(550, -50, 1350, 2)],
-            [Heal(20, 246, 280, 0), Dmg_up(5, 1450, 150, 1)],
+            [Wizard(220, 180, 590, 0), Skeleton(950, 350, 1350, 1), Knight(550, -50, 1350, 2)],
+            [Life_up(5, 1450, 150, 1)],
             0)
     )
-
+#Heal(20, 246, 280, 0)
     Game_level = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
                   [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
                   [-1, -1, 5, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 12, -1, -1],
                   [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 9, -1, -1, 9],
-                  [-1, -1, -1, 0, -1, -1, 0, -1, -1, -1, -1, -1, 4, 3, 3, 4],
+                  [-1, -1, -1, 0, -1, -1, 0, -1, -1, -1, -1, -1, 2, 3, 3, 4],
                   [-1, -1, -1, 14, -1, -1, -1, -1, -1, -1, 5, -1, 7, 8, 8, 8],
                   [10, -1, -1, -1, -1, 9, -1, -1, 10, -1, -1, -1, 7, 8, 8, 8],
                   [4, 4, 3, 4, 4, 1, -1, -1, 2, 4, 4, 4, 16, 8, 8, 8],
@@ -251,7 +251,7 @@ def create_game_map_list():
         GameMap(
             Game_level, (50, 700),
             [Knight(600, 184, 700, 0), Imp(1400, 225, 1600, 1)],
-            [Life_up(40, 247, 160, 0)],
+            [Dmg_up(40, 247, 160, 0)],
             1)
     )
     return gameMap_list

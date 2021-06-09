@@ -2,7 +2,46 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="28ebda1d-35a4-4c18-9b87-9f3061c1daa8" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/attack1_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/fall_back_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/fall_back_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/fall_back_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/fall_back_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/fall_back_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/fall_back_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/fall_back_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/ready_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/run_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/take_hit_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/take_hit_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/take_hit_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/walk_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/walk_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/walk_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/enemy animation/wizard/walk_4.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blank.py" beforeDir="false" afterPath="$PROJECT_DIR$/blank.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/map.py" beforeDir="false" afterPath="$PROJECT_DIR$/map.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/monsters.py" beforeDir="false" afterPath="$PROJECT_DIR$/monsters.py" afterDir="false" />
@@ -19,6 +58,17 @@
       <list>
         <option value="Python Script" />
       </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
     </option>
   </component>
   <component name="Git.Settings">
@@ -53,9 +103,9 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Projekt-POiGK" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -78,9 +128,32 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="map" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Projekt-POiGK" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/map.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.map" />
       </list>
     </recent_temporary>
   </component>
@@ -118,6 +191,8 @@
       <workItem from="1621801342980" duration="224000" />
       <workItem from="1621804176637" duration="19000" />
       <workItem from="1622023007451" duration="11978000" />
+      <workItem from="1623061406198" duration="104000" />
+      <workItem from="1623061590172" duration="15733000" />
     </task>
     <servers />
   </component>
@@ -139,8 +214,30 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/monsters.py</url>
+          <line>917</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/monsters.py</url>
+          <line>315</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/monsters.py</url>
+          <line>7</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Proj_POiGK$main.coverage" NAME="main Coverage Results" MODIFIED="1622208928933" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Proj_POiGK$main.coverage" NAME="main Coverage Results" MODIFIED="1623167945828" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Projekt_POiGK$main.coverage" NAME="main Coverage Results" MODIFIED="1618612995400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Proj_POiGK$map.coverage" NAME="map Coverage Results" MODIFIED="1623061631688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -1,1 +1,1 @@
-{"Map_index": 0, "Player": {"Health": 75, "Max_health": 100, "DMG": 5, "Position": [1663, 695]}, "Game_map": {"0": {"Killed_monsters": [], "Taken_items": [], "Cleared": false}, "1": {"Killed_monsters": [], "Taken_items": [], "Cleared": false}}}
+{"Map_index": 1, "Player": {"Health": 95, "Max_health": 100, "DMG": 5, "Position": [263, 695]}, "Game_map": {"0": {"Killed_monsters": [], "Taken_items": [], "Cleared": false}, "1": {"Killed_monsters": [], "Taken_items": [], "Cleared": false}}}

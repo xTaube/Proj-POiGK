@@ -138,7 +138,7 @@ def game(FPS, clock, map_index, gameMap, pl):
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_x:
-                    pl.get_hit(30)
+                    pl.get_hit(30,gameMap[map_id].monster_list)
 
                 if event.key == pygame.K_c:
                     pl.heal(30)

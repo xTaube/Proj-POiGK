@@ -228,7 +228,7 @@ class Player():
                         monster.isDead = True
                     else:
                         monster.hit_side = False
-            elif monster.isAttacking and monster.attackCount == 16:
+            elif monster.isAttacking and monster.attackCount == (48 if monster.isBoss else 16):
                 if not self.gettingDmg:
                     print(monster.pos.right - self.pos.left)
                     if monster.right and abs(monster.pos.left - self.pos.right) > 80 and abs(
