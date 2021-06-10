@@ -1619,7 +1619,7 @@ class Wizard():
         '''
         boss starts to chase the hero when hero is nearby
         '''
-        if pl.pos.x - self.WIZARD_WIDTH * 2 < self.pos.x < pl.pos.x + (self.WIZARD_WIDTH // 2) * 2 and (self.pos.bottom * 0.8 < pl.pos.bottom < self.pos.bottom * 1.15):
+        if pl.pos.x - self.WIZARD_WIDTH * 2.25 < self.pos.x < pl.pos.x + (self.WIZARD_WIDTH // 2) * 2.25 and (self.pos.bottom * 0.7 < pl.pos.bottom < self.pos.bottom * 1.15):
             self.playerNearby = True
         else:
             self.playerVeryNearby = False
@@ -1629,8 +1629,8 @@ class Wizard():
         '''
         boss starts to attack hero when hero is very nearby
         '''
-        if pl.pos.x - self.WIZARD_WIDTH * 0.5 < self.pos.x + self.WIZARD_WIDTH // 6 < pl.pos.x + (
-                self.WIZARD_WIDTH // 2) * 0.3 and (pl.pos.top < self.pos.bottom*0.8 < pl.pos.bottom):
+        if pl.pos.x - self.WIZARD_WIDTH * 0.6 < self.pos.x + self.WIZARD_WIDTH // 6 < pl.pos.x + (
+                self.WIZARD_WIDTH // 1.5) * 0.3 and (pl.pos.top < self.pos.bottom*0.8 < pl.pos.bottom):
             self.playerVeryNearby = True
         if pl.pos.x - self.WIZARD_WIDTH * 0.6 < self.pos.x - self.WIZARD_WIDTH // 4:
             self.right = True  # monster jest na prawo od gracza
