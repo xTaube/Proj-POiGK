@@ -82,7 +82,6 @@ class GameMap:
         self.taken_items = []
         self.killed_monsters = []
         self.tiles_rects = []
-        self.cleared = False
 
     def draw_map(self):
         '''

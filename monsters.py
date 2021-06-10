@@ -5,7 +5,6 @@ import time
 
 pygame.init()
 pygame.font.init()
-print(pygame.font.get_fonts())
 ATTACK_CD = 50
 
 
