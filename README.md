@@ -13,11 +13,11 @@ Technologies:
  - pygame
 
 Controls:
-- walking right  ->
-- walking left   <-
-- jump           space
-- attack         z
-- save game      F5
+- | walking right | -> |
+- | walking left  | <- |
+- | jump          | space |
+- | attack        | z |
+- | save game     | F5 |
 
 Status: project is in complete
 
