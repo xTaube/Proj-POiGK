@@ -155,7 +155,7 @@ class Player():
         self.health_bar = Health_bar(100, 400)
         self.gravitySpeed = 5
         self.vel = PLAYER_WIDTH // 18
-        self.DMG = 5
+        self.DMG = 10
 
         # states
         self.right = False
@@ -221,7 +221,7 @@ class Player():
             monster_hit_list.clear()
 
         for monster in hit_list:
-            if self.isAttacking and self.attackCount == 14 and not monster.isBoss:
+            if self.isAttacking and self.attackCount == 14:
                 if self.isLeft and abs(self.pos.left - monster.pos.right) > SCREEN_WIDTH / 15 and abs(
                         self.pos.left - monster.pos.right) < SCREEN_WIDTH / 7.57:
                     monster.get_hit(self.DMG)
@@ -236,28 +236,29 @@ class Player():
                         monster.isDead = True
                     else:
                         monster.hit_side = False
-            elif self.isAttacking and self.attackCount == 14 and monster.isBoss:
-                if self.isLeft and monster.left and abs(self.pos.left - monster.pos.right) > SCREEN_WIDTH / 12 and abs(
+            elif self.isAttacking and self.attackCount == 48 and monster.isBoss:
+                if self.isLeft and abs(self.pos.left - monster.pos.right) > SCREEN_WIDTH / 12 and abs(
                         self.pos.left - monster.pos.right) < SCREEN_WIDTH / 6:
                     monster.get_hit(self.DMG)
                     if monster.health <= 0:
                         monster.isDead = True
                     else:
                         monster.hit_side = True
-                elif not self.left and monster.right and abs(self.pos.right - monster.pos.left) > SCREEN_WIDTH / 12 and abs(
+                elif not self.left and abs(self.pos.right - monster.pos.left) > SCREEN_WIDTH / 12 and abs(
                         self.pos.right - monster.pos.left) < SCREEN_WIDTH / 6:
                     monster.get_hit(self.DMG)
                     if monster.health <= 0:
                         monster.isDead = True
                     else:
                         monster.hit_side = False
+
             elif monster.isAttacking and monster.attackCount == (48 if monster.isBoss else 16):
                 if not self.gettingDmg:
-                    if monster.right and self.isLeft and abs(monster.pos.left - self.pos.right) > 80 and abs(
+                    if monster.right and abs(monster.pos.left - self.pos.right) > 80 and abs(
                             monster.pos.left - self.pos.right) < 300:
                         self.get_hit(monster.DMG)
                         self.hitSide = True
-                    elif monster.left and not self.left and abs(monster.pos.right - self.pos.left) > 100 and abs(
+                    elif monster.left and abs(monster.pos.right - self.pos.left) > 100 and abs(
                             monster.pos.right - self.pos.left) < 300:
                         self.get_hit(monster.DMG)
                         self.hitSide = False

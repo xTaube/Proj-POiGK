@@ -134,7 +134,7 @@ class Demon():
         self.vel = self.DEMON_WIDTH // 120
         self.MAX_HEALTH = 30
         self.health = self.MAX_HEALTH
-        self.DMG = 8
+        self.DMG = 12
         self.ATTACK_COOLDOWN = ATTACK_CD
         self.id = id
         self.walkCount = 0
@@ -303,7 +303,7 @@ class Demon():
         '''
         demon start to chase hero if hero is nearby
         '''
-        if pl.pos.x - self.DEMON_WIDTH * 1.3 < self.pos.x < pl.pos.x + (self.DEMON_WIDTH // 2) * 1.3 and (self.pos.bottom * 0.95 < pl.pos.bottom < self.pos.bottom * 1.1):
+        if pl.pos.x - self.DEMON_WIDTH * 1.5 < self.pos.x < pl.pos.x + (self.DEMON_WIDTH // 2) * 1.5 and (self.pos.bottom * 0.88 < pl.pos.bottom < self.pos.bottom * 1.1):
             self.playerNearby = True
         else:
             self.playerVeryNearby = False
@@ -1451,7 +1451,7 @@ class Wizard():
         self.bossAttackCD = 20
         self.ATTACK_COOLDOWN = self.bossAttackCD
         self.id = id
-        self.DMG = 20
+        self.DMG = 50
         self.walkCount = 0
         self.sprintCount = 0
         self.attackCount = 0
