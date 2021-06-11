@@ -12,6 +12,13 @@ Technologies:
  - python 3.8
  - pygame
 
-Status: project is in progress
+Controls:
+- walking right  ->
+- walking left   <-
+- jump           space
+- attack         z
+- save game      F5
+
+Status: project is in complete
 
 Contributors: @JakubKoniuszewski & @xTaube
